@@ -20,7 +20,7 @@ package com.github.androidpirate.flipcard;
 
 import android.support.v4.app.Fragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
