@@ -22,6 +22,7 @@ package com.github.androidpirate.flipcard;
 
 import android.app.Fragment;
 import android.os.Handler;
+import android.widget.ProgressBar;
 
 import com.github.androidpirate.flipcard.model.FlipCard;
 import com.github.androidpirate.flipcard.utils.CardFactoryUtils;
@@ -72,6 +73,7 @@ public class MainActivity extends SingleFragmentActivity implements
             public void run() {
                 mCardIndex = ++mCardIndex % mCards.size();
                 mFlipCard = mCards.get(mCardIndex);
+                updateProgress();
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.card_right_in,
@@ -83,5 +85,13 @@ public class MainActivity extends SingleFragmentActivity implements
         }, 1500);
     }
 
-
+    private void updateProgress() {
+        float deckSize = mCards.size();
+        float index = mCardIndex;
+        float progress = 0;
+        if(mCardIndex != 0) {
+            progress = (index / deckSize) * 100;
+        }
+        mProgressBar.setProgress((int) progress);
+    }
 }
