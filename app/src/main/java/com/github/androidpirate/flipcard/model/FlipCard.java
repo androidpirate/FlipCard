@@ -18,10 +18,12 @@
 
 package com.github.androidpirate.flipcard.model;
 
+import java.io.Serializable;
+
 /**
  * Model class.
  */
-public class FlipCard {
+public class FlipCard implements Serializable {
     private String frontSide;
     private String rearSide;
 
@@ -30,19 +32,19 @@ public class FlipCard {
         this.rearSide = rearSide;
     }
 
-    private String getFrontSide() {
+    public String getFrontSide() {
         return frontSide;
     }
 
-    private void setFrontSide(String frontSide) {
+    public void setFrontSide(String frontSide) {
         this.frontSide = frontSide;
     }
 
-    private String getRearSide() {
+    public String getRearSide() {
         return rearSide;
     }
 
-    private void setRearSide(String rearSide) {
+    public void setRearSide(String rearSide) {
         this.rearSide = rearSide;
     }
 }

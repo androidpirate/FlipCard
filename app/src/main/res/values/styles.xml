@@ -8,4 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CardTextViewStyle">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CardEditTextStyle">
+        <item name="android:inputType">text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:hint">Your Answer</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
 </resources>
