@@ -18,12 +18,70 @@
 
 package com.github.androidpirate.flipcard;
 
-import android.support.v4.app.Fragment;
 
-public class MainActivity extends SingleFragmentActivity {
+
+import android.app.Fragment;
+import android.os.Handler;
+
+import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipcard.utils.CardFactoryUtils;
+
+import java.util.ArrayList;
+
+public class MainActivity extends SingleFragmentActivity implements
+    FrontCardFragment.OnFragmentInteractionListener,
+    BackCardFragment.OnFragmentInteractionListener,
+    CorrectCardFragment.OnFragmentInteractionListener {
+
+    private final ArrayList<FlipCard> mCards = CardFactoryUtils.getInstance().getCards();
+    private FlipCard mFlipCard;
+    private int mCardIndex = 0;
 
     @Override
     protected Fragment createFragment() {
-        return null;
+        mFlipCard = mCards.get(mCardIndex);
+        return FrontCardFragment.newInstance(mFlipCard);
     }
+
+    @Override
+    public void flipToBack() {
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.animator.card_flip_right_in,
+                                    R.animator.card_flip_right_out)
+                .replace(R.id.fragment_container, BackCardFragment.newInstance(mFlipCard, false))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void displayCorrectAnswerAnimation() {
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.animator.card_right_in,
+                                    R.animator.card_left_out)
+                .replace(R.id.fragment_container, CorrectCardFragment.newInstance())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void moveToNextCard() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCardIndex = ++mCardIndex % mCards.size();
+                mFlipCard = mCards.get(mCardIndex);
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.animator.card_right_in,
+                                            R.animator.card_left_out)
+                        .replace(R.id.fragment_container, FrontCardFragment.newInstance(mFlipCard))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        }, 1500);
+    }
+
+
 }

@@ -18,10 +18,9 @@
 
 package com.github.androidpirate.flipcard;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class CorrectCardFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment CorrectCardFragment.
      */
-    public static CorrectCardFragment newInstance(String param1, String param2) {
+    public static CorrectCardFragment newInstance() {
         return new CorrectCardFragment();
     }
 

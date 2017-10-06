@@ -42,7 +42,7 @@ public class CardFactoryUtils {
         mCards.add(new FlipCard("La computadora", "Computer"));
     }
 
-    public static CardFactoryUtils newInstance() {
+    public static CardFactoryUtils getInstance() {
         if(sCardFactoryUtils == null) {
             sCardFactoryUtils = new CardFactoryUtils();
         }
