@@ -34,7 +34,6 @@ import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.model.FlipCard;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
