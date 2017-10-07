@@ -18,8 +18,6 @@
 
 package com.github.androidpirate.flipcard;
 
-
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Handler;
@@ -31,11 +29,12 @@ import com.github.androidpirate.flipcard.utils.CardFactoryUtils;
 import java.util.ArrayList;
 
 public class MainActivity extends SingleFragmentActivity implements
-    FrontCardFragment.OnFragmentInteractionListener,
-    BackCardFragment.OnFragmentInteractionListener,
-    CorrectCardFragment.OnFragmentInteractionListener,
-    ScoreFragment.OnFragmentInteractionListener {
-
+        FrontCardFragment.OnFragmentInteractionListener,
+        BackCardFragment.OnFragmentInteractionListener,
+        CorrectCardFragment.OnFragmentInteractionListener,
+        ScoreFragment.OnFragmentInteractionListener {
+    // In milliseconds
+    private static final int ANIMATION_DELAY_TIME = 1500;
     private final ArrayList<FlipCard> mCards = CardFactoryUtils.getInstance().getCards();
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
@@ -49,25 +48,15 @@ public class MainActivity extends SingleFragmentActivity implements
 
     @Override
     public void flipToBack() {
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.animator.card_flip_right_in,
-                                    R.animator.card_flip_right_out)
-                .replace(R.id.fragment_container, BackCardFragment.newInstance(mFlipCard, false))
-                .addToBackStack(null)
-                .commit();
+        Fragment fragment = BackCardFragment.newInstance(mFlipCard, false);
+        replaceCard(fragment);
     }
 
     @Override
     public void displayCorrectAnswerAnimation() {
         updateScore();
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.animator.card_right_in,
-                                    R.animator.card_left_out)
-                .replace(R.id.fragment_container, CorrectCardFragment.newInstance())
-                .addToBackStack(null)
-                .commit();
+        Fragment fragment = CorrectCardFragment.newInstance();
+        replaceCard(fragment);
     }
 
     private void updateScore(){
@@ -83,30 +72,40 @@ public class MainActivity extends SingleFragmentActivity implements
                     mCardIndex = mCardIndex % mCards.size();
                     mFlipCard = mCards.get(mCardIndex);
                     updateProgress();
-                    getFragmentManager()
-                            .beginTransaction()
-                            .setCustomAnimations(R.animator.card_right_in,
-                                    R.animator.card_left_out)
-                            .replace(R.id.fragment_container, FrontCardFragment.newInstance(mFlipCard))
-                            .addToBackStack(null)
-                            .commit();
+                    Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
+                    replaceCard(fragment);
                 }
-            }, 1500);
+            }, ANIMATION_DELAY_TIME);
         } else {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mProgressBar.setVisibility(View.INVISIBLE);
-                    getFragmentManager()
-                            .beginTransaction()
-                            .setCustomAnimations(R.animator.card_right_in,
-                                    R.animator.card_left_out)
-                            .replace(R.id.fragment_container, ScoreFragment.newInstance(mScore))
-                            .addToBackStack(null)
-                            .commit();
+                    Fragment fragment = ScoreFragment.newInstance(mScore);
+                    replaceCard(fragment);
                 }
-            }, 1500);
+            }, ANIMATION_DELAY_TIME);
         }
+    }
+
+    private void replaceCard(Fragment fragment) {
+        int enterAnimRes = 0;
+        int exitAnimRes = 0;
+        if(fragment instanceof BackCardFragment) {
+            enterAnimRes = R.animator.card_flip_right_in;
+            exitAnimRes = R.animator.card_flip_right_out;
+        } else if (fragment instanceof CorrectCardFragment ||
+                    fragment instanceof FrontCardFragment ||
+                    fragment instanceof ScoreFragment) {
+            enterAnimRes = R.animator.card_right_in;
+            exitAnimRes = R.animator.card_left_out;
+        }
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(enterAnimRes, exitAnimRes)
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void updateProgress() {
