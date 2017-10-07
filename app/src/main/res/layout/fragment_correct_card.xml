@@ -31,7 +31,6 @@
         android:layout_height="250dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="5dp"
-        app:cardBackgroundColor="@color/correctCardBackground"
         android:layout_centerHorizontal="true">
 
         <RelativeLayout
@@ -43,8 +42,10 @@
                 android:id="@+id/iv_check_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_check"
-                android:layout_centerInParent="true"/>
+                android:src="@mipmap/ic_check"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/tv_correct"
@@ -52,8 +53,7 @@
                 android:layout_height="wrap_content"
                 style="@style/CardTextViewStyle"
                 android:text="Correct !"
-                android:textSize="26sp"
-                android:textColor="@color/colorCardBackground"
+                android:textColor="@color/colorGreen"
                 android:gravity="center_horizontal"
                 android:layout_below="@id/iv_check_icon"/>
 

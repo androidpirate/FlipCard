@@ -13,7 +13,7 @@
         style="@style/CardTextViewStyle"
         android:layout_gravity="center"
         android:text="! Congratulations !"
-        android:textColor="@color/correctCardBackground"
+        android:textColor="@color/colorGreen"
         android:layout_margin="16dp"/>
 
     <TextView
