@@ -60,7 +60,7 @@ public class MainActivity extends SingleFragmentActivity implements
 
     @Override
     public void displayCorrectAnswerAnimation() {
-        mScore++;
+        updateScore();
         getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.animator.card_right_in,
@@ -68,6 +68,10 @@ public class MainActivity extends SingleFragmentActivity implements
                 .replace(R.id.fragment_container, CorrectCardFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void updateScore(){
+        mScore++;
     }
 
     @Override
