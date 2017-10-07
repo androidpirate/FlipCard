@@ -89,14 +89,19 @@ public class MainActivity extends SingleFragmentActivity implements
                 }
             }, 1500);
         } else {
-            mProgressBar.setVisibility(View.INVISIBLE);
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.animator.card_right_in,
-                            R.animator.card_left_out)
-                    .replace(R.id.fragment_container, ScoreFragment.newInstance(mScore))
-                    .addToBackStack(null)
-                    .commit();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    getFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.animator.card_right_in,
+                                    R.animator.card_left_out)
+                            .replace(R.id.fragment_container, ScoreFragment.newInstance(mScore))
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }, 1500);
         }
     }
 
