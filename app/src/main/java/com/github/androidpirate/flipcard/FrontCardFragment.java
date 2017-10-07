@@ -48,6 +48,7 @@ public class FrontCardFragment extends Fragment {
     private TextView mFrontText;
     private EditText mUserInput;
     private ImageButton mInputButton;
+    private ImageButton mFlipCard;
     private OnFragmentInteractionListener mListener;
 
     public FrontCardFragment() {
@@ -85,6 +86,13 @@ public class FrontCardFragment extends Fragment {
         if(mCard != null) {
             mFrontText.setText(mCard.getFrontSide());
         }
+        mFlipCard = view.findViewById(R.id.ib_flip_card);
+        mFlipCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.flipToBack();
+            }
+        });
         mUserInput = view.findViewById(R.id.et_user_input);
         mUserInput.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -126,23 +134,6 @@ public class FrontCardFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.front_card_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_flip:
-                mListener.flipToBack();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
     }
 
     /**
