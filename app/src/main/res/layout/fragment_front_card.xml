@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="20dp"
-        app:cardElevation="20dp">
+        app:cardElevation="5dp">
 
         <TextView
             android:id="@+id/tv_front_text"
