@@ -19,8 +19,10 @@
 package com.github.androidpirate.flipcard;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.github.androidpirate.flipcard.model.FlipCard;
@@ -122,5 +124,26 @@ public class MainActivity extends SingleFragmentActivity implements
     public void restart() {
         finish();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setMessage(R.string.exit_dialog_message)
+                .setPositiveButton(R.string.exit_dialog_positive_button_text,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                .setNegativeButton(R.string.exit_dialog_negative_button_text,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Cancel dialog
+                            }
+                        });
+        builder.create().show();
     }
 }
