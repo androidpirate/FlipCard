@@ -48,7 +48,7 @@ public class MainActivity extends SingleFragmentActivity implements
 
     @Override
     public void flipToBack() {
-        Fragment fragment = BackCardFragment.newInstance(mFlipCard, false);
+        Fragment fragment = BackCardFragment.newInstance(mFlipCard);
         replaceCard(fragment);
     }
 

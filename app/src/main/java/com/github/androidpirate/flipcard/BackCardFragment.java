@@ -21,7 +21,6 @@ package com.github.androidpirate.flipcard;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,11 +39,8 @@ import com.github.androidpirate.flipcard.model.FlipCard;
  */
 public class BackCardFragment extends Fragment {
     private static final String ARG_CARD = "card";
-    private static final String ARG_IS_ANSWER_CORRECT = "is_answer_correct";
     private TextView mBackText;
-    private CardView mCardView;
     private FlipCard mCard;
-    private boolean mIsAnswerCorrect;
     private OnFragmentInteractionListener mListener;
 
     public BackCardFragment() {
@@ -56,11 +52,10 @@ public class BackCardFragment extends Fragment {
      * this fragment using the provided parameters.
      * @return A new instance of fragment BackCardFragment.
      */
-    public static BackCardFragment newInstance(FlipCard card, boolean isAnswerCorrect) {
+    public static BackCardFragment newInstance(FlipCard card) {
         BackCardFragment fragment = new BackCardFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CARD, card);
-        args.putBoolean(ARG_IS_ANSWER_CORRECT, isAnswerCorrect);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,7 +65,6 @@ public class BackCardFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mCard = (FlipCard) getArguments().getSerializable(ARG_CARD);
-            mIsAnswerCorrect = getArguments().getBoolean(ARG_IS_ANSWER_CORRECT);
         }
     }
 
@@ -81,19 +75,12 @@ public class BackCardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_back_card, container, false);
         mBackText = view.findViewById(R.id.tv_back_text);
         mBackText.setText(mCard.getRearSide());
-        mCardView = view.findViewById(R.id.cv_back_card);
         setCardBackgroundColor();
         return view;
     }
 
     private void setCardBackgroundColor() {
-        if(mIsAnswerCorrect) {
-            mCardView.setCardBackgroundColor(getResources()
-                    .getColor(R.color.correctCardBackground));
-        } else {
-            mCardView.setCardBackgroundColor(getResources()
-                    .getColor(android.R.color.holo_red_light));
-        }
+        mBackText.setTextColor(getResources().getColor(R.color.colorRed));
     }
 
     @Override
