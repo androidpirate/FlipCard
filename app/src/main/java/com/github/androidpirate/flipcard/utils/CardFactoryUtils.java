@@ -34,7 +34,7 @@ public class CardFactoryUtils {
         mCards.add(new FlipCard("El borrador", "Eraser"));
         mCards.add(new FlipCard("La tiza", "Chalk"));
         mCards.add(new FlipCard("La luz", "Light"));
-        mCards.add(new FlipCard("El calendario", "Calender"));
+        mCards.add(new FlipCard("El calendario", "Calendar"));
         mCards.add(new FlipCard("La pantalla", "Screen"));
         mCards.add(new FlipCard("El mapa", "Map"));
         mCards.add(new FlipCard("El reloj", "Clock"));
