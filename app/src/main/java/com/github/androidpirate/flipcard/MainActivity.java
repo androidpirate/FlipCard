@@ -135,14 +135,16 @@ public class MainActivity extends SingleFragmentActivity implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
+                                moveTaskToBack(true);
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                                System.exit(1);
                             }
                         })
                 .setNegativeButton(R.string.exit_dialog_negative_button_text,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                // Cancel dialog
+                                dialogInterface.cancel();
                             }
                         });
         builder.create().show();
