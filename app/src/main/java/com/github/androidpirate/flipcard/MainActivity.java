@@ -129,6 +129,7 @@ public class MainActivity extends SingleFragmentActivity implements
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(R.string.exit_dialog_title)
                 .setMessage(R.string.exit_dialog_message)
                 .setPositiveButton(R.string.exit_dialog_positive_button_text,
                         new DialogInterface.OnClickListener() {
