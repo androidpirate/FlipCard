@@ -1,6 +1,7 @@
 package com.github.androidpirate.flipcard;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -69,6 +70,17 @@ public class ScoreFragment extends Fragment {
             mListener = (ScoreFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ScoreFragment.OnFragmentInteractionListener) {
+            mListener = (ScoreFragment.OnFragmentInteractionListener) activity;
+        } else {
+            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
