@@ -25,4 +25,12 @@
         <item name="android:focusableInTouchMode">true</item>
     </style>
 
+    <style name="CardStyle">
+        <item name="android:layout_width">@dimen/card_width</item>
+        <item name="android:layout_height">@dimen/card_height</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
 </resources>
