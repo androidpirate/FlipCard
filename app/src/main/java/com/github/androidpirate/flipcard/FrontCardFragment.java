@@ -97,7 +97,7 @@ public class FrontCardFragment extends Fragment {
         mUserInput.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                checkAnswer();
+                checkAnswer(mUserInput.getText().toString(), mCard.getRearSide());
                 return false;
             }
         });
@@ -105,17 +105,19 @@ public class FrontCardFragment extends Fragment {
         mInputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkAnswer();
+                checkAnswer(mUserInput.getText().toString(), mCard.getRearSide());
             }
         });
         return view;
     }
 
-    private void checkAnswer() {
-        if(mCard.getRearSide().equalsIgnoreCase(mUserInput.getText().toString())) {
-            mListener.displayCorrectAnswerAnimation();
-        } else {
-            mListener.flipToBack();
+    private void checkAnswer(String userInput, String cardRearSide) {
+        if(!userInput.isEmpty()) {
+            if(userInput.equalsIgnoreCase(cardRearSide)) {
+                mListener.displayCorrectAnswerAnimation();
+            } else {
+                mListener.flipToBack();
+            }
         }
     }
 
