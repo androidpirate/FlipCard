@@ -22,34 +22,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="@dimen/x_small_margin"
     tools:context="com.github.androidpirate.flipcard.FrontCardFragment">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_front_card"
-        android:layout_width="320dp"
-        android:layout_height="250dp"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="@color/colorCardBackground"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="5dp">
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation">
 
         <TextView
             android:id="@+id/tv_front_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/CardTextViewStyle"
-            android:padding="8dp"
-            tools:text="TEST"/>
+            android:padding="@dimen/small_padding"
+            style="@style/CardTextViewStyle"/>
 
         <ImageButton
             android:id="@+id/ib_flip_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_flip"
             android:layout_gravity="top|right"
-            android:background="@android:color/transparent"
-            android:layout_margin="16dp"/>
+            android:layout_margin="@dimen/regular_margin"
+            android:src="@drawable/ic_flip"
+            android:background="@android:color/transparent"/>
 
     </android.support.v7.widget.CardView>
 
@@ -57,29 +56,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="20"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/cv_front_card">
+        android:layout_below="@id/cv_front_card"
+        android:layout_marginTop="@dimen/regular_margin"
+        android:weightSum="20">
 
         <EditText
             android:id="@+id/et_user_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="19"
-            style="@style/CardEditTextStyle"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginRight="@dimen/x_small_margin"
+            style="@style/CardEditTextStyle"/>
 
         <ImageButton
             android:id="@+id/ib_input_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:padding="@dimen/xx_small_padding"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginRight="@dimen/x_small_margin"
             android:src="@drawable/ic_user_input"
-            android:background="@android:color/transparent"
-            android:padding="2dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
+            android:background="@android:color/transparent"/>
 
     </LinearLayout>
 
