@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_check_icon"
                 style="@style/CardTextViewStyle"
-                android:text="Correct !"
+                android:text="@string/correct_card_text"
                 android:textColor="@color/colorGreen"
                 android:gravity="center_horizontal"/>
 

@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/regular_margin"
         style="@style/CardTextViewStyle"
-        android:text="! Congratulations !"
+        android:text="@string/congratulations_text"
         android:textColor="@color/colorGreen"
        />
 
@@ -24,7 +24,7 @@
         android:layout_below="@id/tv_message"
         android:layout_margin="@dimen/regular_margin"
         style="@style/CardTextViewStyle"
-        android:text="Score: "
+        android:text="@string/score_tag"
         android:textSize="26sp"/>
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_below="@id/tv_score"
         android:layout_marginTop="@dimen/xx_large_margin"
         style="@style/CardTextViewStyle"
-        android:text="Restart ?"/>
+        android:text="@string/restart_tag"/>
 
     <ImageButton
         android:id="@+id/bt_restart"
