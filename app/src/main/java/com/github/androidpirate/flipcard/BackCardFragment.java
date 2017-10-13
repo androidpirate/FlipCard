@@ -89,7 +89,7 @@ public class BackCardFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-            mListener.moveToNextCard();
+            // mListener.moveToNextCard();
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -101,11 +101,17 @@ public class BackCardFragment extends Fragment {
         super.onAttach(activity);
         if (activity instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) activity;
-            mListener.moveToNextCard();
+            //mListener.moveToNextCard();
         } else {
             throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mListener.moveToNextCard();
     }
 
     @Override

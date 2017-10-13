@@ -46,8 +46,6 @@ public class CorrectCardFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment CorrectCardFragment.
      */
     public static CorrectCardFragment newInstance() {
@@ -71,7 +69,7 @@ public class CorrectCardFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-            mListener.moveToNextCard();
+            // mListener.moveToNextCard();
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -83,11 +81,17 @@ public class CorrectCardFragment extends Fragment {
         super.onAttach(activity);
         if (activity instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) activity;
-            mListener.moveToNextCard();
+            // mListener.moveToNextCard();
         } else {
             throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mListener.moveToNextCard();
     }
 
     @Override
