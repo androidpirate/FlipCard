@@ -11,30 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/regular_margin"
+        android:layout_margin="@dimen/x_large_margin"
         style="@style/CardTextViewStyle"
         android:text="@string/congratulations_text"
-        android:textColor="@color/colorGreen"
-       />
+        android:textColor="@color/colorGreen"/>
 
     <TextView
         android:id="@+id/tv_score_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_message"
-        android:layout_margin="@dimen/regular_margin"
+        android:layout_marginTop="@dimen/x_large_margin"
+        android:layout_marginBottom="@dimen/regular_margin"
         style="@style/CardTextViewStyle"
+        android:fontFamily="monospace"
         android:text="@string/score_tag"
-        android:textSize="26sp"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="45sp"/>
 
     <TextView
         android:id="@+id/tv_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_score_tag"
-        android:layout_margin="@dimen/regular_margin"
+        android:layout_marginTop="@dimen/regular_margin"
+        android:layout_marginBottom="@dimen/regular_margin"
         style="@style/CardTextViewStyle"
-        android:gravity="center"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="45sp"
+        android:gravity="center"
+        tools:text="10"/>
 
     <TextView
         android:id="@+id/tv_restart_tag"

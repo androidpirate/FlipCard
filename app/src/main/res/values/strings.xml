@@ -8,7 +8,7 @@
 
     <!-- Card Text String Resources -->
     <string name="correct_card_text">Correct !</string>
-    <string name="congratulations_text">! Congratulations !</string>
-    <string name="score_tag">Score: </string>
+    <string name="congratulations_text">!! Congratulations !!</string>
+    <string name="score_tag">SCORE </string>
     <string name="restart_tag">Restart ?</string>
 </resources>
