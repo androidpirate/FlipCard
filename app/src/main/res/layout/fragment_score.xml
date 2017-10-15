@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/x_small_margin"
-    tools:context="com.github.androidpirate.flipcard.CorrectCardFragment">
+    tools:context="com.github.androidpirate.flipcard.fragment.CorrectCardFragment">
 
     <TextView
         android:id="@+id/tv_message"

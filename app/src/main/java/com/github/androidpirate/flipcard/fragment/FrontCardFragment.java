@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipcard.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -24,9 +24,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.model.FlipCard;
 
 /**

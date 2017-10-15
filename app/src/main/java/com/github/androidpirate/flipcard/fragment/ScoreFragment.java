@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipcard.fragment;
 
 
 import android.app.Activity;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.github.androidpirate.flipcard.R;
 
 
 /**

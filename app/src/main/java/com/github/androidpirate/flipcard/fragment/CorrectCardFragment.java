@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipcard.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -25,63 +25,45 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipcard.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BackCardFragment.OnFragmentInteractionListener} interface
+ * {@link CorrectCardFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BackCardFragment#newInstance} factory method to
+ * Use the {@link CorrectCardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BackCardFragment extends Fragment {
-    private static final String ARG_CARD = "card";
-    private TextView mBackText;
-    private FlipCard mCard;
+public class CorrectCardFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
-    public BackCardFragment() {
+    public CorrectCardFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment BackCardFragment.
+     *
+     * @return A new instance of fragment CorrectCardFragment.
      */
-    public static BackCardFragment newInstance(FlipCard card) {
-        BackCardFragment fragment = new BackCardFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_CARD, card);
-        fragment.setArguments(args);
-        return fragment;
+    public static CorrectCardFragment newInstance() {
+        return new CorrectCardFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mCard = (FlipCard) getArguments().getSerializable(ARG_CARD);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_back_card, container, false);
-        mBackText = view.findViewById(R.id.tv_back_text);
-        mBackText.setText(mCard.getRearSide());
-        setCardBackgroundColor();
-        return view;
-    }
-
-    private void setCardBackgroundColor() {
-        mBackText.setTextColor(getResources().getColor(R.color.colorRed));
+        return inflater.inflate(R.layout.fragment_correct_card, container, false);
     }
 
     @Override
@@ -101,7 +83,7 @@ public class BackCardFragment extends Fragment {
         super.onAttach(activity);
         if (activity instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) activity;
-            //mListener.moveToNextCard();
+            // mListener.moveToNextCard();
         } else {
             throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");

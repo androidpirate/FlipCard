@@ -25,6 +25,10 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.github.androidpirate.flipcard.fragment.BackCardFragment;
+import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
+import com.github.androidpirate.flipcard.fragment.FrontCardFragment;
+import com.github.androidpirate.flipcard.fragment.ScoreFragment;
 import com.github.androidpirate.flipcard.model.FlipCard;
 import com.github.androidpirate.flipcard.utils.CardFactoryUtils;
 
