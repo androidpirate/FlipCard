@@ -25,6 +25,7 @@
         android:id="@+id/pb_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_marginTop="@dimen/x_small_margin"
         android:layout_marginBottom="@dimen/x_small_margin"
         android:layout_marginLeft="@dimen/regular_margin"

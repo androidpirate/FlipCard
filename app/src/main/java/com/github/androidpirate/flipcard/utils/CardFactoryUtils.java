@@ -32,6 +32,18 @@ public class CardFactoryUtils {
 
     private CardFactoryUtils(String deckName) {
         mDeck = new Deck(deckName);
+        ArrayList<FlipCard> cards = new ArrayList<>();
+        cards.add(new FlipCard("La pizarra", "Blackboard"));
+        cards.add(new FlipCard("El borrador", "Eraser"));
+        cards.add(new FlipCard("La tiza", "Chalk"));
+        cards.add(new FlipCard("La luz", "Light"));
+        cards.add(new FlipCard("El calendario", "Calendar"));
+        cards.add(new FlipCard("La pantalla", "Screen"));
+        cards.add(new FlipCard("El mapa", "Map"));
+        cards.add(new FlipCard("El reloj", "Clock"));
+        cards.add(new FlipCard("El marcador", "Marker"));
+        cards.add(new FlipCard("La computadora", "Computer"));
+        mDeck.setCards(cards);
     }
 
     public static CardFactoryUtils getInstance(String deckName) {

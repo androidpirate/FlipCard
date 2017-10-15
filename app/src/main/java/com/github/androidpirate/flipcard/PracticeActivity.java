@@ -45,6 +45,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
     @Override
     protected Fragment createFragment() {
         mFlipCard = mCards.get(mCardIndex);
+        mProgressBar.setVisibility(View.VISIBLE);
         return FrontCardFragment.newInstance(mFlipCard);
     }
 
