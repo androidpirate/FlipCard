@@ -18,6 +18,7 @@
 
 package com.github.androidpirate.flipcard.utils;
 
+import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
 
 import java.util.ArrayList;
@@ -27,29 +28,20 @@ import java.util.ArrayList;
  */
 public class CardFactoryUtils {
     private static CardFactoryUtils sCardFactoryUtils;
-    private final ArrayList<FlipCard> mCards = new ArrayList<>();
+    private Deck mDeck;
 
-    private CardFactoryUtils() {
-        mCards.add(new FlipCard("La pizarra", "Blackboard"));
-        mCards.add(new FlipCard("El borrador", "Eraser"));
-        mCards.add(new FlipCard("La tiza", "Chalk"));
-        mCards.add(new FlipCard("La luz", "Light"));
-        mCards.add(new FlipCard("El calendario", "Calendar"));
-        mCards.add(new FlipCard("La pantalla", "Screen"));
-        mCards.add(new FlipCard("El mapa", "Map"));
-        mCards.add(new FlipCard("El reloj", "Clock"));
-        mCards.add(new FlipCard("El marcador", "Marker"));
-        mCards.add(new FlipCard("La computadora", "Computer"));
+    private CardFactoryUtils(String deckName) {
+        mDeck = new Deck(deckName);
     }
 
-    public static CardFactoryUtils getInstance() {
+    public static CardFactoryUtils getInstance(String deckName) {
         if(sCardFactoryUtils == null) {
-            sCardFactoryUtils = new CardFactoryUtils();
+            sCardFactoryUtils = new CardFactoryUtils(deckName);
         }
         return sCardFactoryUtils;
     }
 
     public ArrayList<FlipCard> getCards() {
-        return mCards;
+        return mDeck.getCards();
     }
 }

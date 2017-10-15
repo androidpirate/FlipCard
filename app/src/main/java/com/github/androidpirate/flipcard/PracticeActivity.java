@@ -30,14 +30,14 @@ import com.github.androidpirate.flipcard.utils.CardFactoryUtils;
 
 import java.util.ArrayList;
 
-public class MainActivity extends SingleFragmentActivity implements
+public class PracticeActivity extends SingleFragmentActivity implements
         FrontCardFragment.OnFragmentInteractionListener,
         BackCardFragment.OnFragmentInteractionListener,
         CorrectCardFragment.OnFragmentInteractionListener,
         ScoreFragment.OnFragmentInteractionListener {
     // In milliseconds
     private static final int ANIMATION_DELAY_TIME = 1500;
-    private final ArrayList<FlipCard> mCards = CardFactoryUtils.getInstance().getCards();
+    private final ArrayList<FlipCard> mCards = CardFactoryUtils.getInstance("Test").getCards();
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
     private int mScore = 0;
@@ -123,7 +123,7 @@ public class MainActivity extends SingleFragmentActivity implements
     @Override
     public void restart() {
         finish();
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, PracticeActivity.class));
     }
 
     @Override
