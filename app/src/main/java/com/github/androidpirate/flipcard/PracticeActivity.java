@@ -46,6 +46,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
     protected Fragment createFragment() {
         mFlipCard = mCards.get(mCardIndex);
         mProgressBar.setVisibility(View.VISIBLE);
+        getSupportActionBar().hide();
         return FrontCardFragment.newInstance(mFlipCard);
     }
 
