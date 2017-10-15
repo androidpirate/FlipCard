@@ -11,4 +11,7 @@
     <string name="congratulations_text">!! Congratulations !!</string>
     <string name="score_tag">SCORE </string>
     <string name="restart_tag">Restart ?</string>
+
+    <!-- Action Bar Resources -->
+    <string name="add_deck_action">ADD DECK</string>
 </resources>

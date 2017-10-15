@@ -15,8 +15,7 @@
   ~      See the License for the specific language governing permissions and
   ~      limitations under the License.
   ~
-  -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.github.androidpirate.flipcard">
 
@@ -27,13 +26,16 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PracticeActivity"
+        <activity
+            android:name=".PracticeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".DeckListActivity">
         </activity>
     </application>
 
