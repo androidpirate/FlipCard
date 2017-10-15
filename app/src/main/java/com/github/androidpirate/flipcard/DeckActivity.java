@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class DeckListActivity extends SingleFragmentActivity {
+public class DeckActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
