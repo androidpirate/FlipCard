@@ -20,8 +20,16 @@ public class DeckDbHelper extends SQLiteOpenHelper {
             DeckEntry.COLUMN_CARDS + " TEXT" + COMMA_SEPARATOR +
             DeckEntry.COLUMN_SIZE + " INTEGER" + ");";
     private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DeckEntry.TABLE_NAME;
+    private static DeckDbHelper singleton = null;
 
-    public DeckDbHelper(Context context) {
+    synchronized static DeckDbHelper newInstace(Context context) {
+        if(singleton == null) {
+            singleton = new DeckDbHelper(context.getApplicationContext());
+        }
+        return singleton;
+    }
+
+    private DeckDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
