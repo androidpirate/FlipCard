@@ -31,7 +31,8 @@ public class CardFactoryUtils {
     private Deck mDeck;
 
     private CardFactoryUtils(String deckName) {
-        mDeck = new Deck(deckName);
+        mDeck = new Deck();
+        mDeck.setTitle("Test");
         ArrayList<FlipCard> cards = new ArrayList<>();
         cards.add(new FlipCard("La pizarra", "Blackboard"));
         cards.add(new FlipCard("El borrador", "Eraser"));
@@ -44,6 +45,7 @@ public class CardFactoryUtils {
         cards.add(new FlipCard("El marcador", "Marker"));
         cards.add(new FlipCard("La computadora", "Computer"));
         mDeck.setCards(cards);
+        mDeck.setSize(cards.size());
     }
 
     public static CardFactoryUtils getInstance(String deckName) {
