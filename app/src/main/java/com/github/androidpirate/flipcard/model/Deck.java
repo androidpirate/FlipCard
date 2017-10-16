@@ -3,14 +3,15 @@ package com.github.androidpirate.flipcard.model;
 import java.util.ArrayList;
 
 /**
- * Created by KF1500 on 10/14/17.
+ * Model class for deck.
  */
 public class Deck {
     private String mTitle;
     private ArrayList<FlipCard> mCards;
+    private String mCategory;
+    private int mSize;
 
-    public Deck(String title) {
-        mTitle = title;
+    public Deck() {
         mCards = new ArrayList<>();
     }
 
@@ -28,5 +29,21 @@ public class Deck {
 
     public void setCards(ArrayList<FlipCard> cards) {
         mCards = cards;
+    }
+
+    public String getCategory() {
+        return mCategory;
+    }
+
+    public void setCategory(String category) {
+        mCategory = category;
+    }
+
+    public int getSize() {
+        return mSize;
+    }
+
+    public void setSize(int size) {
+        mSize = size;
     }
 }
