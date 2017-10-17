@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Model class for deck.
  */
 public class Deck {
+    private int mId;
     private String mTitle;
     private ArrayList<FlipCard> mCards;
     private String mCategory;
@@ -13,6 +14,14 @@ public class Deck {
 
     public Deck() {
         mCards = new ArrayList<>();
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
     }
 
     public String getTitle() {
