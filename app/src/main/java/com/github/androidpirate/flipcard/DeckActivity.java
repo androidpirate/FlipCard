@@ -3,14 +3,21 @@ package com.github.androidpirate.flipcard;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class DeckActivity extends SingleFragmentActivity {
+import com.github.androidpirate.flipcard.data.DeckDbHelper;
+import com.github.androidpirate.flipcard.fragment.DeckListFragment;
+import com.github.androidpirate.flipcard.model.Deck;
+
+import java.util.ArrayList;
+
+public class DeckActivity extends SingleFragmentActivity
+    implements DeckListFragment.OnFragmentInteractionListener {
 
     @Override
     protected Fragment createFragment() {
-        return null;
+        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstace(this).getAllDecks();
+        return DeckListFragment.newInstance(decks);
     }
 
     @Override

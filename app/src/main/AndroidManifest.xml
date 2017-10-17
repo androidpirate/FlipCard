@@ -29,13 +29,13 @@
         <activity
             android:name=".PracticeActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".DeckActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".DeckActivity">
         </activity>
     </application>
 
