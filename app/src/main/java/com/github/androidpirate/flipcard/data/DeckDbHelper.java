@@ -34,7 +34,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DeckEntry.TABLE_NAME;
     private static DeckDbHelper singleton = null;
 
-    synchronized static DeckDbHelper newInstace(Context context) {
+    public static DeckDbHelper newInstace(Context context) {
         if(singleton == null) {
             singleton = new DeckDbHelper(context.getApplicationContext());
         }
