@@ -1,14 +1,18 @@
 package com.github.androidpirate.flipcard.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipcard.adapter.DeckAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
 import java.util.ArrayList;
@@ -24,6 +28,9 @@ import java.util.ArrayList;
 public class DeckListFragment extends Fragment {
     private static final String ARG_DECKS = "decks";
     private ArrayList<Deck> mDecks;
+    private TextView mEmptyListText;
+    private RecyclerView mRecyclerView;
+    private DeckAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     public DeckListFragment() {
@@ -55,8 +62,32 @@ public class DeckListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_deck_list, container, false);
+        mEmptyListText = view.findViewById(R.id.tv_empty_list);
+        mRecyclerView = view.findViewById(R.id.rv_deck_list);
+        if(mDecks.size() == 0) {
+            displayEmptyListText();
+        } else {
+            displayDeckList();
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_deck_list, container, false);
+        return view;
+    }
+
+    private void displayEmptyListText(){
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mEmptyListText.setVisibility(View.VISIBLE);
+        mEmptyListText.setText("No recent decks.");
+    }
+
+    private void displayDeckList(){
+        mEmptyListText.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(mAdapter == null) {
+            mAdapter = new DeckAdapter(mDecks);
+        }
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -81,10 +112,6 @@ public class DeckListFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
     }
