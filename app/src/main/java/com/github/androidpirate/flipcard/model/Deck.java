@@ -1,11 +1,12 @@
 package com.github.androidpirate.flipcard.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Model class for deck.
  */
-public class Deck {
+public class Deck implements Serializable {
     private int mId;
     private String mTitle;
     private ArrayList<FlipCard> mCards;
