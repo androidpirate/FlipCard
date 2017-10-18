@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.adapter.DeckAdapter;
+import com.github.androidpirate.flipcard.adapter.DeckListAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class DeckListFragment extends Fragment {
     private ArrayList<Deck> mDecks;
     private TextView mEmptyListText;
     private RecyclerView mRecyclerView;
-    private DeckAdapter mAdapter;
+    private DeckListAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     public DeckListFragment() {
@@ -85,7 +85,7 @@ public class DeckListFragment extends Fragment {
         mRecyclerView.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if(mAdapter == null) {
-            mAdapter = new DeckAdapter(mDecks);
+            mAdapter = new DeckListAdapter(mDecks);
         }
         mRecyclerView.setAdapter(mAdapter);
     }

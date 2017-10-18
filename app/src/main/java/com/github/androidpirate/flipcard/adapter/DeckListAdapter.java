@@ -14,10 +14,10 @@ import java.util.ArrayList;
 /**
  * Adapter class for deck list.
  */
-public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.DeckHolder> {
+public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHolder> {
     private ArrayList<Deck> mDecks = new ArrayList<>();
 
-    public DeckAdapter(ArrayList<Deck> decks) {
+    public DeckListAdapter(ArrayList<Deck> decks) {
         mDecks = decks;
     }
 
