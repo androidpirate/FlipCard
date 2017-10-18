@@ -81,6 +81,13 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return -1;
     }
 
+    public void refresh(Deck deck, ArrayList<FlipCard> cards) {
+        mItems.removeAll(mItems);
+        mItems.add(deck);
+        mItems.addAll(cards);
+        notifyDataSetChanged();
+    }
+
     class DeckInfoHolder extends RecyclerView.ViewHolder {
         private Deck mDeck;
         private EditText mDeckTitle;

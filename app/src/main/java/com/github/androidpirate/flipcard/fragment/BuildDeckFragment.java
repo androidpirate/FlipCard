@@ -52,9 +52,7 @@ public class BuildDeckFragment extends Fragment {
 
     private void initializeDeck() {
         mDeck = new Deck();
-        mDeck.getCards().add(new FlipCard("", ""));
-        mDeck.getCards().add(new FlipCard("", ""));
-        mDeck.getCards().add(new FlipCard("", ""));
+        addEmptyCard();
     }
 
     @Override
@@ -78,9 +76,14 @@ public class BuildDeckFragment extends Fragment {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                addEmptyCard();
+                mAdapter.refresh(mDeck, mDeck.getCards());
             }
         });
+    }
+
+    private void addEmptyCard(){
+        mDeck.getCards().add(new FlipCard("", ""));
     }
 
     @Override
