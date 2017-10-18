@@ -26,24 +26,4 @@ public class DeckActivity extends SingleFragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_deck_list_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_deck:
-                // Replace DeckListFragment with CreateDeckFragment here
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.fragment_container, BuildDeckFragment.newInstance())
-                        .commit();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
