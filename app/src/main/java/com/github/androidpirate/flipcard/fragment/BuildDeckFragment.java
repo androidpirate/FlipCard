@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipcard.adapter.DeckBuilderAdapter;
+import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipcard.model.FlipCard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,10 +21,10 @@ import com.github.androidpirate.flipcard.R;
  * create an instance of this fragment.
  */
 public class BuildDeckFragment extends Fragment {
-    private EditText mTitle;
-    private EditText mCategory;
     private RecyclerView mRecyclerView;
+    private DeckBuilderAdapter mAdapter;
     private FloatingActionButton mFab;
+    private Deck mDeck;
 
     public BuildDeckFragment() {
         // Required empty public constructor
@@ -44,6 +44,13 @@ public class BuildDeckFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        initializeDeck();
+    }
+
+    private void initializeDeck() {
+        mDeck = new Deck();
+        mDeck.getCards().add(new FlipCard("", ""));
+        mDeck.getCards().add(new FlipCard("", ""));
     }
 
     @Override
@@ -56,44 +63,12 @@ public class BuildDeckFragment extends Fragment {
     }
 
     private void setViews(View view) {
-        mTitle = view.findViewById(R.id.et_title);
-        mTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        mCategory = view.findViewById(R.id.et_category);
-        mCategory.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
         mRecyclerView = view.findViewById(R.id.rv_card_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(mAdapter == null) {
+            mAdapter = new DeckBuilderAdapter(mDeck, mDeck.getCards());
+        }
+        mRecyclerView.setAdapter(mAdapter);
 
         mFab = view.findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
