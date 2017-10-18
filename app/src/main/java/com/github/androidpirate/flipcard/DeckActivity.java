@@ -26,4 +26,13 @@ public class DeckActivity extends SingleFragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    @Override
+    public void onBackPressed() {
+        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstace(this).getAllDecks();
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, DeckListFragment.newInstance(decks))
+                .commit();
+    }
 }
