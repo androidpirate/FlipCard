@@ -14,6 +14,7 @@ import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -81,18 +82,57 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class DeckInfoHolder extends RecyclerView.ViewHolder {
+        private Deck mDeck;
         private EditText mDeckTitle;
         private EditText mCategory;
 
         public DeckInfoHolder(View itemView) {
             super(itemView);
-            mDeckTitle = itemView.findViewById(R.id.et_title);
-            mCategory = itemView.findViewById(R.id.et_category);
+            setFieldViews();
         }
 
         private void onBindDeckInfo(Deck deck) {
-            mDeckTitle.setText(deck.getTitle());
-            mCategory.setText(deck.getCategory());
+            mDeck = deck;
+            mDeckTitle.setText(mDeck.getTitle());
+            mCategory.setText(mDeck.getCategory());
+        }
+
+        private void setFieldViews() {
+            mDeckTitle = itemView.findViewById(R.id.et_title);
+            mDeckTitle.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    mDeck.setTitle(editable.toString());
+                }
+            });
+
+            mCategory = itemView.findViewById(R.id.et_category);
+            mCategory.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    mDeck.setCategory(editable.toString());
+                }
+            });
         }
     }
 
@@ -102,14 +142,25 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private ImageView mButtonDelete;
         private EditText mFrontText;
         private EditText mRearText;
+        private FlipCard mCard;
 
         public CardHolder(View itemView) {
             super(itemView);
+            setFieldViews();
+        }
+
+        private void onBindCard(FlipCard card) {
+            mCard = card;
+            mFrontText.setText(mCard.getFrontSide());
+            mRearText.setText(mCard.getRearSide());
+        }
+
+        private void setFieldViews(){
             mButtonUp = itemView.findViewById(R.id.bt_up);
             mButtonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    moveUp(getAdapterPosition(), getAdapterPosition() - 1);
                 }
             });
 
@@ -117,7 +168,7 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mButtonDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    moveDown(getAdapterPosition(), getAdapterPosition() + 1);
                 }
             });
 
@@ -125,7 +176,7 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mButtonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    deleteCard(getAdapterPosition());
                 }
             });
 
@@ -143,7 +194,7 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-
+                    mCard.setFrontSide(editable.toString());
                 }
             });
 
@@ -161,14 +212,28 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-
+                    mCard.setRearSide(editable.toString());
                 }
             });
         }
 
-        private void onBindCard(FlipCard card) {
-            mFrontText.setText(card.getFrontSide());
-            mRearText.setText(card.getRearSide());
+        private void moveUp(int currentPosition, int previousPosition) {
+            if(currentPosition > 1) {
+                Collections.swap(mItems, currentPosition, previousPosition);
+                notifyDataSetChanged();
+            }
+        }
+
+        private void moveDown(int currentPosition, int nextPosition) {
+            if(nextPosition != mItems.size()) {
+                Collections.swap(mItems, currentPosition, nextPosition);
+                notifyDataSetChanged();
+            }
+        }
+
+        private void deleteCard(int cardPosition) {
+            mItems.remove(cardPosition);
+            notifyDataSetChanged();
         }
     }
 }

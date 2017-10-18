@@ -1,13 +1,9 @@
 package com.github.androidpirate.flipcard;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.github.androidpirate.flipcard.data.DeckDbHelper;
-import com.github.androidpirate.flipcard.fragment.BuildDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckListFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 

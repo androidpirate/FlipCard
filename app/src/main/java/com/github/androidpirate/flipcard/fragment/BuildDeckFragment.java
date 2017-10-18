@@ -54,6 +54,7 @@ public class BuildDeckFragment extends Fragment {
         mDeck = new Deck();
         mDeck.getCards().add(new FlipCard("", ""));
         mDeck.getCards().add(new FlipCard("", ""));
+        mDeck.getCards().add(new FlipCard("", ""));
     }
 
     @Override
