@@ -1,10 +1,10 @@
 package com.github.androidpirate.flipcard.fragment;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -105,7 +105,7 @@ public class DeckListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.add_deck:
                 // Replace DeckListFragment with CreateDeckFragment here
-                FragmentManager fm = getFragmentManager();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
                         .replace(R.id.fragment_container, BuildDeckFragment.newInstance())
                         .commit();

@@ -18,10 +18,10 @@
 
 package com.github.androidpirate.flipcard;
 
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
@@ -100,15 +100,17 @@ public class PracticeActivity extends SingleFragmentActivity implements
         int enterAnimRes = 0;
         int exitAnimRes = 0;
         if(fragment instanceof BackCardFragment) {
-            enterAnimRes = R.animator.card_flip_right_in;
-            exitAnimRes = R.animator.card_flip_right_out;
-        } else if (fragment instanceof CorrectCardFragment ||
-                    fragment instanceof FrontCardFragment ||
+            enterAnimRes = R.anim.fade_in;
+            exitAnimRes = R.anim.fade_out;
+        } else if (fragment instanceof CorrectCardFragment) {
+            enterAnimRes = R.anim.fade_in;
+            exitAnimRes = R.anim.card_left_out;
+        } else if (fragment instanceof FrontCardFragment ||
                     fragment instanceof ScoreFragment) {
-            enterAnimRes = R.animator.card_right_in;
-            exitAnimRes = R.animator.card_left_out;
+            enterAnimRes = R.anim.card_right_in;
+            exitAnimRes = R.anim.card_left_out;
         }
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(enterAnimRes, exitAnimRes)
                 .replace(R.id.fragment_container, fragment)

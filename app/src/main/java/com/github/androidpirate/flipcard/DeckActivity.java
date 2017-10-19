@@ -1,7 +1,7 @@
 package com.github.androidpirate.flipcard;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.github.androidpirate.flipcard.data.DeckDbHelper;
 import com.github.androidpirate.flipcard.fragment.DeckListFragment;
@@ -26,7 +26,7 @@ public class DeckActivity extends SingleFragmentActivity
     @Override
     public void onBackPressed() {
         ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstace(this).getAllDecks();
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, DeckListFragment.newInstance(decks))
                 .commit();

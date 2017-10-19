@@ -18,10 +18,10 @@
 
 package com.github.androidpirate.flipcard;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
@@ -39,7 +39,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_fragment);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if(fragment == null) {
             fragment = createFragment();
