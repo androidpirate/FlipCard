@@ -11,15 +11,19 @@ import java.util.List;
 public class DeckFactoryUtils {
     private DeckDbHelper mDbHelper;
 
-    private List<Deck> getDecks() {
+    public DeckFactoryUtils(DeckDbHelper dbHelper) {
+        mDbHelper = dbHelper;
+    }
+
+    public List<Deck> getDecks() {
         return mDbHelper.getAllDecks();
     }
 
-    private void addDeck(Deck deck) {
+    public void addDeck(Deck deck) {
         mDbHelper.addDeck(deck);
     }
 
-    private void deleteDeck(int deckId) {
+    public void deleteDeck(int deckId) {
         mDbHelper.deleteDeck(deckId);
     }
 }

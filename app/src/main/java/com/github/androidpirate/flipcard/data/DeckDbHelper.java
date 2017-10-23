@@ -77,6 +77,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
                     deck.setCards(cards);
                     deck.setCategory(category);
                     deck.setSize(size);
+                    decks.add(deck);
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
