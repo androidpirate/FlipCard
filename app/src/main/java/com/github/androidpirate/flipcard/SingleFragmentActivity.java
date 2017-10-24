@@ -37,7 +37,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
+        //mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
