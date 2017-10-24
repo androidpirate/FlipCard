@@ -31,4 +31,9 @@ public class DeckActivity extends SingleFragmentActivity
                 .replace(R.id.fragment_container, DeckListFragment.newInstance(decks))
                 .commit();
     }
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+
+    }
 }

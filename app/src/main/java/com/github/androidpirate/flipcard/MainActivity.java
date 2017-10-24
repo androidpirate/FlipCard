@@ -3,6 +3,7 @@ package com.github.androidpirate.flipcard;
 import android.support.v4.app.Fragment;
 
 import com.github.androidpirate.flipcard.data.DeckDbHelper;
+import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.DeckListFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
@@ -11,7 +12,8 @@ import com.github.androidpirate.flipcard.utils.DeckFactoryUtils;
 import java.util.ArrayList;
 
 public class MainActivity extends SingleFragmentActivity
-    implements DeckListFragment.OnFragmentInteractionListener {
+    implements DeckListFragment.OnFragmentInteractionListener,
+                DeckDetailFragment.OnFragmentInteractionListener {
     private DeckFactoryUtils mDeckFactoryUtils;
 
     @Override
@@ -40,5 +42,15 @@ public class MainActivity extends SingleFragmentActivity
         deck.setCards(cards);
         deck.setSize(cards.size());
         mDeckFactoryUtils.addDeck(deck);
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        if(fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 }

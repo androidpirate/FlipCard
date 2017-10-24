@@ -16,8 +16,11 @@ import java.util.ArrayList;
  */
 public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHolder> {
     private ArrayList<Deck> mDecks = new ArrayList<>();
+    private OnAdapterInteractionListener mListener;
 
-    public DeckListAdapter(ArrayList<Deck> decks) {
+    public DeckListAdapter(OnAdapterInteractionListener listener,
+                           ArrayList<Deck> decks) {
+        mListener = listener;
         mDecks = decks;
     }
 
@@ -47,11 +50,22 @@ public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHo
             super(itemView);
             mTitle = itemView.findViewById(R.id.tv_title);
             mSize = itemView.findViewById(R.id.tv_size);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Deck deck = mDecks.get(getAdapterPosition());
+                    mListener.onItemClick(deck);
+                }
+            });
         }
 
         public void onBindDeck(Deck deck) {
             mTitle.setText(deck.getTitle());
             mSize.setText(String.valueOf(deck.getSize()));
         }
+    }
+
+    public interface OnAdapterInteractionListener {
+        void onItemClick(Deck deck);
     }
 }

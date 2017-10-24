@@ -29,7 +29,8 @@ import java.util.ArrayList;
  * Use the {@link DeckListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeckListFragment extends Fragment {
+public class DeckListFragment extends Fragment
+    implements DeckListAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECKS = "decks";
     private ArrayList<Deck> mDecks;
     private TextView mEmptyListText;
@@ -90,7 +91,7 @@ public class DeckListFragment extends Fragment {
         mRecyclerView.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if(mAdapter == null) {
-            mAdapter = new DeckListAdapter(mDecks);
+            mAdapter = new DeckListAdapter(this, mDecks);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -138,7 +139,12 @@ public class DeckListFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
+        void replaceFragment(Fragment fragment);
     }
 
-
+    @Override
+    public void onItemClick(Deck deck) {
+        Fragment fragment = DeckDetailFragment.newInstance(deck);
+        mListener.replaceFragment(fragment);
+    }
 }
