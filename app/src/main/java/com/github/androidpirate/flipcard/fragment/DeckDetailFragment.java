@@ -3,12 +3,14 @@ package com.github.androidpirate.flipcard.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipcard.adapter.DeckAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
 /**
@@ -23,6 +25,7 @@ public class DeckDetailFragment extends Fragment {
     private static final String ARG_DECK = "deck";
     private Deck mDeck;
     private RecyclerView mRecyclerView;
+    private DeckAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     public DeckDetailFragment() {
@@ -56,6 +59,13 @@ public class DeckDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deck_detail, container, false);
         mRecyclerView = view.findViewById(R.id.rv_deck_detail);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if(mAdapter == null) {
+            mAdapter = new DeckAdapter(mDeck,
+                    mDeck.getCards(),
+                    DeckDetailFragment.class.getSimpleName());
+        }
+        mRecyclerView.setAdapter(mAdapter);
         // Inflate the layout for this fragment
         return view;
     }

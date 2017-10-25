@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/small_padding"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/iv_deck_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_flip_card"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"/>
+
+    <TextView
+        android:id="@+id/tv_deck_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_deck_icon"
+        android:layout_toEndOf="@id/iv_deck_icon"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:text="Deck Title"/>
+
+    <TextView
+        android:id="@+id/tv_deck_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_deck_title"
+        android:layout_toRightOf="@id/iv_deck_icon"
+        android:layout_toEndOf="@id/iv_deck_icon"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        tools:text="Category"/>
+
+    <TextView
+        android:id="@+id/tv_deck_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_deck_title"
+        android:layout_toRightOf="@id/tv_deck_category"
+        android:layout_toEndOf="@id/tv_deck_category"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        tools:text="/ 43 Cards"/>
+
+    <ImageView
+        android:id="@+id/iv_favorite_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_border"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/regular_margin"
+        android:layout_marginEnd="@dimen/regular_margin"/>
+
+</RelativeLayout>

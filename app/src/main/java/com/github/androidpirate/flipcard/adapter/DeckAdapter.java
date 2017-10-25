@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipcard.fragment.BuildDeckFragment;
+import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
 
@@ -20,49 +23,88 @@ import java.util.List;
 /**
  * Adapter class for card list.
  */
-public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int DECK = 0;
     private final static int CARD = 1;
+    private final static String DECK_DETAIL_FRAGMENT = DeckDetailFragment.class.getSimpleName();
+    private final static String EDIT_DECK_FRAGMENT = BuildDeckFragment.class.getSimpleName();
+    private final String mFragment;
     private List<Object> mItems = new ArrayList<>();
 
-    public DeckBuilderAdapter(Deck deck, ArrayList<FlipCard> cards) {
+    public DeckAdapter(Deck deck, ArrayList<FlipCard> cards, String parentFragment) {
         mItems.add(deck);
         mItems.addAll(cards);
+        mFragment = parentFragment;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        switch (viewType) {
-            case DECK:
-                View deckView = inflater.inflate(R.layout.deck_info_list_item, parent, false);
-                viewHolder = new DeckInfoHolder(deckView);
-                break;
-            case CARD:
-                View emptyCardView = inflater.inflate(R.layout.empty_card_list_item, parent, false);
-                viewHolder = new CardHolder(emptyCardView);
-                break;
-            default:
-                View genericView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-                viewHolder = new CardHolder(genericView);
-                break;
+        if(mFragment.equals(DECK_DETAIL_FRAGMENT)) {
+            switch (viewType) {
+                case DECK:
+                    View deckHeader = inflater.inflate(R.layout.deck_header_list_item, parent, false);
+                    viewHolder = new DeckHeader(deckHeader);
+                    break;
+                case CARD:
+                    View cardView = inflater.inflate(R.layout.card_list_item, parent, false);
+                    viewHolder = new CardHolder(cardView);
+                    break;
+                default:
+                    View genericView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+                    viewHolder = new EditableCardHolder(genericView);
+                    break;
+            }
+        } else if(mFragment.equals(EDIT_DECK_FRAGMENT)) {
+            switch (viewType) {
+                case DECK:
+                    View deckHeader = inflater.inflate(R.layout.editable_deck_header_list_item, parent, false);
+                    viewHolder = new EditableDeckHeader(deckHeader);
+                    break;
+                case CARD:
+                    View cardView = inflater.inflate(R.layout.editable_card_list_item, parent, false);
+                    viewHolder = new EditableCardHolder(cardView);
+                    break;
+                default:
+                    View genericView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+                    viewHolder = new EditableCardHolder(genericView);
+                    break;
+            }
+        } else {
+            throw new NullPointerException("DeckAdapter - ViewHolder can not be empty.");
         }
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()) {
-            case DECK:
-                Deck deck = (Deck) mItems.get(position);
-                DeckInfoHolder deckInfoHolder = (DeckInfoHolder) holder;
-                deckInfoHolder.onBindDeckInfo(deck);
-                break;
-            case CARD:
-                FlipCard card = (FlipCard) mItems.get(position);
-                CardHolder cardHolder = (CardHolder) holder;
-                cardHolder.onBindCard(card);
+        if(mFragment.equals(DECK_DETAIL_FRAGMENT)) {
+            switch (holder.getItemViewType()) {
+                case DECK:
+                    Deck deck = (Deck) mItems.get(position);
+                    DeckHeader deckHeaderHolder = (DeckHeader) holder;
+                    deckHeaderHolder.onBindDeckHeader(deck);
+                    break;
+                case CARD:
+                    FlipCard card = (FlipCard) mItems.get(position);
+                    CardHolder cardHolder = (CardHolder) holder;
+                    cardHolder.onBindCard(card);
+                    break;
+            }
+        } else if(mFragment.equals(EDIT_DECK_FRAGMENT)) {
+            switch (holder.getItemViewType()) {
+                case DECK:
+                    Deck deck = (Deck) mItems.get(position);
+                    EditableDeckHeader editableHeaderHolder = (EditableDeckHeader) holder;
+                    editableHeaderHolder.onBindDeckInfo(deck);
+                    break;
+                case CARD:
+                    FlipCard card = (FlipCard) mItems.get(position);
+                    EditableCardHolder editableCardHolder = (EditableCardHolder) holder;
+                    editableCardHolder.onBindCard(card);
+                    break;
+            }
         }
     }
 
@@ -82,18 +124,43 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void refresh(Deck deck, ArrayList<FlipCard> cards) {
-        mItems.removeAll(mItems);
+        mItems.clear();
         mItems.add(deck);
         mItems.addAll(cards);
         notifyDataSetChanged();
     }
 
-    class DeckInfoHolder extends RecyclerView.ViewHolder {
+    private class DeckHeader extends RecyclerView.ViewHolder {
+        private Deck mDeck;
+        private TextView mTitle;
+        private TextView mCategory;
+        private TextView mSize;
+
+        private DeckHeader(View itemView) {
+            super(itemView);
+            setFieldViews();
+        }
+
+        public void onBindDeckHeader(Deck deck) {
+            mDeck = deck;
+            mTitle.setText(mDeck.getTitle());
+            mCategory.setText(mDeck.getCategory());
+            mSize.setText(String.valueOf(mDeck.getSize()));
+        }
+
+        private void setFieldViews() {
+            mTitle = itemView.findViewById(R.id.tv_deck_title);
+            mCategory = itemView.findViewById(R.id.tv_deck_category);
+            mSize = itemView.findViewById(R.id.tv_deck_size);
+        }
+    }
+
+    private class EditableDeckHeader extends RecyclerView.ViewHolder {
         private Deck mDeck;
         private EditText mDeckTitle;
         private EditText mCategory;
 
-        public DeckInfoHolder(View itemView) {
+        private EditableDeckHeader(View itemView) {
             super(itemView);
             setFieldViews();
         }
@@ -143,15 +210,37 @@ public class DeckBuilderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    class CardHolder extends RecyclerView.ViewHolder {
+    private class CardHolder extends RecyclerView.ViewHolder {
+        private FlipCard mCard;
+        private TextView mFrontText;
+        private TextView mRearText;
+
+        private CardHolder(View itemView) {
+            super(itemView);
+            setFieldViews();
+        }
+
+        public void onBindCard(FlipCard card) {
+            mCard = card;
+            mFrontText.setText(mCard.getFrontSide());
+            mRearText.setText(mCard.getRearSide());
+        }
+
+        private void setFieldViews() {
+            mFrontText = itemView.findViewById(R.id.tv_front);
+            mRearText = itemView.findViewById(R.id.tv_rear);
+        }
+    }
+
+    private class EditableCardHolder extends RecyclerView.ViewHolder {
+        private FlipCard mCard;
         private ImageView mButtonUp;
         private ImageView mButtonDown;
         private ImageView mButtonDelete;
         private EditText mFrontText;
         private EditText mRearText;
-        private FlipCard mCard;
 
-        public CardHolder(View itemView) {
+        private EditableCardHolder(View itemView) {
             super(itemView);
             setFieldViews();
         }
