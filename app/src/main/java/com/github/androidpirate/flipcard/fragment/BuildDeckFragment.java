@@ -67,9 +67,9 @@ public class BuildDeckFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.rv_card_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if(mAdapter == null) {
-            mAdapter = new DeckDetailAdapter(mDeck, mDeck.getCards(), BuildDeckFragment.class.getSimpleName());
+            //mAdapter = new DeckDetailAdapter(mDeck, mDeck.getCards(), BuildDeckFragment.class.getSimpleName());
         }
-        mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setAdapter(mAdapter);
 
         mFab = view.findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {

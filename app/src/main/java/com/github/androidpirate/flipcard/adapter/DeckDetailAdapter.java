@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.fragment.BuildDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
+import com.github.androidpirate.flipcard.fragment.EditDeckFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
 
@@ -27,13 +28,20 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final static int DECK = 0;
     private final static int CARD = 1;
     private final static String DECK_DETAIL_FRAGMENT = DeckDetailFragment.class.getSimpleName();
-    private final static String EDIT_DECK_FRAGMENT = BuildDeckFragment.class.getSimpleName();
+    private final static String EDIT_DECK_FRAGMENT = EditDeckFragment.class.getSimpleName();
     private final String mFragment;
     private List<Object> mItems = new ArrayList<>();
+    private DeckDetailAdapter.OnAdapterInteractionListener mListener;
 
-    public DeckDetailAdapter(Deck deck, ArrayList<FlipCard> cards, String parentFragment) {
+    public interface OnAdapterInteractionListener {
+        void onEditIconClick(Deck deck);
+    }
+
+    public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener,
+                             Deck deck, String parentFragment) {
+        mListener = listener;
         mItems.add(deck);
-        mItems.addAll(cards);
+        mItems.addAll(deck.getCards());
         mFragment = parentFragment;
     }
 
@@ -130,6 +138,10 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public Deck getDeck() {
+        return (Deck) mItems.get(DECK);
+    }
+
     /**
      * Private class creates deck header for DeckDetailFragment.
      */
@@ -161,6 +173,7 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View view) {
                     // Start EditDeckFragment here
+                    mListener.onEditIconClick(mDeck);
                 }
             });
         }

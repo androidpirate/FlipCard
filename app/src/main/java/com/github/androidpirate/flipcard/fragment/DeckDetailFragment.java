@@ -21,7 +21,8 @@ import com.github.androidpirate.flipcard.model.Deck;
  * Use the {@link DeckDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeckDetailFragment extends Fragment {
+public class DeckDetailFragment extends Fragment
+    implements DeckDetailAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECK = "deck";
     private Deck mDeck;
     private RecyclerView mRecyclerView;
@@ -61,8 +62,8 @@ public class DeckDetailFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.rv_deck_detail);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
-            mAdapter = new DeckDetailAdapter(mDeck,
-                    mDeck.getCards(),
+            mAdapter = new DeckDetailAdapter(this,
+                    mDeck,
                     DeckDetailFragment.class.getSimpleName());
         }
         mRecyclerView.setAdapter(mAdapter);
@@ -94,6 +95,12 @@ public class DeckDetailFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
+        void replaceFragment(Fragment fragment);
+    }
 
+    @Override
+    public void onEditIconClick(Deck deck) {
+        Fragment fragment = EditDeckFragment.newInstance(deck);
+        mListener.replaceFragment(fragment);
     }
 }
