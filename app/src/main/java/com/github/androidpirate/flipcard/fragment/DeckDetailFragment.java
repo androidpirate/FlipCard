@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.adapter.DeckAdapter;
+import com.github.androidpirate.flipcard.adapter.DeckDetailAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
 /**
@@ -25,7 +25,7 @@ public class DeckDetailFragment extends Fragment {
     private static final String ARG_DECK = "deck";
     private Deck mDeck;
     private RecyclerView mRecyclerView;
-    private DeckAdapter mAdapter;
+    private DeckDetailAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     public DeckDetailFragment() {
@@ -61,7 +61,7 @@ public class DeckDetailFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.rv_deck_detail);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
-            mAdapter = new DeckAdapter(mDeck,
+            mAdapter = new DeckDetailAdapter(mDeck,
                     mDeck.getCards(),
                     DeckDetailFragment.class.getSimpleName());
         }

@@ -21,9 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Adapter class for card list.
+ * Adapter class used to create views to create a heterogeneous layout for RecyclerView.
  */
-public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int DECK = 0;
     private final static int CARD = 1;
     private final static String DECK_DETAIL_FRAGMENT = DeckDetailFragment.class.getSimpleName();
@@ -31,7 +31,7 @@ public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String mFragment;
     private List<Object> mItems = new ArrayList<>();
 
-    public DeckAdapter(Deck deck, ArrayList<FlipCard> cards, String parentFragment) {
+    public DeckDetailAdapter(Deck deck, ArrayList<FlipCard> cards, String parentFragment) {
         mItems.add(deck);
         mItems.addAll(cards);
         mFragment = parentFragment;
@@ -72,7 +72,7 @@ public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     break;
             }
         } else {
-            throw new NullPointerException("DeckAdapter - ViewHolder can not be empty.");
+            throw new NullPointerException("DeckDetailAdapter - ViewHolder can not be empty.");
         }
         return viewHolder;
     }
@@ -130,6 +130,9 @@ public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    /**
+     * Private class creates deck header for DeckDetailFragment.
+     */
     private class DeckHeader extends RecyclerView.ViewHolder {
         private Deck mDeck;
         private TextView mTitle;
@@ -155,6 +158,9 @@ public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    /**
+     * Private class creates editable deck header for CreateDeckFragment/EditDeckFragment.
+     */
     private class EditableDeckHeader extends RecyclerView.ViewHolder {
         private Deck mDeck;
         private EditText mDeckTitle;
@@ -210,6 +216,9 @@ public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    /**
+     * Private class creates card holders for DetailDeckFragment.
+     */
     private class CardHolder extends RecyclerView.ViewHolder {
         private FlipCard mCard;
         private TextView mFrontText;
@@ -232,6 +241,9 @@ public class DeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    /**
+     * Private class creates editable card holders for CreateDeckFragment/EditableDeckFragment.
+     */
     private class EditableCardHolder extends RecyclerView.ViewHolder {
         private FlipCard mCard;
         private ImageView mButtonUp;
