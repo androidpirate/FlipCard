@@ -108,7 +108,7 @@ public class DeckListFragment extends Fragment
                 // Replace DeckListFragment with CreateDeckFragment here
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.fragment_container, BuildDeckFragment.newInstance())
+                        .replace(R.id.fragment_container, EditDeckFragment.newInstance(new Deck()))
                         .commit();
                 return true;
         }

@@ -2,6 +2,7 @@ package com.github.androidpirate.flipcard.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.DeckDetailAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipcard.model.FlipCard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +28,7 @@ public class EditDeckFragment extends Fragment
     private static final String FRAGMENT_NAME = EditDeckFragment.class.getSimpleName();
     private static final String ARG_DECK = "deck";
     private Deck mDeck;
+    private FloatingActionButton mFab;
     private RecyclerView mRecyclerView;
     private DeckDetailAdapter mAdapter;
 
@@ -55,6 +58,7 @@ public class EditDeckFragment extends Fragment
         if (getArguments() != null) {
             mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
         }
+        initializeDeck();
     }
 
     @Override
@@ -62,6 +66,15 @@ public class EditDeckFragment extends Fragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_deck, container, false);
         // Inflate the layout for this fragment
+        mFab = view.findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addEmptyCard();
+                mAdapter.refresh(mDeck, mDeck.getCards());
+            }
+        });
+
         mRecyclerView = view.findViewById(R.id.rv_deck_edit);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
@@ -69,6 +82,15 @@ public class EditDeckFragment extends Fragment
         }
         mRecyclerView.setAdapter(mAdapter);
         return view;
+    }
+
+    private void initializeDeck() {
+        mDeck = new Deck();
+        addEmptyCard();
+    }
+
+    private void addEmptyCard() {
+        mDeck.getCards().add(new FlipCard("", ""));
     }
 
     @Override

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.fragment.BuildDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.EditDeckFragment;
 import com.github.androidpirate.flipcard.model.Deck;

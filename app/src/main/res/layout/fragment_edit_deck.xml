@@ -1,9 +1,27 @@
-<android.support.v7.widget.RecyclerView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_deck_edit"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.androidpirate.flipcard.fragment.EditDeckFragment">
+    android:padding="@dimen/x_small_padding">
 
-</android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_deck_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.github.androidpirate.flipcard.fragment.EditDeckFragment"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x_small_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_add_card"
+        app:fabSize="normal"
+        app:elevation="5dp"/>
+
+</RelativeLayout>
