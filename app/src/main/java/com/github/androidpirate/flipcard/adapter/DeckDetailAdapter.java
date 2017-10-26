@@ -138,6 +138,7 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private TextView mTitle;
         private TextView mCategory;
         private TextView mSize;
+        private ImageView mEdit;
 
         private DeckHeader(View itemView) {
             super(itemView);
@@ -155,6 +156,13 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mTitle = itemView.findViewById(R.id.tv_deck_title);
             mCategory = itemView.findViewById(R.id.tv_deck_category);
             mSize = itemView.findViewById(R.id.tv_deck_size);
+            mEdit = itemView.findViewById(R.id.iv_edit);
+            mEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Start EditDeckFragment here
+                }
+            });
         }
     }
 
