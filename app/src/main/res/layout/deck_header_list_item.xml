@@ -60,16 +60,6 @@
         tools:text="/ 43 Cards"/>
 
     <ImageView
-        android:id="@+id/iv_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_border"
-        android:layout_toLeftOf="@id/iv_edit"
-        android:layout_toStartOf="@id/iv_edit"
-        android:layout_marginRight="@dimen/small_margin"
-        android:layout_marginEnd="@dimen/small_margin"/>
-
-    <ImageView
         android:id="@+id/iv_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,6 +67,16 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"/>
+
+    <ImageView
+        android:id="@+id/iv_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_border"
+        android:layout_toLeftOf="@id/iv_edit"
+        android:layout_toStartOf="@id/iv_edit"
         android:layout_marginRight="@dimen/small_margin"
         android:layout_marginEnd="@dimen/small_margin"/>
 
