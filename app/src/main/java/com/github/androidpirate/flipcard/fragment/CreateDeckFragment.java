@@ -62,7 +62,8 @@ public class CreateDeckFragment extends Fragment
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Add a new card here
+                mAdapter.addEmptyCard();
+                mAdapter.refresh();
             }
         });
 

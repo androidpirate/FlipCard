@@ -28,9 +28,9 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public CreateDeckAdapter(Deck deck) {
         if (deck != null && deck.getSize() == 0) {
-            addEmptyCard(deck);
+            mDeck = deck;
+            addEmptyCard();
         }
-        mDeck = deck;
         mItems.add(mDeck);
         mItems.addAll(mDeck.getCards());
     }
@@ -88,8 +88,15 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void addEmptyCard(Deck deck) {
-        deck.getCards().add(new FlipCard("", ""));
+    public void addEmptyCard() {
+        mDeck.getCards().add(new FlipCard("", ""));
+    }
+
+    public void refresh() {
+        mItems.clear();
+        mItems.add(mDeck);
+        mItems.addAll(mDeck.getCards());
+        notifyDataSetChanged();
     }
 
     /**
@@ -249,8 +256,10 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         private void deleteCard(int cardPosition) {
-            mItems.remove(cardPosition);
-            notifyDataSetChanged();
+            int size = mDeck.getSize();
+            mDeck.getCards().remove(cardPosition);
+            mDeck.setSize(size);
+            refresh();
         }
     }
 }
