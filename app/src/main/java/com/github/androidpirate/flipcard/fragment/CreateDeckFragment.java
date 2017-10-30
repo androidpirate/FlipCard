@@ -1,7 +1,6 @@
 package com.github.androidpirate.flipcard.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipcard.adapter.CreateDeckAdapter;
 import com.github.androidpirate.flipcard.adapter.DeckDetailAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
@@ -29,7 +29,7 @@ public class CreateDeckFragment extends Fragment
     private static final String ARG_DECK = "deck";
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
-    private DeckDetailAdapter mAdapter;
+    private CreateDeckAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     public CreateDeckFragment() {
@@ -70,7 +70,7 @@ public class CreateDeckFragment extends Fragment
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Deck deck = (Deck) getArguments().getSerializable(ARG_DECK);
         if(mAdapter == null) {
-            mAdapter = new DeckDetailAdapter(this, deck, FRAGMENT_NAME);
+            mAdapter = new CreateDeckAdapter(deck);
         }
         mRecyclerView.setAdapter(mAdapter);
         return view;

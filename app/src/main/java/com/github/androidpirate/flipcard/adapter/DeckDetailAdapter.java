@@ -42,7 +42,7 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener,
                              Deck deck, String parentFragment) {
         mListener = listener;
-        if(deck != null) {
+        if(deck != null && deck.getSize() == 0) {
             addEmptyCard(deck);
         }
         mDeck = deck;
