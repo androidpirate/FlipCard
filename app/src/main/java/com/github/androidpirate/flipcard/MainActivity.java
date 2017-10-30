@@ -3,6 +3,7 @@ package com.github.androidpirate.flipcard;
 import android.support.v4.app.Fragment;
 
 import com.github.androidpirate.flipcard.data.DeckDbHelper;
+import com.github.androidpirate.flipcard.fragment.CreateDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.DeckListFragment;
 import com.github.androidpirate.flipcard.fragment.EditDeckFragment;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class MainActivity extends SingleFragmentActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
-                EditDeckFragment.OnFragmentInteractionListener {
+                CreateDeckFragment.OnFragmentInteractionListener {
 
     private DeckFactoryUtils mDeckFactoryUtils;
 

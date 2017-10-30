@@ -105,10 +105,10 @@ public class DeckListFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_deck:
-                // Replace DeckListFragment with CreateDeckFragment here
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.fragment_container, EditDeckFragment.newInstance(new Deck()))
+                        .replace(R.id.fragment_container,
+                                CreateDeckFragment.newInstance(new Deck()))
                         .commit();
                 return true;
         }

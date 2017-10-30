@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipcard.fragment.CreateDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.EditDeckFragment;
 import com.github.androidpirate.flipcard.model.Deck;
@@ -28,7 +29,9 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final static int CARD = 1;
     private final static String DECK_DETAIL_FRAGMENT = DeckDetailFragment.class.getSimpleName();
     private final static String EDIT_DECK_FRAGMENT = EditDeckFragment.class.getSimpleName();
+    private final static String CREATE_DECK_FRAGMENT = CreateDeckFragment.class.getSimpleName();
     private final String mFragment;
+    private Deck mDeck;
     private List<Object> mItems = new ArrayList<>();
     private DeckDetailAdapter.OnAdapterInteractionListener mListener;
 
@@ -39,8 +42,12 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener,
                              Deck deck, String parentFragment) {
         mListener = listener;
-        mItems.add(deck);
-        mItems.addAll(deck.getCards());
+        if(deck != null) {
+            addEmptyCard(deck);
+        }
+        mDeck = deck;
+        mItems.add(mDeck);
+        mItems.addAll(mDeck.getCards());
         mFragment = parentFragment;
     }
 
@@ -63,7 +70,7 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     viewHolder = new EditableCardHolder(genericView);
                     break;
             }
-        } else if(mFragment.equals(EDIT_DECK_FRAGMENT)) {
+        } else if(mFragment.equals(EDIT_DECK_FRAGMENT) || mFragment.equals(CREATE_DECK_FRAGMENT)) {
             switch (viewType) {
                 case DECK:
                     View deckHeader = inflater.inflate(R.layout.editable_deck_header_list_item, parent, false);
@@ -118,6 +125,10 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemCount() {
         return mItems.size();
+    }
+
+    private void addEmptyCard(Deck deck) {
+        deck.getCards().add(new FlipCard("", ""));
     }
 
     @Override
