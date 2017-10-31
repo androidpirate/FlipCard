@@ -28,6 +28,16 @@ public class MainActivity extends SingleFragmentActivity
         return DeckListFragment.newInstance(decks);
     }
 
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        if(fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
+    }
+
     private void buildDeck() {
         mDeckFactoryUtils = new DeckFactoryUtils(DeckDbHelper.newInstace(this));
         Deck deck = new Deck();
@@ -48,13 +58,11 @@ public class MainActivity extends SingleFragmentActivity
         mDeckFactoryUtils.addDeck(deck);
     }
 
-    @Override
-    public void replaceFragment(Fragment fragment) {
-        if(fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
-        }
+    public void showUpButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void hideUpButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 }

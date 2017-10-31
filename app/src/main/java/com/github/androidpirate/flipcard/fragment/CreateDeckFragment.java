@@ -13,9 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.androidpirate.flipcard.MainActivity;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.CreateDeckAdapter;
-import com.github.androidpirate.flipcard.adapter.DeckDetailAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
 /**
@@ -41,6 +41,7 @@ public class CreateDeckFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
+        void replaceFragment(Fragment fragment);
     }
 
     public CreateDeckFragment() {
@@ -91,6 +92,15 @@ public class CreateDeckFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity activity = (MainActivity) getActivity();
+        if(activity != null) {
+            activity.showUpButton();
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_deck_create_menu, menu);
     }
@@ -101,6 +111,10 @@ public class CreateDeckFragment extends Fragment {
             case R.id.save_deck:
                 // Save deck to database here
                 return true;
+            case android.R.id.home:
+                // Return back to DeckListFragment here
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -121,6 +135,4 @@ public class CreateDeckFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
 }
