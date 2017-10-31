@@ -19,6 +19,11 @@ public class DeckActivity extends SingleFragmentActivity
     }
 
     @Override
+    protected void getDatabaseHelper() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

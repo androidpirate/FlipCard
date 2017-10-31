@@ -98,6 +98,10 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public Deck getDeck() {
+        return mDeck;
+    }
+
     /**
      * Private class creates editable deck header for CreateDeckFragment/EditDeckFragment.
      */

@@ -49,9 +49,14 @@ public class PracticeActivity extends SingleFragmentActivity implements
     @Override
     protected Fragment createFragment() {
         mFlipCard = mCards.get(mCardIndex);
-        mProgressBar.setVisibility(View.VISIBLE);
+        // mProgressBar.setVisibility(View.VISIBLE);
         getSupportActionBar().hide();
         return FrontCardFragment.newInstance(mFlipCard);
+    }
+
+    @Override
+    protected void getDatabaseHelper() {
+
     }
 
     @Override
@@ -88,7 +93,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mProgressBar.setVisibility(View.INVISIBLE);
+                    //mProgressBar.setVisibility(View.INVISIBLE);
                     Fragment fragment = ScoreFragment.newInstance(mScore);
                     replaceCard(fragment);
                 }
@@ -125,7 +130,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
         if(mCardIndex != 0) {
             progress = (index / deckSize) * 100;
         }
-        mProgressBar.setProgress((int) progress);
+        //mProgressBar.setProgress((int) progress);
     }
 
     @Override

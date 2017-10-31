@@ -38,6 +38,16 @@ public class DeckListFragment extends Fragment
     private DeckListAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    public interface OnFragmentInteractionListener {
+        void replaceFragment(Fragment fragment);
+    }
+
     public DeckListFragment() {
         // Required empty public constructor
     }
@@ -130,16 +140,6 @@ public class DeckListFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    public interface OnFragmentInteractionListener {
-        void replaceFragment(Fragment fragment);
     }
 
     @Override

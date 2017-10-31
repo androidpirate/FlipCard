@@ -42,6 +42,7 @@ public class CreateDeckFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void replaceFragment(Fragment fragment);
+        void saveDeck(Deck deck);
     }
 
     public CreateDeckFragment() {
@@ -110,6 +111,7 @@ public class CreateDeckFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.save_deck:
                 // Save deck to database here
+                mListener.saveDeck(mAdapter.getDeck());
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here

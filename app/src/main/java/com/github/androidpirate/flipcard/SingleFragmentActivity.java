@@ -29,16 +29,14 @@ import android.widget.ProgressBar;
  * Abstract class that displays a single fragment.
  */
 public abstract class SingleFragmentActivity extends AppCompatActivity {
-    public ProgressBar mProgressBar;
-
     protected abstract Fragment createFragment();
+    protected abstract void getDatabaseHelper();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
-        //mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
-
+        getDatabaseHelper();
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if(fragment == null) {
