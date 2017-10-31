@@ -14,11 +14,10 @@ import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Emre on 10/30/2017.
+ * Adapter class for CreateDeckFragment.
  */
 public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int DECK = 0;
@@ -29,7 +28,7 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public CreateDeckAdapter(Deck deck) {
         if (deck != null && deck.getSize() == 0) {
             mDeck = deck;
-            addEmptyCard();
+            mDeck.addEmptyCard();
         }
         mItems.add(mDeck);
         mItems.addAll(mDeck.getCards());
@@ -37,7 +36,7 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder = null;
+        RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case DECK:
@@ -89,7 +88,7 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void addEmptyCard() {
-        mDeck.getCards().add(new FlipCard("", ""));
+        mDeck.addEmptyCard();
     }
 
     public void refresh() {
@@ -184,7 +183,13 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mButtonUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    moveUp(getAdapterPosition(), getAdapterPosition() - 1);
+                    // Since the adapter position holds on to the current position in mItems
+                    // and the first item is the deck info
+                    if(getAdapterPosition() != 1) {
+                        int currentCardPosition = getAdapterPosition() - 1;
+                        mDeck.moveCardUp(currentCardPosition, currentCardPosition - 1);
+                        refresh();
+                    }
                 }
             });
 
@@ -192,7 +197,13 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mButtonDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    moveDown(getAdapterPosition(), getAdapterPosition() + 1);
+                    // Since the adapter position holds on to the current position in mItems
+                    // and the first item is the deck info
+                    if(getAdapterPosition() != mItems.size() - 1) {
+                        int currentCardPosition = getAdapterPosition() - 1;
+                        mDeck.moveCardDown(currentCardPosition, currentCardPosition + 1);
+                        refresh();
+                    }
                 }
             });
 
@@ -200,7 +211,13 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mButtonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    deleteCard(getAdapterPosition());
+                    // Since the adapter position holds on to the current position in mItems
+                    // and the first item is the deck info
+                    if(mItems.size() > 1) {
+                        int currentCardPosition = getAdapterPosition() - 1;
+                        mDeck.deleteCard(currentCardPosition);
+                        refresh();
+                    }
                 }
             });
 
@@ -239,27 +256,6 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     mCard.setRearSide(editable.toString());
                 }
             });
-        }
-
-        private void moveUp(int currentPosition, int previousPosition) {
-            if (currentPosition > 1) {
-                Collections.swap(mItems, currentPosition, previousPosition);
-                notifyDataSetChanged();
-            }
-        }
-
-        private void moveDown(int currentPosition, int nextPosition) {
-            if (nextPosition != mItems.size()) {
-                Collections.swap(mItems, currentPosition, nextPosition);
-                notifyDataSetChanged();
-            }
-        }
-
-        private void deleteCard(int cardPosition) {
-            int size = mDeck.getSize();
-            mDeck.getCards().remove(cardPosition);
-            mDeck.setSize(size);
-            refresh();
         }
     }
 }

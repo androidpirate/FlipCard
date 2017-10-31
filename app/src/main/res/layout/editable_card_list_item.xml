@@ -69,7 +69,8 @@
             android:layout_marginTop="@dimen/x_small_margin"
             android:layout_marginBottom="@dimen/x_small_margin"
             android:textSize="16sp"
-            android:hint="Enter here"/>
+            android:hint="Enter here"
+            android:focusableInTouchMode="true"/>
 
         <TextView
             android:id="@+id/tv_rear_tag"
@@ -95,7 +96,8 @@
             android:layout_marginTop="@dimen/x_small_margin"
             android:layout_marginBottom="@dimen/x_small_margin"
             android:textSize="16sp"
-            android:hint="Enter here"/>
+            android:hint="Enter here"
+            android:focusableInTouchMode="true"/>
 
     </RelativeLayout>
 

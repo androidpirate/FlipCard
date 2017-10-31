@@ -23,14 +23,22 @@ import com.github.androidpirate.flipcard.model.Deck;
  * Use the {@link CreateDeckFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateDeckFragment extends Fragment
-    implements DeckDetailAdapter.OnAdapterInteractionListener {
+public class CreateDeckFragment extends Fragment {
     private static final String FRAGMENT_NAME = CreateDeckFragment.class.getSimpleName();
     private static final String ARG_DECK = "deck";
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
     private CreateDeckAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    public interface OnFragmentInteractionListener {
+    }
 
     public CreateDeckFragment() {
         // Required empty public constructor
@@ -64,6 +72,7 @@ public class CreateDeckFragment extends Fragment
             public void onClick(View view) {
                 mAdapter.addEmptyCard();
                 mAdapter.refresh();
+                mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
             }
         });
 
@@ -92,19 +101,5 @@ public class CreateDeckFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    public interface OnFragmentInteractionListener {
-    }
-
-    @Override
-    public void onEditIconClick(Deck deck) {
-        // Do nothing here
     }
 }
