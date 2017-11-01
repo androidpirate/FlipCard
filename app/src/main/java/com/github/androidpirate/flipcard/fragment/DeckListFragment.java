@@ -5,8 +5,10 @@ import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 public class DeckListFragment extends Fragment
     implements DeckListAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECKS = "decks";
+    private Toolbar mToolbar;
     private ArrayList<Deck> mDecks;
     private TextView mEmptyListText;
     private RecyclerView mRecyclerView;
@@ -80,6 +83,10 @@ public class DeckListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deck_list, container, false);
+        mToolbar = view.findViewById(R.id.toolbar);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(mToolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mEmptyListText = view.findViewById(R.id.tv_empty_list);
         mRecyclerView = view.findViewById(R.id.rv_deck_list);
         if(mDecks.size() == 0) {
