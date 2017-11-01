@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.androidpirate.flipcard.MainActivity;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.DeckListAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
@@ -88,6 +89,15 @@ public class DeckListFragment extends Fragment
         }
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity activity = (MainActivity) getActivity();
+        if(activity != null) {
+            activity.hideUpButton();
+        }
     }
 
     private void displayEmptyListText(){
