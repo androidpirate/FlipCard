@@ -55,10 +55,14 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     public void showUpButton() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     public void hideUpButton() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
     }
 }

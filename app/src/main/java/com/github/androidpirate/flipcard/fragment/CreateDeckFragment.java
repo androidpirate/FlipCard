@@ -30,7 +30,6 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class CreateDeckFragment extends Fragment {
-    private static final String FRAGMENT_NAME = CreateDeckFragment.class.getSimpleName();
     private static final String ARG_DECK = "deck";
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
@@ -47,7 +46,6 @@ public class CreateDeckFragment extends Fragment {
         void saveDeck(Deck deck);
         List<Deck> getDecks();
         void replaceFragment(Fragment fragment);
-
     }
 
     public CreateDeckFragment() {
