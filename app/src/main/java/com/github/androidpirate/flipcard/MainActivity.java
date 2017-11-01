@@ -10,6 +10,7 @@ import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.utils.DeckFactoryUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends SingleFragmentActivity
     implements DeckListFragment.OnFragmentInteractionListener,
@@ -46,6 +47,11 @@ public class MainActivity extends SingleFragmentActivity
     public void saveDeck(Deck deck) {
         mDbHelper.addDeck(deck);
         replaceFragment(DeckListFragment.newInstance((ArrayList<Deck>) mDbHelper.getAllDecks()));
+    }
+
+    @Override
+    public List<Deck> getDecks() {
+        return mDbHelper.getAllDecks();
     }
 
     private void getDeckDbHelperInstance() {

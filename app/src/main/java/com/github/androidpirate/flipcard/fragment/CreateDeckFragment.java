@@ -18,6 +18,9 @@ import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.CreateDeckAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -41,8 +44,10 @@ public class CreateDeckFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        void replaceFragment(Fragment fragment);
         void saveDeck(Deck deck);
+        List<Deck> getDecks();
+        void replaceFragment(Fragment fragment);
+
     }
 
     public CreateDeckFragment() {
@@ -115,8 +120,9 @@ public class CreateDeckFragment extends Fragment {
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here
+                ArrayList<Deck> decks = (ArrayList<Deck>) mListener.getDecks();
+                mListener.replaceFragment(DeckListFragment.newInstance(decks));
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
