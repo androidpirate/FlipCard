@@ -38,7 +38,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
         if(singleton == null) {
             singleton = new DeckDbHelper(context.getApplicationContext());
         }
-        return singleton;git
+        return singleton;
     }
 
     private DeckDbHelper(Context context) {
