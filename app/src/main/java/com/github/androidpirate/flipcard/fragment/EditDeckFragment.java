@@ -75,14 +75,13 @@ public class EditDeckFragment extends Fragment
             @Override
             public void onClick(View view) {
                 addEmptyCard();
-                mAdapter.refresh(mDeck, mDeck.getCards());
             }
         });
 
         mRecyclerView = view.findViewById(R.id.rv_deck_edit);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
-            mAdapter = new DeckDetailAdapter(this, mDeck, FRAGMENT_NAME);
+            mAdapter = new DeckDetailAdapter(this, mDeck);
         }
         mRecyclerView.setAdapter(mAdapter);
         return view;

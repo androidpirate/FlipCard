@@ -63,8 +63,7 @@ public class DeckDetailFragment extends Fragment
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
             mAdapter = new DeckDetailAdapter(this,
-                    mDeck,
-                    DeckDetailFragment.class.getSimpleName());
+                    mDeck);
         }
         mRecyclerView.setAdapter(mAdapter);
         // Inflate the layout for this fragment
