@@ -16,6 +16,9 @@
     <string name="add_deck_action">ADD DECK</string>
     <string name="save_deck_action">SAVE</string>
 
+    <!-- MainActivity Resources -->
+    <string name="empty_deck_title_warning">Deck title can not be empty.</string>
+
     <!-- DeckListFragment Resources -->
     <string name="empty_list_warning">No recent decks.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

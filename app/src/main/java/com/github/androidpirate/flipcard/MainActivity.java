@@ -1,6 +1,7 @@
 package com.github.androidpirate.flipcard;
 
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.github.androidpirate.flipcard.data.DeckDbHelper;
 import com.github.androidpirate.flipcard.fragment.CreateDeckFragment;
@@ -41,8 +42,12 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public void saveDeck(Deck deck) {
-        mDbHelper.addDeck(deck);
-        replaceFragment(DeckListFragment.newInstance((ArrayList<Deck>) mDbHelper.getAllDecks()));
+        if(deck.getTitle() != null && !deck.getTitle().equals("")) {
+            mDbHelper.addDeck(deck);
+            replaceFragment(DeckListFragment.newInstance((ArrayList<Deck>) mDbHelper.getAllDecks()));
+        } else {
+            Toast.makeText(this, getString(R.string.empty_deck_title_warning), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
