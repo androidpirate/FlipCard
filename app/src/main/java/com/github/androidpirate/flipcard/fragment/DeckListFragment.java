@@ -22,6 +22,7 @@ import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.DeckListAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +36,6 @@ import java.util.ArrayList;
 public class DeckListFragment extends Fragment
     implements DeckListAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECKS = "decks";
-    private Toolbar mToolbar;
     private ArrayList<Deck> mDecks;
     private TextView mEmptyListText;
     private RecyclerView mRecyclerView;
@@ -83,9 +83,9 @@ public class DeckListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deck_list, container, false);
-        mToolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(mToolbar);
+        activity.setSupportActionBar(toolbar);
         if(activity.getSupportActionBar() != null) {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -112,7 +112,7 @@ public class DeckListFragment extends Fragment
     private void displayEmptyListText(){
         mRecyclerView.setVisibility(View.INVISIBLE);
         mEmptyListText.setVisibility(View.VISIBLE);
-        mEmptyListText.setText("No recent decks.");
+        mEmptyListText.setText(getString(R.string.empty_list_warning));
     }
 
     private void displayDeckList(){
