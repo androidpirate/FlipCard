@@ -14,7 +14,7 @@ public class DeckActivity extends SingleFragmentActivity
 
     @Override
     protected Fragment createFragment() {
-        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstace(this).getAllDecks();
+        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstance(this).getAllDecks();
         return DeckListFragment.newInstance(decks);
     }
 
@@ -30,7 +30,7 @@ public class DeckActivity extends SingleFragmentActivity
 
     @Override
     public void onBackPressed() {
-        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstace(this).getAllDecks();
+        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDbHelper.newInstance(this).getAllDecks();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, DeckListFragment.newInstance(decks))

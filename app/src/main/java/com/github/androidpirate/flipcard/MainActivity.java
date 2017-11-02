@@ -51,7 +51,7 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     private void getDeckDbHelperInstance() {
-        mDbHelper = DeckDbHelper.newInstace(getApplicationContext());
+        mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
     }
 
     public void showUpButton() {
