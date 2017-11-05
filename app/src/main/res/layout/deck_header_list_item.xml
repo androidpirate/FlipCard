@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="120dp"
+    android:fitsSystemWindows="true"
     android:padding="@dimen/small_padding"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
     <ImageView
         android:id="@+id/iv_deck_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerVertical="true"
         android:src="@mipmap/ic_flip_card"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@android:color/transparent"/>
+        android:background="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/tv_deck_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/iv_deck_icon"
         android:layout_toEndOf="@id/iv_deck_icon"
         android:layout_marginLeft="@dimen/small_margin"
@@ -38,8 +42,6 @@
         android:layout_toEndOf="@id/iv_deck_icon"
         android:layout_marginLeft="@dimen/small_margin"
         android:layout_marginStart="@dimen/small_margin"
-        android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginBottom="@dimen/small_margin"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         tools:text="Category"/>
@@ -53,8 +55,6 @@
         android:layout_toEndOf="@id/tv_deck_category"
         android:layout_marginLeft="@dimen/small_margin"
         android:layout_marginStart="@dimen/small_margin"
-        android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginBottom="@dimen/small_margin"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         tools:text="/ 43 Cards"/>
