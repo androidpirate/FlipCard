@@ -24,11 +24,10 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.github.androidpirate.flipcard.fragment.BackCardFragment;
+import com.github.androidpirate.flipcard.fragment.CardFrontFragment;
 import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
-import com.github.androidpirate.flipcard.fragment.FrontCardFragment;
 import com.github.androidpirate.flipcard.fragment.ScoreFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
@@ -36,7 +35,7 @@ import com.github.androidpirate.flipcard.model.FlipCard;
 import java.util.ArrayList;
 
 public class PracticeActivity extends SingleFragmentActivity implements
-        FrontCardFragment.OnFragmentInteractionListener,
+        CardFrontFragment.OnFragmentInteractionListener,
         BackCardFragment.OnFragmentInteractionListener,
         CorrectCardFragment.OnFragmentInteractionListener,
         ScoreFragment.OnFragmentInteractionListener {
@@ -60,7 +59,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
             mFlipCard = mCards.get(mCardIndex);
         }
         mProgressBar.setVisibility(View.VISIBLE);
-        return FrontCardFragment.newInstance(mFlipCard);
+        return CardFrontFragment.newInstance(mFlipCard);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
                     mCardIndex = mCardIndex % mCards.size();
                     mFlipCard = mCards.get(mCardIndex);
                     updateProgress();
-                    Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
+                    Fragment fragment = CardFrontFragment.newInstance(mFlipCard);
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);
@@ -114,7 +113,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
         } else if (fragment instanceof CorrectCardFragment) {
             enterAnimRes = R.anim.fade_in;
             exitAnimRes = R.anim.card_left_out;
-        } else if (fragment instanceof FrontCardFragment ||
+        } else if (fragment instanceof CardFrontFragment ||
                     fragment instanceof ScoreFragment) {
             enterAnimRes = R.anim.card_right_in;
             exitAnimRes = R.anim.card_left_out;

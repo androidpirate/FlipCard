@@ -37,12 +37,12 @@ import com.github.androidpirate.flipcard.model.FlipCard;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FrontCardFragment.OnFragmentInteractionListener} interface
+ * {@link CardFrontFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FrontCardFragment#newInstance} factory method to
+ * Use the {@link CardFrontFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FrontCardFragment extends Fragment {
+public class CardFrontFragment extends Fragment {
     private static final String ARG_CARD = "card";
     private FlipCard mCard;
     private TextView mFrontText;
@@ -51,17 +51,17 @@ public class FrontCardFragment extends Fragment {
     private ImageButton mFlipCard;
     private OnFragmentInteractionListener mListener;
 
-    public FrontCardFragment() {
+    public CardFrontFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment FrontCardFragment.
+     * @return A new instance of fragment CardFrontFragment.
      */
-    public static FrontCardFragment newInstance(FlipCard card) {
-        FrontCardFragment fragment = new FrontCardFragment();
+    public static CardFrontFragment newInstance(FlipCard card) {
+        CardFrontFragment fragment = new CardFrontFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CARD, card);
         fragment.setArguments(args);
@@ -134,17 +134,6 @@ public class FrontCardFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) activity;
-        } else {
-            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
