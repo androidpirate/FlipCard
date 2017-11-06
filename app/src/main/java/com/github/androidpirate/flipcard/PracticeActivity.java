@@ -108,15 +108,15 @@ public class PracticeActivity extends SingleFragmentActivity implements
         int enterAnimRes = 0;
         int exitAnimRes = 0;
         if(fragment instanceof BackCardFragment) {
-            enterAnimRes = R.anim.fade_in;
-            exitAnimRes = R.anim.fade_out;
+            enterAnimRes = R.anim.card_flip_right_in;
+            exitAnimRes = R.anim.card_left_out;
         } else if (fragment instanceof CorrectCardFragment) {
-            enterAnimRes = R.anim.fade_in;
+            enterAnimRes = R.anim.card_right_in;
             exitAnimRes = R.anim.card_left_out;
         } else if (fragment instanceof CardFrontFragment ||
                     fragment instanceof ScoreFragment) {
             enterAnimRes = R.anim.card_right_in;
-            exitAnimRes = R.anim.card_left_out;
+            exitAnimRes = R.anim.card_flip_left_out;
         }
         getSupportFragmentManager()
                 .beginTransaction()
