@@ -21,6 +21,6 @@
     <string name="empty_deck_title_warning">Deck title can not be empty.</string>
 
     <!-- DeckListFragment Resources -->
-    <string name="empty_list_warning">No recent decks.</string>
+    <string name="empty_list_warning">You have no decks.</string>
     <string name="deck_list_item_size" formatted="false">%d Cards</string>
 </resources>

@@ -20,10 +20,10 @@
         android:id="@+id/tv_empty_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:visibility="invisible"
-        style="@style/CardTextViewStyle"
-        android:textColor="@android:color/black"
+        android:textSize="22sp"
         tools:text="No recent decks."/>
 
     <android.support.v7.widget.RecyclerView
