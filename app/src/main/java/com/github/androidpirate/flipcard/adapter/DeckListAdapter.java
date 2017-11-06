@@ -1,5 +1,6 @@
 package com.github.androidpirate.flipcard.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +18,16 @@ import java.util.ArrayList;
 public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHolder> {
     private ArrayList<Deck> mDecks = new ArrayList<>();
     private OnAdapterInteractionListener mListener;
+    private Context mContext;
 
-    public DeckListAdapter(OnAdapterInteractionListener listener,
-                           ArrayList<Deck> decks) {
+    public DeckListAdapter(OnAdapterInteractionListener listener, ArrayList<Deck> decks) {
         mListener = listener;
         mDecks = decks;
     }
 
     @Override
     public DeckHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.deck_list_item, parent, false);
         return new DeckHolder(view);
@@ -61,7 +63,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHo
 
         public void onBindDeck(Deck deck) {
             mTitle.setText(deck.getTitle());
-            mSize.setText(String.valueOf(deck.getSize()));
+            mSize.setText(String.format(mContext.getString(R.string.deck_list_item_size), deck.getSize()));
         }
     }
 
