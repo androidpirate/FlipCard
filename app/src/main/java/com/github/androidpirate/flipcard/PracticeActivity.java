@@ -28,6 +28,7 @@ import android.view.View;
 import com.github.androidpirate.flipcard.fragment.BackCardFragment;
 import com.github.androidpirate.flipcard.fragment.CardFrontFragment;
 import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
+import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.ScoreFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
@@ -39,7 +40,9 @@ public class PracticeActivity extends SingleFragmentActivity implements
         BackCardFragment.OnFragmentInteractionListener,
         CorrectCardFragment.OnFragmentInteractionListener,
         ScoreFragment.OnFragmentInteractionListener {
+    private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
     private static final String EXTRA_DECK = "extra_deck";
+    private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
     // In milliseconds
     private static final int ANIMATION_DELAY_TIME = 1500;
     private Deck mDeck;
@@ -139,7 +142,9 @@ public class PracticeActivity extends SingleFragmentActivity implements
     @Override
     public void restart() {
         finish();
-        startActivity(new Intent(this, PracticeActivity.class));
+        Intent intent = new Intent(this, PracticeActivity.class);
+        intent.putExtra(EXTRA_DECK, mDeck);
+        startActivity(intent);
     }
 
     @Override
@@ -151,9 +156,10 @@ public class PracticeActivity extends SingleFragmentActivity implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                moveTaskToBack(true);
-                                android.os.Process.killProcess(android.os.Process.myPid());
-                                System.exit(1);
+                                Intent intent = new Intent(PracticeActivity.this, MainActivity.class);
+                                intent.putExtra(EXTRA_FRAGMENT_INFO, FRAGMENT_DECK_DETAIL);
+                                intent.putExtra(EXTRA_DECK, mDeck);
+                                startActivity(intent);
                             }
                         })
                 .setNegativeButton(R.string.exit_dialog_negative_button_text,

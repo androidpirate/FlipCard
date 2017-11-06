@@ -16,14 +16,25 @@ public class MainActivity extends SingleFragmentActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
                 CreateDeckFragment.OnFragmentInteractionListener {
-
+    private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
+    private static final String EXTRA_DECK = "extra_deck";
+    private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
+    private String mFragment;
     private DeckDbHelper mDbHelper;
 
     @Override
     protected Fragment createFragment() {
         mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
-        ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
-        return DeckListFragment.newInstance(decks);
+        mFragment = getIntent().getStringExtra(EXTRA_FRAGMENT_INFO);
+        Fragment fragment;
+        if(mFragment != null && mFragment.equals(FRAGMENT_DECK_DETAIL)) {
+            Deck deck = (Deck) getIntent().getSerializableExtra(EXTRA_DECK);
+            fragment = DeckDetailFragment.newInstance(deck);
+        } else {
+            ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
+            return DeckListFragment.newInstance(decks);
+        }
+        return fragment;
     }
 
     @Override

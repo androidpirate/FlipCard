@@ -2,8 +2,8 @@
     <string name="app_name">FlipCard</string>
     <!-- Exit Dialog String Resources -->
     <string name="exit_dialog_title"><b>FlipCard</b></string>
-    <string name="exit_dialog_message">Are you sure you want to exit the app?</string>
-    <string name="exit_dialog_positive_button_text">EXIT</string>
+    <string name="exit_dialog_message">Are you sure you want to leave practice ?</string>
+    <string name="exit_dialog_positive_button_text">LEAVE</string>
     <string name="exit_dialog_negative_button_text">CANCEL</string>
 
     <!-- Card Text String Resources -->
