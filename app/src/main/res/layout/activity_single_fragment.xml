@@ -21,8 +21,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="@dimen/small_margin"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
     <FrameLayout
         android:id="@+id/fragment_container"
+        android:layout_below="@id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

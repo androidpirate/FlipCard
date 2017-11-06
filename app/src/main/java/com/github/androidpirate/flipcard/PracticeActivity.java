@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.github.androidpirate.flipcard.fragment.BackCardFragment;
 import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
@@ -57,7 +59,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
             mCards = mDeck.getCards();
             mFlipCard = mCards.get(mCardIndex);
         }
-        // mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
         return FrontCardFragment.newInstance(mFlipCard);
     }
 
@@ -95,7 +97,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //mProgressBar.setVisibility(View.INVISIBLE);
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     Fragment fragment = ScoreFragment.newInstance(mScore);
                     replaceCard(fragment);
                 }
@@ -132,7 +134,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
         if(mCardIndex != 0) {
             progress = (index / deckSize) * 100;
         }
-        //mProgressBar.setProgress((int) progress);
+        mProgressBar.setProgress((int) progress);
     }
 
     @Override
