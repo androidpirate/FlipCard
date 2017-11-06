@@ -127,6 +127,8 @@ public class DeckDetailFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.practice:
+                Fragment fragment = PracticeFragment.newInstance(mDeck);
+                mListener.replaceFragment(fragment);
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here
