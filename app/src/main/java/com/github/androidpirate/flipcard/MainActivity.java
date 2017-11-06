@@ -7,7 +7,6 @@ import com.github.androidpirate.flipcard.data.DeckDbHelper;
 import com.github.androidpirate.flipcard.fragment.CreateDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.DeckListFragment;
-import com.github.androidpirate.flipcard.fragment.PracticeFragment;
 import com.github.androidpirate.flipcard.model.Deck;
 
 import java.util.ArrayList;
@@ -16,20 +15,15 @@ import java.util.List;
 public class MainActivity extends SingleFragmentActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
-                CreateDeckFragment.OnFragmentInteractionListener,
-                PracticeFragment.OnFragmentInteractionListener{
+                CreateDeckFragment.OnFragmentInteractionListener {
 
     private DeckDbHelper mDbHelper;
 
     @Override
     protected Fragment createFragment() {
+        mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
         ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
         return DeckListFragment.newInstance(decks);
-    }
-
-    @Override
-    protected void getDatabaseHelper() {
-        getDeckDbHelperInstance();
     }
 
     @Override
@@ -55,10 +49,6 @@ public class MainActivity extends SingleFragmentActivity
     @Override
     public List<Deck> getDecks() {
         return mDbHelper.getAllDecks();
-    }
-
-    private void getDeckDbHelperInstance() {
-        mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
     }
 
     public void showUpButton() {

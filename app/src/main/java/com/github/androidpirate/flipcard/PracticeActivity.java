@@ -23,14 +23,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 
 import com.github.androidpirate.flipcard.fragment.BackCardFragment;
 import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
 import com.github.androidpirate.flipcard.fragment.FrontCardFragment;
 import com.github.androidpirate.flipcard.fragment.ScoreFragment;
+import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
-import com.github.androidpirate.flipcard.utils.CardFactoryUtils;
 
 import java.util.ArrayList;
 
@@ -39,24 +38,27 @@ public class PracticeActivity extends SingleFragmentActivity implements
         BackCardFragment.OnFragmentInteractionListener,
         CorrectCardFragment.OnFragmentInteractionListener,
         ScoreFragment.OnFragmentInteractionListener {
+    private static final String EXTRA_DECK = "extra_deck";
     // In milliseconds
     private static final int ANIMATION_DELAY_TIME = 1500;
-    private final ArrayList<FlipCard> mCards = CardFactoryUtils.getInstance("Test").getCards();
+    private Deck mDeck;
+    private ArrayList<FlipCard> mCards;
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
     private int mScore = 0;
 
     @Override
     protected Fragment createFragment() {
-        mFlipCard = mCards.get(mCardIndex);
+        Intent intent = getIntent();
+        if (intent != null) {
+            mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
+        }
+        if(mDeck != null) {
+            mCards = mDeck.getCards();
+            mFlipCard = mCards.get(mCardIndex);
+        }
         // mProgressBar.setVisibility(View.VISIBLE);
-        getSupportActionBar().hide();
         return FrontCardFragment.newInstance(mFlipCard);
-    }
-
-    @Override
-    protected void getDatabaseHelper() {
-
     }
 
     @Override

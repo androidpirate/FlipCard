@@ -1,6 +1,7 @@
 package com.github.androidpirate.flipcard.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.MainActivity;
+import com.github.androidpirate.flipcard.PracticeActivity;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.DeckDetailAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
@@ -34,6 +36,7 @@ import java.util.List;
 public class DeckDetailFragment extends Fragment
     implements DeckDetailAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECK = "deck";
+    private static final String EXTRA_DECK = "extra_deck";
     private Deck mDeck;
     private TextView mTitle;
     private TextView mCategory;
@@ -83,6 +86,7 @@ public class DeckDetailFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deck_detail, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -105,7 +109,7 @@ public class DeckDetailFragment extends Fragment
                     mDeck);
         }
         mRecyclerView.setAdapter(mAdapter);
-        // Inflate the layout for this fragment
+
         return view;
     }
 
@@ -127,8 +131,10 @@ public class DeckDetailFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.practice:
-                Fragment fragment = PracticeFragment.newInstance(mDeck);
-                mListener.replaceFragment(fragment);
+                // Start PracticeActivity
+                Intent intent = new Intent(getContext(), PracticeActivity.class);
+                intent.putExtra(EXTRA_DECK, mDeck);
+                startActivity(intent);
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here
