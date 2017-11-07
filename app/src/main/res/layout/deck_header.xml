@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:fitsSystemWindows="true"
-    android:layout_margin="@dimen/small_margin"
     android:background="@color/colorPrimary"
     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -14,20 +13,21 @@
         android:id="@+id/iv_deck_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/ic_flip_card"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/small_margin"
+        android:src="@mipmap/ic_launcher_round"
         android:background="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/tv_deck_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/iv_deck_icon"
         android:layout_toEndOf="@id/iv_deck_icon"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="@dimen/small_margin"
         android:layout_marginStart="@dimen/small_margin"
-        android:layout_marginBottom="@dimen/small_margin"
         android:textColor="@android:color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -67,17 +67,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/small_margin"
-        android:layout_marginEnd="@dimen/small_margin"/>
-
-    <ImageView
-        android:id="@+id/iv_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_border"
-        android:layout_toLeftOf="@id/iv_edit"
-        android:layout_toStartOf="@id/iv_edit"
-        android:layout_marginRight="@dimen/small_margin"
-        android:layout_marginEnd="@dimen/small_margin"/>
+        android:layout_margin="@dimen/regular_margin"/>
 
 </RelativeLayout>
