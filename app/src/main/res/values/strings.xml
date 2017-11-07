@@ -26,4 +26,5 @@
 
     <!-- DeckDetailFragment Resources -->
     <string name="header_deck_size" formatted="false"> / %d Cards</string>
+    <string name="edit_button_toast">Editing decks will be available soon.</string>
 </resources>

@@ -14,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.androidpirate.flipcard.MainActivity;
 import com.github.androidpirate.flipcard.PracticeActivity;
@@ -41,6 +43,7 @@ public class DeckDetailFragment extends Fragment
     private TextView mTitle;
     private TextView mCategory;
     private TextView mSize;
+    private ImageView mEditButton;
     private RecyclerView mRecyclerView;
     private DeckDetailAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
@@ -100,7 +103,19 @@ public class DeckDetailFragment extends Fragment
         mCategory.setText(mDeck.getCategory());
 
         mSize = view.findViewById(R.id.tv_deck_size);
-        mSize.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
+        mSize.setText(String
+                .format(getString(R.string.header_deck_size), mDeck.getSize()));
+
+        mEditButton = view.findViewById(R.id.iv_edit);
+        mEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),
+                        getString(R.string.edit_button_toast),
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
 
         mRecyclerView = view.findViewById(R.id.rv_deck_detail);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
