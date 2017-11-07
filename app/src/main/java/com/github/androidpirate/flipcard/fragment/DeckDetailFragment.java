@@ -100,7 +100,7 @@ public class DeckDetailFragment extends Fragment
         mCategory.setText(mDeck.getCategory());
 
         mSize = view.findViewById(R.id.tv_deck_size);
-        mSize.setText(mDeck.getSize() + " Cards");
+        mSize.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
 
         mRecyclerView = view.findViewById(R.id.rv_deck_detail);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
