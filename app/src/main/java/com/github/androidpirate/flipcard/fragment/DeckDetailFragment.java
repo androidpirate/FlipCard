@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.androidpirate.flipcard.MainActivity;
 import com.github.androidpirate.flipcard.PracticeActivity;
@@ -56,6 +55,7 @@ public class DeckDetailFragment extends Fragment
      */
     public interface OnFragmentInteractionListener {
         List<Deck> getDecks();
+        Deck getDeck(int deckId);
         void replaceFragment(Fragment fragment);
     }
 
@@ -110,10 +110,9 @@ public class DeckDetailFragment extends Fragment
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),
-                        getString(R.string.edit_button_toast),
-                        Toast.LENGTH_SHORT)
-                        .show();
+                Deck deck = mListener.getDeck(mDeck.getId());
+                Fragment fragment = CreateDeckFragment.newInstance(deck);
+                mListener.replaceFragment(fragment);
             }
         });
 

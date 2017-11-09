@@ -62,6 +62,12 @@ public class MainActivity extends SingleFragmentActivity
         return mDbHelper.getAllDecks();
     }
 
+    @Override
+    public Deck getDeck(int deckId) {
+        String deckIdString = String.valueOf(deckId);
+        return mDbHelper.getDeck(deckIdString);
+    }
+
     public void showUpButton() {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
