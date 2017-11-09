@@ -3,8 +3,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/save_deck"
-        android:title="@string/save_deck_action"
+        android:id="@+id/update_deck"
+        android:title="@string/update_deck_action"
         app:showAsAction="always"/>
 
 </menu>

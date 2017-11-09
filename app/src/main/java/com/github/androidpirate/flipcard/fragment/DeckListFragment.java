@@ -22,7 +22,6 @@ import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.adapter.DeckListAdapter;
 import com.github.androidpirate.flipcard.model.Deck;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 public class DeckListFragment extends Fragment
     implements DeckListAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECKS = "decks";
+    private static final boolean EDIT_MODE_ON = false;
     private ArrayList<Deck> mDecks;
     private TextView mEmptyListText;
     private RecyclerView mRecyclerView;
@@ -137,7 +137,7 @@ public class DeckListFragment extends Fragment
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction()
                         .replace(R.id.fragment_container,
-                                CreateDeckFragment.newInstance(new Deck()))
+                                EditDeckFragment.newInstance(new Deck(), EDIT_MODE_ON))
                         .commit();
                 return true;
         }

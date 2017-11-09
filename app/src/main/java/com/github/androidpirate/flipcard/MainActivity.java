@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.github.androidpirate.flipcard.data.DeckDbHelper;
-import com.github.androidpirate.flipcard.fragment.CreateDeckFragment;
+import com.github.androidpirate.flipcard.fragment.EditDeckFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.DeckListFragment;
 import com.github.androidpirate.flipcard.model.Deck;
@@ -15,7 +15,7 @@ import java.util.List;
 public class MainActivity extends SingleFragmentActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
-                CreateDeckFragment.OnFragmentInteractionListener {
+                EditDeckFragment.OnFragmentInteractionListener {
     private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
     private static final String EXTRA_DECK = "extra_deck";
     private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
@@ -52,6 +52,17 @@ public class MainActivity extends SingleFragmentActivity
         if(deck.getTitle() != null && !deck.getTitle().equals("")) {
             mDbHelper.addDeck(deck);
             replaceFragment(DeckListFragment.newInstance((ArrayList<Deck>) mDbHelper.getAllDecks()));
+        } else {
+            Toast.makeText(this, getString(R.string.empty_deck_title_warning), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void updateDeck(Deck deck) {
+        if(deck.getTitle() != null && !deck.getTitle().equals("")) {
+            mDbHelper.updateDeck(deck);
+            String deckIdString = String.valueOf(deck.getId());
+            replaceFragment(DeckDetailFragment.newInstance((mDbHelper.getDeck(deckIdString))));
         } else {
             Toast.makeText(this, getString(R.string.empty_deck_title_warning), Toast.LENGTH_SHORT).show();
         }
