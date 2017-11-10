@@ -17,10 +17,11 @@
 
         <ImageView
             android:id="@+id/iv_deck_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/regular_margin"
             android:src="@drawable/ic_deck_item"/>
 
         <TextView
@@ -28,7 +29,7 @@
             style="@style/DeckListTitleTextViewStyle"
             android:layout_toRightOf="@id/iv_deck_icon"
             android:layout_toEndOf="@id/iv_deck_icon"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginTop="@dimen/regular_margin"
             android:layout_marginBottom="@dimen/small_margin"
             tools:text="Deck Title"/>
 
@@ -47,6 +48,16 @@
             android:layout_toRightOf="@id/tv_category"
             android:layout_below="@id/tv_title"
             tools:text="Deck Size"/>
+
+        <ImageView
+            android:id="@+id/iv_pin_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_unpinned"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/x_small_padding"
+            tools:src="@drawable/ic_unpinned"/>
 
     </RelativeLayout>
 

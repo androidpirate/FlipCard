@@ -19,7 +19,7 @@
     <dimen name="xx_large_padding">48dp</dimen>
 
     <!-- Deck List Item Resources -->
-    <dimen name="deck_list_card_height">100dp</dimen>
+    <dimen name="deck_list_card_height">110dp</dimen>
 
     <!-- Practice Card Dimension Resources -->
     <dimen name="practice_card_width">320dp</dimen>
