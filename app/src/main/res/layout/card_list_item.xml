@@ -12,56 +12,43 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/small_padding">
+        android:padding="@dimen/regular_padding">
 
         <TextView
             android:id="@+id/tv_front_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CardListItemTextViewStyle"
+            android:textStyle="bold"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="@dimen/regular_margin"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
+            android:layout_margin="@dimen/small_margin"
             android:text="Front: "/>
 
         <TextView
             android:id="@+id/tv_front"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/CardListItemTextViewStyle"
             android:layout_toRightOf="@id/tv_front_tag"
             android:layout_toEndOf="@id/tv_front_tag"
-            android:layout_margin="@dimen/regular_margin"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/small_margin"
             tools:text="La pantalla"/>
 
         <TextView
             android:id="@+id/tv_rear_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CardListItemTextViewStyle"
             android:layout_below="@id/tv_front_tag"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="@dimen/regular_margin"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/small_margin"
             android:textStyle="bold"
             android:text="Back: "/>
 
         <TextView
             android:id="@+id/tv_rear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CardListItemTextViewStyle"
             android:layout_below="@id/tv_front"
             android:layout_toRightOf="@id/tv_rear_tag"
             android:layout_toEndOf="@id/tv_rear_tag"
-            android:layout_margin="@dimen/regular_margin"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/small_margin"
             tools:text="Screen"/>
-
 
     </RelativeLayout>
 

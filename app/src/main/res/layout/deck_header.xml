@@ -4,59 +4,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/xx_small_padding"
     android:fitsSystemWindows="true"
     android:background="@color/colorPrimary"
     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
     <ImageView
         android:id="@+id/iv_deck_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/small_margin"
-        android:src="@mipmap/ic_launcher_round"
-        android:background="@android:color/transparent"/>
+        style="@style/DeckHeaderImageIconStyle"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/deck_header_margin"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"/>
 
     <TextView
         android:id="@+id/tv_deck_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DeckHeaderTitleTextViewStyle"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/iv_deck_icon"
         android:layout_toEndOf="@id/iv_deck_icon"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="@dimen/small_margin"
-        android:layout_marginStart="@dimen/small_margin"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:layout_marginTop="@dimen/deck_header_margin"
+        android:layout_marginLeft="@dimen/regular_margin"
+        android:layout_marginStart="@dimen/regular_margin"
+        android:layout_marginRight="@dimen/regular_margin"
+        android:layout_marginEnd="@dimen/regular_margin"
         tools:text="Deck Title"/>
 
     <TextView
         android:id="@+id/tv_deck_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DeckHeaderTextViewStyle"
         android:layout_below="@id/tv_deck_title"
         android:layout_toRightOf="@id/iv_deck_icon"
         android:layout_toEndOf="@id/iv_deck_icon"
-        android:layout_marginLeft="@dimen/small_margin"
-        android:layout_marginStart="@dimen/small_margin"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:layout_marginLeft="@dimen/regular_margin"
+        android:layout_marginStart="@dimen/regular_margin"
         tools:text="Category"/>
 
     <TextView
         android:id="@+id/tv_deck_size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DeckHeaderTextViewStyle"
         android:layout_below="@id/tv_deck_title"
         android:layout_toRightOf="@id/tv_deck_category"
         android:layout_toEndOf="@id/tv_deck_category"
         android:layout_marginLeft="@dimen/small_margin"
         android:layout_marginStart="@dimen/small_margin"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
         tools:text="/ 43 Cards"/>
 
     <ImageView

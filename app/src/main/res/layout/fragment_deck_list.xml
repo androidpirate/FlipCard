@@ -23,7 +23,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:visibility="invisible"
-        android:textSize="22sp"
+        android:textSize="@dimen/regular_text_size"
         tools:text="No recent decks."/>
 
     <android.support.v7.widget.RecyclerView
@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_margin="@dimen/small_margin"/>
+        android:layout_margin="@dimen/small_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </RelativeLayout>

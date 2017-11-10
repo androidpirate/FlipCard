@@ -100,7 +100,7 @@ public class EditDeckFragment extends Fragment {
                 mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
             }
         });
-        mRecyclerView = view.findViewById(R.id.rv_deck_create);
+        mRecyclerView = view.findViewById(R.id.rv_edit_deck);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
         if(mAdapter == null) {

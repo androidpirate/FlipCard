@@ -16,12 +16,12 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_deck_create"
+        android:id="@+id/rv_edit_deck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:layout_margin="@dimen/small_margin"
-        tools:context="com.github.androidpirate.flipcard.fragment.EditDeckFragment"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
