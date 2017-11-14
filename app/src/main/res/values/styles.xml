@@ -58,7 +58,7 @@
     <style name="DeckHeaderImageIconStyle">
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">80dp</item>
-        <item name="android:src">@mipmap/ic_launcher_round</item>
+        <item name="android:src">@mipmap/ic_flip_card</item>
     </style>
 
     <style name="DeckHeaderTitleTextViewStyle">

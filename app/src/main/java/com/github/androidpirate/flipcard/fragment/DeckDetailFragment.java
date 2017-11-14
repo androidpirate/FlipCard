@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.MainActivity;
@@ -43,7 +42,6 @@ public class DeckDetailFragment extends Fragment
     private TextView mTitle;
     private TextView mCategory;
     private TextView mSize;
-    private ImageView mEditButton;
     private RecyclerView mRecyclerView;
     private DeckDetailAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
@@ -106,16 +104,6 @@ public class DeckDetailFragment extends Fragment
         mSize = view.findViewById(R.id.tv_deck_size);
         mSize.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
 
-        mEditButton = view.findViewById(R.id.iv_edit);
-        mEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Deck deck = mListener.getDeck(mDeck.getId());
-                Fragment fragment = EditDeckFragment.newInstance(deck, EDIT_MODE_ON);
-                mListener.replaceFragment(fragment);
-            }
-        });
-
         mRecyclerView = view.findViewById(R.id.rv_deck_detail);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
@@ -143,11 +131,19 @@ public class DeckDetailFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.practice:
+            case R.id.ic_practice:
                 // Start PracticeActivity
                 Intent intent = new Intent(getContext(), PracticeActivity.class);
                 intent.putExtra(EXTRA_DECK, mDeck);
                 startActivity(intent);
+                return true;
+            case R.id.ic_edit:
+                Deck deck = mListener.getDeck(mDeck.getId());
+                Fragment fragment = EditDeckFragment.newInstance(deck, EDIT_MODE_ON);
+                mListener.replaceFragment(fragment);
+                return  true;
+            case R.id.ic_pin:
+                // Handle pinning a deck on top of the list here
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here
