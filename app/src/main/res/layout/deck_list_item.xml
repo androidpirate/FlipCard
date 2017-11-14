@@ -15,21 +15,22 @@
         android:layout_height="match_parent"
         android:padding="@dimen/small_padding">
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/iv_deck_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentStart="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_flip_card"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="@dimen/regular_margin"
-            android:src="@drawable/ic_deck_item"/>
+            android:layout_alignParentStart="true"/>
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/DeckListTitleTextViewStyle"
             android:layout_toRightOf="@id/iv_deck_icon"
             android:layout_toEndOf="@id/iv_deck_icon"
-            android:layout_marginTop="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginStart="@dimen/x_small_margin"
             android:layout_marginBottom="@dimen/small_margin"
             tools:text="Deck Title"/>
 
@@ -39,6 +40,8 @@
             android:layout_toRightOf="@id/iv_deck_icon"
             android:layout_toEndOf="@id/iv_deck_icon"
             android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginStart="@dimen/x_small_margin"
             tools:text="Deck Category"/>
 
         <TextView
@@ -54,6 +57,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_unpinned"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/x_small_padding"

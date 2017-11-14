@@ -28,7 +28,7 @@
     <style name="DeckListTitleTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
@@ -36,7 +36,7 @@
     <style name="DeckListTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/x_small_text_size</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 
