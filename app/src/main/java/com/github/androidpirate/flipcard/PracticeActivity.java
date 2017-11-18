@@ -26,7 +26,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.github.androidpirate.flipcard.fragment.BackCardFragment;
-import com.github.androidpirate.flipcard.fragment.CardFrontFragment;
+import com.github.androidpirate.flipcard.fragment.FrontCardFragment;
 import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.ScoreFragment;
@@ -36,7 +36,7 @@ import com.github.androidpirate.flipcard.model.FlipCard;
 import java.util.ArrayList;
 
 public class PracticeActivity extends SingleFragmentActivity implements
-        CardFrontFragment.OnFragmentInteractionListener,
+        FrontCardFragment.OnFragmentInteractionListener,
         BackCardFragment.OnFragmentInteractionListener,
         CorrectCardFragment.OnFragmentInteractionListener,
         ScoreFragment.OnFragmentInteractionListener {
@@ -62,7 +62,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
             mFlipCard = mCards.get(mCardIndex);
         }
         mProgressBar.setVisibility(View.VISIBLE);
-        return CardFrontFragment.newInstance(mFlipCard);
+        return FrontCardFragment.newInstance(mFlipCard);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
                     mCardIndex = mCardIndex % mCards.size();
                     mFlipCard = mCards.get(mCardIndex);
                     updateProgress();
-                    Fragment fragment = CardFrontFragment.newInstance(mFlipCard);
+                    Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);
@@ -116,7 +116,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
         } else if (fragment instanceof CorrectCardFragment) {
             enterAnimRes = R.anim.card_right_in;
             exitAnimRes = R.anim.card_left_out;
-        } else if (fragment instanceof CardFrontFragment ||
+        } else if (fragment instanceof FrontCardFragment ||
                     fragment instanceof ScoreFragment) {
             enterAnimRes = R.anim.card_right_in;
             exitAnimRes = R.anim.card_flip_left_out;

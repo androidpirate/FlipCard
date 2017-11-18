@@ -18,7 +18,6 @@
 
 package com.github.androidpirate.flipcard.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,12 +36,12 @@ import com.github.androidpirate.flipcard.model.FlipCard;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CardFrontFragment.OnFragmentInteractionListener} interface
+ * {@link FrontCardFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CardFrontFragment#newInstance} factory method to
+ * Use the {@link FrontCardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CardFrontFragment extends Fragment {
+public class FrontCardFragment extends Fragment {
     private static final String ARG_CARD = "card";
     private FlipCard mCard;
     private TextView mFrontText;
@@ -51,17 +50,17 @@ public class CardFrontFragment extends Fragment {
     private ImageButton mFlipCard;
     private OnFragmentInteractionListener mListener;
 
-    public CardFrontFragment() {
+    public FrontCardFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment CardFrontFragment.
+     * @return A new instance of fragment FrontCardFragment.
      */
-    public static CardFrontFragment newInstance(FlipCard card) {
-        CardFrontFragment fragment = new CardFrontFragment();
+    public static FrontCardFragment newInstance(FlipCard card) {
+        FrontCardFragment fragment = new FrontCardFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CARD, card);
         fragment.setArguments(args);
