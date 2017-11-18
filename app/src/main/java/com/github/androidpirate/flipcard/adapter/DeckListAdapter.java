@@ -109,8 +109,11 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Deck deck = mDecks.get(getAdapterPosition());
-                    mListener.onItemClick(deck);
+                    Object item = mItems.get(getAdapterPosition());
+                    if(item instanceof Deck) {
+                        Deck deck = (Deck) item;
+                        mListener.onItemClick(deck);
+                    }
                 }
             });
         }
