@@ -44,4 +44,17 @@ public class DeckManager {
         }
         return items;
     }
+
+    public ArrayList<Object> getEditListItems(Deck deck) {
+        ArrayList<Object> items = new ArrayList<>();
+        int itemIndex = 0;
+        while (itemIndex < deck.getSize()) {
+            if(itemIndex == 0) {
+                items.add(deck);
+            }
+            items.add(deck.getCards().get(itemIndex));
+            itemIndex++;
+        }
+        return items;
+    }
 }

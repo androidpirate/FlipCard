@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipcard.utils.DeckManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Adapter class for EditDeckFragment.
@@ -22,8 +22,8 @@ import java.util.List;
 public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int DECK = 0;
     private final static int CARD = 1;
+    private ArrayList<Object> mItems = new ArrayList<>();
     private Deck mDeck;
-    private List<Object> mItems = new ArrayList<>();
 
     public EditDeckAdapter(Deck deck) {
         if (deck != null) {
@@ -33,8 +33,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(deck != null && deck.getSize() == 0) {
             mDeck.addEmptyCard();
         }
-        mItems.add(mDeck);
-        mItems.addAll(mDeck.getCards());
+        DeckManager deckManager = new DeckManager();
+        mItems = deckManager.getEditListItems(mDeck);
     }
 
     @Override
