@@ -174,10 +174,4 @@ public class DeckDetailFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
-
-    @Override
-    public void onEditIconClick(Deck deck) {
-        Fragment fragment = EditDeckFragment.newInstance(deck, EDIT_MODE_ON);
-        mListener.replaceFragment(fragment);
-    }
 }

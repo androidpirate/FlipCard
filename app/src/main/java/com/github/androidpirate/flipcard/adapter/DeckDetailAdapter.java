@@ -21,7 +21,6 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
     private DeckDetailAdapter.OnAdapterInteractionListener mListener;
 
     public interface OnAdapterInteractionListener {
-        void onEditIconClick(Deck deck);
     }
 
     public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener, Deck deck) {
