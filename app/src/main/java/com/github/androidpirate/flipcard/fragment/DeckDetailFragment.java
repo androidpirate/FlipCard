@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.androidpirate.flipcard.MainActivity;
 import com.github.androidpirate.flipcard.PracticeActivity;
@@ -144,6 +145,9 @@ public class DeckDetailFragment extends Fragment
                 return  true;
             case R.id.ic_pin:
                 // Handle pinning a deck on top of the list here
+                Toast.makeText(getContext(),
+                        getString(R.string.pin_button_toast),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here

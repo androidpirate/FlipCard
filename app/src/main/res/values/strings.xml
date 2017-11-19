@@ -29,6 +29,7 @@
     <!-- DeckDetailFragment Resources -->
     <string name="header_deck_size" formatted="false"> / %d Cards</string>
     <string name="edit_button_toast">Editing decks will be available soon.</string>
+    <string name="pin_button_toast">Pinning decks in the list will be available soon.</string>
     <string name="edit_text_hint">Enter here</string>
     <string name="action_practice">PRACTICE</string>
     <string name="action_edit">EDIT</string>
