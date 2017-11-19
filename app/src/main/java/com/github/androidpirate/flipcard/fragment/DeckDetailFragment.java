@@ -3,6 +3,7 @@ package com.github.androidpirate.flipcard.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,10 +41,6 @@ public class DeckDetailFragment extends Fragment
     private static final String EXTRA_DECK = "extra_deck";
     private static final boolean EDIT_MODE_ON = true;
     private Deck mDeck;
-    private TextView mTitle;
-    private TextView mCategory;
-    private TextView mSize;
-    private RecyclerView mRecyclerView;
     private DeckDetailAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
@@ -87,30 +84,32 @@ public class DeckDetailFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deck_detail, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
+        if (activity != null) {
+            activity.setSupportActionBar(toolbar);
+        }
 
-        mTitle = view.findViewById(R.id.tv_deck_title);
-        mTitle.setText(mDeck.getTitle());
+        TextView title = view.findViewById(R.id.tv_deck_title);
+        title.setText(mDeck.getTitle());
 
-        mCategory = view.findViewById(R.id.tv_deck_category);
-        mCategory.setText(mDeck.getCategory());
+        TextView category = view.findViewById(R.id.tv_deck_category);
+        category.setText(mDeck.getCategory());
 
-        mSize = view.findViewById(R.id.tv_deck_size);
-        mSize.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
+        TextView size = view.findViewById(R.id.tv_deck_size);
+        size.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
 
-        mRecyclerView = view.findViewById(R.id.rv_deck_detail);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView recyclerView = view.findViewById(R.id.rv_deck_detail);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
             mAdapter = new DeckDetailAdapter(this, mDeck);
         }
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         return view;
     }
