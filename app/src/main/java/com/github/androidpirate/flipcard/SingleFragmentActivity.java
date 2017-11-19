@@ -43,7 +43,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        mProgressBar = findViewById(R.id.progress_bar);
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if(fragment == null) {
@@ -68,11 +68,15 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
             if(ev.getAction()== MotionEvent.ACTION_UP &&
                                 !getLocationOnScreen(innerView).contains(x, y)) {
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+                InputMethodManager inputMethodManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager != null) {
+                    inputMethodManager.hideSoftInputFromWindow(
+                            getWindow().getCurrentFocus().getWindowToken(),
+                            0);
+                }
             }
         }
-
         return handleReturn;
     }
 
