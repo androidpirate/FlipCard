@@ -19,18 +19,19 @@ import java.util.ArrayList;
 public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int CATEGORY = 0;
     private static final int DECK = 1;
-    private ArrayList<Deck> mDecks = new ArrayList<>();
     private ArrayList<Object> mItems = new ArrayList<>();
     private OnAdapterInteractionListener mListener;
-    private DeckManager mDeckManager;
     private Context mContext;
+
+    public interface OnAdapterInteractionListener {
+        void onItemClick(Deck deck);
+    }
 
     public DeckListAdapter(OnAdapterInteractionListener listener, ArrayList<Deck> decks) {
         mListener = listener;
-        mDecks = decks;
-        mDeckManager = new DeckManager();
-        mDeckManager.sortByCategories(mDecks);
-        mItems = mDeckManager.getListItems(mDecks);
+        DeckManager deckManager = new DeckManager();
+        deckManager.sortByCategories(decks);
+        mItems = deckManager.getListItems(decks);
     }
 
     @Override
@@ -40,7 +41,9 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         LayoutInflater inflater = LayoutInflater.from(mContext);
         switch (viewType) {
             case CATEGORY:
-                View categoryView = inflater.inflate(R.layout.deck_list_category_item, parent, false);
+                View categoryView = inflater.inflate(R.layout.deck_list_category_item,
+                                                    parent,
+                                                    false);
                 viewHolder = new CategoryHolder(categoryView);
                 break;
             case DECK:
@@ -86,12 +89,12 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     class CategoryHolder extends RecyclerView.ViewHolder {
         private TextView mCategory;
 
-        public CategoryHolder(View itemView) {
+        CategoryHolder(View itemView) {
             super(itemView);
             mCategory = itemView.findViewById(R.id.tv_category);
         }
 
-        public void onBindCategory(String category) {
+        void onBindCategory(String category) {
             mCategory.setText(category);
         }
     }
@@ -101,7 +104,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private TextView mCategory;
         private TextView mSize;
 
-        public DeckHolder(View itemView) {
+        DeckHolder(View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.tv_title);
             mCategory = itemView.findViewById(R.id.tv_category);
@@ -118,14 +121,10 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
         }
 
-        public void onBindDeck(Deck deck) {
+        void onBindDeck(Deck deck) {
             mTitle.setText(deck.getTitle());
             mCategory.setText(deck.getCategory());
             mSize.setText(String.format(mContext.getString(R.string.deck_list_item_size), deck.getSize()));
         }
-    }
-
-    public interface OnAdapterInteractionListener {
-        void onItemClick(Deck deck);
     }
 }
