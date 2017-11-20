@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 /**
  * Contract class for deck table.
  */
-final class DeckContract {
+public final class DeckContract {
 
     private DeckContract() {
     }

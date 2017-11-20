@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Created by Emre on 11/18/2017.
+ * Utility class handles deck management.
  */
 public class DeckManager {
 
