@@ -18,16 +18,15 @@
 
 package com.github.androidpirate.flipcard.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.androidpirate.flipcard.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +38,16 @@ import com.github.androidpirate.flipcard.R;
  */
 public class CorrectCardFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    public interface OnFragmentInteractionListener {
+        void moveToNextCard();
+    }
 
     public CorrectCardFragment() {
         // Required empty public constructor
@@ -60,7 +69,7 @@ public class CorrectCardFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_correct_card, container, false);
@@ -79,18 +88,6 @@ public class CorrectCardFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) activity;
-            // mListener.moveToNextCard();
-        } else {
-            throw new RuntimeException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         mListener.moveToNextCard();
@@ -100,15 +97,5 @@ public class CorrectCardFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    public interface OnFragmentInteractionListener {
-        void moveToNextCard();
     }
 }
