@@ -87,9 +87,8 @@ public class DeckListFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_deck_list, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if(activity != null && activity.getSupportActionBar() != null) {
+        if(activity != null) {
             activity.setSupportActionBar(toolbar);
-            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mEmptyListText = view.findViewById(R.id.tv_empty_list);
         mRecyclerView = view.findViewById(R.id.rv_deck_list);
