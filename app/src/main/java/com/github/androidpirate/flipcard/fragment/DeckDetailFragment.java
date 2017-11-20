@@ -110,7 +110,6 @@ public class DeckDetailFragment extends Fragment
             mAdapter = new DeckDetailAdapter(this, mDeck);
         }
         recyclerView.setAdapter(mAdapter);
-
         return view;
     }
 
