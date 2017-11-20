@@ -3,6 +3,7 @@ package com.github.androidpirate.flipcard.fragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -80,13 +81,14 @@ public class DeckListFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deck_list, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-        if(activity.getSupportActionBar() != null) {
+        if(activity != null) {
+            activity.setSupportActionBar(toolbar);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mEmptyListText = view.findViewById(R.id.tv_empty_list);
@@ -96,7 +98,6 @@ public class DeckListFragment extends Fragment
         } else {
             displayDeckList();
         }
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -109,22 +110,6 @@ public class DeckListFragment extends Fragment
         }
     }
 
-    private void displayEmptyListText(){
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mEmptyListText.setVisibility(View.VISIBLE);
-        mEmptyListText.setText(getString(R.string.empty_list_warning));
-    }
-
-    private void displayDeckList(){
-        mEmptyListText.setVisibility(View.INVISIBLE);
-        mRecyclerView.setVisibility(View.VISIBLE);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if(mAdapter == null) {
-            mAdapter = new DeckListAdapter(this, mDecks);
-        }
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_deck_list_menu, menu);
@@ -134,11 +119,13 @@ public class DeckListFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_deck:
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.fragment_container,
-                                EditDeckFragment.newInstance(new Deck(), EDIT_MODE_ON))
-                        .commit();
+                if(getActivity() != null) {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.fragment_container,
+                                    EditDeckFragment.newInstance(new Deck(), EDIT_MODE_ON))
+                            .commit();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -165,5 +152,21 @@ public class DeckListFragment extends Fragment
     public void onItemClick(Deck deck) {
         Fragment fragment = DeckDetailFragment.newInstance(deck);
         mListener.replaceFragment(fragment);
+    }
+
+    private void displayEmptyListText(){
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mEmptyListText.setVisibility(View.VISIBLE);
+        mEmptyListText.setText(getString(R.string.empty_list_warning));
+    }
+
+    private void displayDeckList(){
+        mEmptyListText.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(mAdapter == null) {
+            mAdapter = new DeckListAdapter(this, mDecks);
+        }
+        mRecyclerView.setAdapter(mAdapter);
     }
 }
