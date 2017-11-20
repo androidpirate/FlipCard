@@ -22,8 +22,7 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
     }
 
     public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener, Deck deck) {
-        Deck deck1 = deck;
-        mCards = deck1.getCards();
+        mCards = deck.getCards();
     }
 
     @Override

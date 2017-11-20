@@ -2,6 +2,7 @@ package com.github.androidpirate.flipcard.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,6 @@ public class EditDeckFragment extends Fragment {
     private boolean mIsEditing;
     private Deck mDeck;
     private RecyclerView mRecyclerView;
-    private FloatingActionButton mFab;
     private EditDeckAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
@@ -76,23 +76,26 @@ public class EditDeckFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mIsEditing = getArguments().getBoolean(ARG_EDIT_MODE);
+        if(getArguments() != null) {
+            mIsEditing = getArguments().getBoolean(ARG_EDIT_MODE);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_deck, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-        if(activity.getSupportActionBar() != null) {
+        if(activity != null && activity.getSupportActionBar() != null) {
+            activity.setSupportActionBar(toolbar);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        mFab = view.findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mAdapter.addEmptyCard();
@@ -102,7 +105,9 @@ public class EditDeckFragment extends Fragment {
         });
         mRecyclerView = view.findViewById(R.id.rv_edit_deck);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
+        if(getArguments() != null) {
+            mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
+        }
         if(mAdapter == null) {
             mAdapter = new EditDeckAdapter(mDeck);
         }

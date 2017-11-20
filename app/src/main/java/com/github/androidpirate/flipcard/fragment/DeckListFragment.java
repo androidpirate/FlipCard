@@ -87,7 +87,7 @@ public class DeckListFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_deck_list, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if(activity != null) {
+        if(activity != null && activity.getSupportActionBar() != null) {
             activity.setSupportActionBar(toolbar);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
