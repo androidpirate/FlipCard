@@ -94,7 +94,7 @@ public class DeckDetailFragment extends Fragment
         if (activity != null) {
             activity.setSupportActionBar(toolbar);
         }
-
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         TextView title = view.findViewById(R.id.tv_deck_title);
         title.setText(mDeck.getTitle());
 

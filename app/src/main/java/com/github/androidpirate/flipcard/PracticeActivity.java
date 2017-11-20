@@ -124,6 +124,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
                                 intent.putExtra(EXTRA_FRAGMENT_INFO, FRAGMENT_DECK_DETAIL);
                                 intent.putExtra(EXTRA_DECK, mDeck);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                 .setNegativeButton(R.string.exit_dialog_negative_button_text,

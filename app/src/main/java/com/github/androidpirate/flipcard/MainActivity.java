@@ -78,6 +78,13 @@ public class MainActivity extends SingleFragmentActivity
         return mDbHelper.getDeck(deckIdString);
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = DeckListFragment
+                .newInstance((ArrayList<Deck>) mDbHelper.getAllDecks());
+        replaceFragment(fragment);
+    }
+
     public void showUpButton() {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
