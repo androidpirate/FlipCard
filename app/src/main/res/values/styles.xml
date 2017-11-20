@@ -25,12 +25,71 @@
         <item name="android:focusableInTouchMode">true</item>
     </style>
 
+    <style name="DeckListTitleTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DeckListTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CardListItemTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="CardStyle">
-        <item name="android:layout_width">@dimen/card_width</item>
-        <item name="android:layout_height">@dimen/card_height</item>
-        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
-        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="android:layout_width">@dimen/practice_card_width</item>
+        <item name="android:layout_height">@dimen/practice_card_height</item>
+        <item name="cardCornerRadius">@dimen/practice_card_corner_radius</item>
+        <item name="cardElevation">@dimen/practice_card_elevation</item>
         <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="DeckHeaderImageIconStyle">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:src">@mipmap/ic_flip_card</item>
+    </style>
+
+    <style name="DeckHeaderTitleTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DeckHeaderTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="EditableCardListItemTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="EditableCardListItemEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">text</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:hint">@string/edit_text_hint</item>
     </style>
 
 </resources>

@@ -2,10 +2,10 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/small_margin"
-    style="@style/CardStyle"
     app:cardBackgroundColor="@color/colorCardBackground">
 
     <RelativeLayout
@@ -47,57 +47,39 @@
 
         <TextView
             android:id="@+id/tv_front_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/EditableCardListItemTextViewStyle"
             android:layout_below="@id/button_layout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_margin="@dimen/x_small_margin"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:text="Front:"/>
 
         <EditText
             android:id="@+id/et_front"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/EditableCardListItemEditTextStyle"
             android:layout_below="@id/tv_front_tag"
-            android:inputType="text"
             android:layout_marginLeft="@dimen/x_small_margin"
             android:layout_marginRight="@dimen/x_small_margin"
             android:layout_marginTop="@dimen/x_small_margin"
-            android:layout_marginBottom="@dimen/x_small_margin"
-            android:textSize="16sp"
-            android:hint="Enter here"
-            android:focusableInTouchMode="true"/>
+            android:layout_marginBottom="@dimen/x_small_margin"/>
 
         <TextView
             android:id="@+id/tv_rear_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/EditableCardListItemTextViewStyle"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@id/et_front"
             android:layout_margin="@dimen/x_small_margin"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:text="Back:"/>
 
         <EditText
             android:id="@+id/et_rear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/EditableCardListItemEditTextStyle"
             android:layout_below="@id/tv_rear_tag"
-            android:inputType="text"
             android:layout_marginLeft="@dimen/x_small_margin"
             android:layout_marginRight="@dimen/x_small_margin"
             android:layout_marginTop="@dimen/x_small_margin"
-            android:layout_marginBottom="@dimen/x_small_margin"
-            android:textSize="16sp"
-            android:hint="Enter here"
-            android:focusableInTouchMode="true"/>
+            android:layout_marginBottom="@dimen/x_small_margin"/>
 
     </RelativeLayout>
 

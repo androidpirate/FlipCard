@@ -3,6 +3,7 @@ package com.github.androidpirate.flipcard.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +39,8 @@ public class DeckDetailFragment extends Fragment
     implements DeckDetailAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECK = "deck";
     private static final String EXTRA_DECK = "extra_deck";
+    private static final boolean EDIT_MODE_ON = true;
     private Deck mDeck;
-    private TextView mTitle;
-    private TextView mCategory;
-    private TextView mSize;
-    private ImageView mEditButton;
-    private RecyclerView mRecyclerView;
     private DeckDetailAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
@@ -56,6 +52,7 @@ public class DeckDetailFragment extends Fragment
      */
     public interface OnFragmentInteractionListener {
         List<Deck> getDecks();
+        Deck getDeck(int deckId);
         void replaceFragment(Fragment fragment);
     }
 
@@ -87,44 +84,32 @@ public class DeckDetailFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deck_detail, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-
-        mTitle = view.findViewById(R.id.tv_deck_title);
-        mTitle.setText(mDeck.getTitle());
-
-        mCategory = view.findViewById(R.id.tv_deck_category);
-        mCategory.setText(mDeck.getCategory());
-
-        mSize = view.findViewById(R.id.tv_deck_size);
-        mSize.setText(String
-                .format(getString(R.string.header_deck_size), mDeck.getSize()));
-
-        mEditButton = view.findViewById(R.id.iv_edit);
-        mEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),
-                        getString(R.string.edit_button_toast),
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-
-        mRecyclerView = view.findViewById(R.id.rv_deck_detail);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if(mAdapter == null) {
-            mAdapter = new DeckDetailAdapter(this,
-                    mDeck);
+        if (activity != null) {
+            activity.setSupportActionBar(toolbar);
         }
-        mRecyclerView.setAdapter(mAdapter);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        TextView title = view.findViewById(R.id.tv_deck_title);
+        title.setText(mDeck.getTitle());
 
+        TextView category = view.findViewById(R.id.tv_deck_category);
+        category.setText(mDeck.getCategory());
+
+        TextView size = view.findViewById(R.id.tv_deck_size);
+        size.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_deck_detail);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if(mAdapter == null) {
+            mAdapter = new DeckDetailAdapter(this, mDeck);
+        }
+        recyclerView.setAdapter(mAdapter);
         return view;
     }
 
@@ -145,11 +130,22 @@ public class DeckDetailFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.practice:
+            case R.id.ic_practice:
                 // Start PracticeActivity
                 Intent intent = new Intent(getContext(), PracticeActivity.class);
                 intent.putExtra(EXTRA_DECK, mDeck);
                 startActivity(intent);
+                return true;
+            case R.id.ic_edit:
+                Deck deck = mListener.getDeck(mDeck.getId());
+                Fragment fragment = EditDeckFragment.newInstance(deck, EDIT_MODE_ON);
+                mListener.replaceFragment(fragment);
+                return  true;
+            case R.id.ic_pin:
+                // Handle pinning a deck on top of the list here
+                Toast.makeText(getContext(),
+                        getString(R.string.pin_button_toast),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here
@@ -175,11 +171,5 @@ public class DeckDetailFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onEditIconClick(Deck deck) {
-        Fragment fragment = EditDeckFragment.newInstance(deck);
-        mListener.replaceFragment(fragment);
     }
 }

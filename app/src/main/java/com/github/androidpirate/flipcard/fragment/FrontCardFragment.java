@@ -18,9 +18,9 @@
 
 package com.github.androidpirate.flipcard.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -37,31 +37,39 @@ import com.github.androidpirate.flipcard.model.FlipCard;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CardFrontFragment.OnFragmentInteractionListener} interface
+ * {@link FrontCardFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CardFrontFragment#newInstance} factory method to
+ * Use the {@link FrontCardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CardFrontFragment extends Fragment {
+public class FrontCardFragment extends Fragment {
     private static final String ARG_CARD = "card";
     private FlipCard mCard;
-    private TextView mFrontText;
     private EditText mUserInput;
-    private ImageButton mInputButton;
-    private ImageButton mFlipCard;
     private OnFragmentInteractionListener mListener;
 
-    public CardFrontFragment() {
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    public interface OnFragmentInteractionListener {
+        void displayCorrectAnswerAnimation();
+        void flipToBack();
+    }
+
+    public FrontCardFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment CardFrontFragment.
+     * @return A new instance of fragment FrontCardFragment.
      */
-    public static CardFrontFragment newInstance(FlipCard card) {
-        CardFrontFragment fragment = new CardFrontFragment();
+    public static FrontCardFragment newInstance(FlipCard card) {
+        FrontCardFragment fragment = new FrontCardFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CARD, card);
         fragment.setArguments(args);
@@ -78,16 +86,16 @@ public class CardFrontFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_front_card, container, false);
-        mFrontText = view.findViewById(R.id.tv_front_text);
+        TextView frontText = view.findViewById(R.id.tv_front_text);
         if(mCard != null) {
-            mFrontText.setText(mCard.getFrontSide());
+            frontText.setText(mCard.getFrontSide());
         }
-        mFlipCard = view.findViewById(R.id.ib_flip_card);
-        mFlipCard.setOnClickListener(new View.OnClickListener() {
+        ImageButton flipCard = view.findViewById(R.id.ib_flip_card);
+        flipCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.flipToBack();
@@ -101,8 +109,8 @@ public class CardFrontFragment extends Fragment {
                 return false;
             }
         });
-        mInputButton = view.findViewById(R.id.ib_input_button);
-        mInputButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton inputButton = view.findViewById(R.id.ib_input_button);
+        inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkAnswer(mUserInput.getText().toString(), mCard.getRearSide());
@@ -112,11 +120,16 @@ public class CardFrontFragment extends Fragment {
     }
 
     private void checkAnswer(String userInput, String cardRearSide) {
-        View view = getActivity().getCurrentFocus();
+        View view = null;
+        if(getActivity() != null) {
+            view = getActivity().getCurrentFocus();
+        }
         if(view != null) {
             InputMethodManager imm = (InputMethodManager) getActivity()
                     .getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
         if(!userInput.isEmpty()) {
             if(userInput.equalsIgnoreCase(cardRearSide)) {
@@ -142,16 +155,5 @@ public class CardFrontFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    public interface OnFragmentInteractionListener {
-        void displayCorrectAnswerAnimation();
-        void flipToBack();
     }
 }

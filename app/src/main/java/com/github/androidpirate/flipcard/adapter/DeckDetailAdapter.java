@@ -16,18 +16,13 @@ import java.util.ArrayList;
  * Adapter class used to create views to create a heterogeneous layout for RecyclerView.
  */
 public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.CardHolder> {
-    private Deck mDeck;
     private ArrayList<FlipCard> mCards = new ArrayList<>();
-    private DeckDetailAdapter.OnAdapterInteractionListener mListener;
 
     public interface OnAdapterInteractionListener {
-        void onEditIconClick(Deck deck);
     }
 
     public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener, Deck deck) {
-        mListener = listener;
-        mDeck = deck;
-        mCards = mDeck.getCards();
+        mCards = deck.getCards();
     }
 
     @Override
@@ -62,7 +57,7 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
             mRearText = itemView.findViewById(R.id.tv_rear);
         }
 
-        public void onBindCard(FlipCard card) {
+        void onBindCard(FlipCard card) {
             mCard = card;
             mFrontText.setText(mCard.getFrontSide());
             mRearText.setText(mCard.getRearSide());

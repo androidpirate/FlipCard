@@ -12,26 +12,29 @@ import android.widget.ImageView;
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.model.Deck;
 import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipcard.utils.DeckManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Adapter class for CreateDeckFragment.
+ * Adapter class for EditDeckFragment.
  */
-public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int DECK = 0;
     private final static int CARD = 1;
+    private ArrayList<Object> mItems = new ArrayList<>();
     private Deck mDeck;
-    private List<Object> mItems = new ArrayList<>();
 
-    public CreateDeckAdapter(Deck deck) {
-        if (deck != null && deck.getSize() == 0) {
+    public EditDeckAdapter(Deck deck) {
+        if (deck != null) {
             mDeck = deck;
+        }
+        // If deck is empty add an empty card
+        if(deck != null && deck.getSize() == 0) {
             mDeck.addEmptyCard();
         }
-        mItems.add(mDeck);
-        mItems.addAll(mDeck.getCards());
+        DeckManager deckManager = new DeckManager();
+        mItems = deckManager.getEditListItems(mDeck);
     }
 
     @Override
@@ -40,13 +43,13 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case DECK:
-                View editableDeckHeader = inflater.inflate(R.layout.editable_deck_header_list_item,
-                        parent, false);
+                View editableDeckHeader = inflater
+                        .inflate(R.layout.editable_deck_header_list_item, parent, false);
                 viewHolder = new EditableDeckHeader(editableDeckHeader);
                 break;
             case CARD:
-                View editableCard = inflater.inflate(R.layout.editable_card_list_item,
-                        parent, false);
+                View editableCard = inflater
+                        .inflate(R.layout.editable_card_list_item, parent, false);
                 viewHolder = new EditableCardHolder(editableCard);
                 break;
             default:
@@ -103,7 +106,7 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     /**
-     * Private class creates editable deck header for CreateDeckFragment/EditDeckFragment.
+     * Private class creates editable deck header for EditDeckFragment/EditDeckFragment.
      */
     private class EditableDeckHeader extends RecyclerView.ViewHolder {
         private Deck mDeck;
@@ -126,14 +129,10 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mDeckTitle.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void afterTextChanged(Editable editable) {
                     mDeck.setTitle(editable.toString());
@@ -144,14 +143,10 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mCategory.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void afterTextChanged(Editable editable) {
                     mDeck.setCategory(editable.toString());
@@ -161,7 +156,7 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     /**
-     * Private class creates editable card holders for CreateDeckFragment/EditableDeckFragment.
+     * Private class creates editable card holders for EditDeckFragment/EditableDeckFragment.
      */
     private class EditableCardHolder extends RecyclerView.ViewHolder {
         private FlipCard mCard;
@@ -229,14 +224,10 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFrontText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void afterTextChanged(Editable editable) {
                     mCard.setFrontSide(editable.toString());
@@ -247,14 +238,10 @@ public class CreateDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mRearText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void afterTextChanged(Editable editable) {
                     mCard.setRearSide(editable.toString());

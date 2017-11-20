@@ -9,39 +9,94 @@ import android.widget.TextView;
 
 import com.github.androidpirate.flipcard.R;
 import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipcard.utils.DeckManager;
 
 import java.util.ArrayList;
 
 /**
  * Adapter class for deck list.
  */
-public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHolder> {
-    private ArrayList<Deck> mDecks = new ArrayList<>();
+public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int CATEGORY = 0;
+    private static final int DECK = 1;
+    private ArrayList<Object> mItems = new ArrayList<>();
     private OnAdapterInteractionListener mListener;
     private Context mContext;
 
+    public interface OnAdapterInteractionListener {
+        void onItemClick(Deck deck);
+    }
+
     public DeckListAdapter(OnAdapterInteractionListener listener, ArrayList<Deck> decks) {
         mListener = listener;
-        mDecks = decks;
+        DeckManager deckManager = new DeckManager();
+        deckManager.sortByCategories(decks);
+        mItems = deckManager.getListItems(decks);
     }
 
     @Override
-    public DeckHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder viewHolder;
         mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.deck_list_item, parent, false);
-        return new DeckHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        switch (viewType) {
+            case CATEGORY:
+                View categoryView = inflater.inflate(R.layout.deck_list_category_item,
+                                                    parent,
+                                                    false);
+                viewHolder = new CategoryHolder(categoryView);
+                break;
+            case DECK:
+                View deckView = inflater.inflate(R.layout.deck_list_item, parent, false);
+                viewHolder = new DeckHolder(deckView);
+                break;
+            default:
+                throw new NullPointerException("View holder can not be null.");
+        }
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(DeckHolder holder, int position) {
-        Deck deck = mDecks.get(position);
-        holder.onBindDeck(deck);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case CATEGORY:
+                String category = (String) mItems.get(position);
+                CategoryHolder categoryHolder = (CategoryHolder) holder;
+                categoryHolder.onBindCategory(category);
+                break;
+            case DECK:
+                Deck deck = (Deck) mItems.get(position);
+                DeckHolder deckHolder = (DeckHolder) holder;
+                deckHolder.onBindDeck(deck);
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mDecks.size();
+        return mItems.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(mItems.get(position) instanceof String) {
+            return CATEGORY;
+        } else {
+            return DECK;
+        }
+    }
+
+    class CategoryHolder extends RecyclerView.ViewHolder {
+        private TextView mCategory;
+
+        CategoryHolder(View itemView) {
+            super(itemView);
+            mCategory = itemView.findViewById(R.id.tv_category);
+        }
+
+        void onBindCategory(String category) {
+            mCategory.setText(category);
+        }
     }
 
     class DeckHolder extends RecyclerView.ViewHolder {
@@ -49,7 +104,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHo
         private TextView mCategory;
         private TextView mSize;
 
-        public DeckHolder(View itemView) {
+        DeckHolder(View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.tv_title);
             mCategory = itemView.findViewById(R.id.tv_category);
@@ -57,20 +112,19 @@ public class DeckListAdapter extends RecyclerView.Adapter<DeckListAdapter.DeckHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Deck deck = mDecks.get(getAdapterPosition());
-                    mListener.onItemClick(deck);
+                    Object item = mItems.get(getAdapterPosition());
+                    if(item instanceof Deck) {
+                        Deck deck = (Deck) item;
+                        mListener.onItemClick(deck);
+                    }
                 }
             });
         }
 
-        public void onBindDeck(Deck deck) {
+        void onBindDeck(Deck deck) {
             mTitle.setText(deck.getTitle());
             mCategory.setText(deck.getCategory());
             mSize.setText(String.format(mContext.getString(R.string.deck_list_item_size), deck.getSize()));
         }
-    }
-
-    public interface OnAdapterInteractionListener {
-        void onItemClick(Deck deck);
     }
 }

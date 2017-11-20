@@ -7,6 +7,7 @@
     <dimen name="large_margin">24dp</dimen>
     <dimen name="x_large_margin">32dp</dimen>
     <dimen name="xx_large_margin">48dp</dimen>
+    <dimen name="deck_header_margin">60dp</dimen>
 
     <!-- Padding Resources -->
     <dimen name="xx_small_padding">2dp</dimen>
@@ -17,9 +18,21 @@
     <dimen name="x_large_padding">32dp</dimen>
     <dimen name="xx_large_padding">48dp</dimen>
 
-    <!-- Card Dimension Resources -->
-    <dimen name="card_width">320dp</dimen>
-    <dimen name="card_height">250dp</dimen>
-    <dimen name="card_corner_radius">20dp</dimen>
-    <dimen name="card_elevation">5dp</dimen>
+    <!-- Deck List Item Resources -->
+    <dimen name="deck_list_card_height">110dp</dimen>
+
+    <!-- Practice Card Dimension Resources -->
+    <dimen name="practice_card_width">320dp</dimen>
+    <dimen name="practice_card_height">250dp</dimen>
+    <dimen name="practice_card_corner_radius">20dp</dimen>
+    <dimen name="practice_card_elevation">5dp</dimen>
+
+    <!-- Text Dimension Resources -->
+    <dimen name="x_small_text_size">12sp</dimen>
+    <dimen name="small_text_size">16sp</dimen>
+    <dimen name="regular_text_size">20sp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="x_large_text_size">28sp</dimen>
+    <dimen name="xx_large_text_size">32sp</dimen>
+
 </resources>

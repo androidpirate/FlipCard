@@ -31,9 +31,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_deck_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/small_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.github.androidpirate.flipcard.fragment.DeckDetailFragment"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.github.androidpirate.flipcard.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,10 +19,18 @@ import com.github.androidpirate.flipcard.R;
  */
 public class ScoreFragment extends Fragment {
     private static final String ARG_SCORE = "score";
-    private ImageButton mRestart;
-    private TextView mScoreText;
     private int mScore;
     private OnFragmentInteractionListener mListener;
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    public interface OnFragmentInteractionListener {
+        void restart();
+    }
 
     public ScoreFragment() {
         // Required empty public constructor
@@ -43,18 +52,20 @@ public class ScoreFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mScore = getArguments().getInt(ARG_SCORE);
+        if(getArguments() != null) {
+            mScore = getArguments().getInt(ARG_SCORE);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_score, container, false);
-        mScoreText = view.findViewById(R.id.tv_score);
-        mScoreText.setText(String.valueOf(mScore));
-        mRestart = view.findViewById(R.id.bt_restart);
-        mRestart.setOnClickListener(new View.OnClickListener() {
+        TextView scoreText = view.findViewById(R.id.tv_score);
+        scoreText.setText(String.valueOf(mScore));
+        ImageButton restart = view.findViewById(R.id.bt_restart);
+        restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.restart();
@@ -75,29 +86,8 @@ public class ScoreFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof ScoreFragment.OnFragmentInteractionListener) {
-            mListener = (ScoreFragment.OnFragmentInteractionListener) activity;
-        } else {
-            throw new RuntimeException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    public interface OnFragmentInteractionListener {
-        void restart();
     }
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/deck_list_card_height"
     android:layout_margin="@dimen/small_margin"
     android:layout_gravity="center_horizontal"
     app:cardBackgroundColor="@color/colorCardBackground">
@@ -13,41 +13,55 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/regular_padding">
+        android:padding="@dimen/small_padding">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/iv_deck_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_flip_card"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            style="@style/DeckListTitleTextViewStyle"
+            android:layout_toRightOf="@id/iv_deck_icon"
+            android:layout_toEndOf="@id/iv_deck_icon"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginStart="@dimen/x_small_margin"
             android:layout_marginBottom="@dimen/small_margin"
-            android:textColor="@android:color/black"
-            android:textSize="22sp"
-            android:textStyle="bold"
             tools:text="Deck Title"/>
 
         <TextView
             android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            style="@style/DeckListTextViewStyle"
+            android:layout_toRightOf="@id/iv_deck_icon"
+            android:layout_toEndOf="@id/iv_deck_icon"
             android:layout_below="@id/tv_title"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginStart="@dimen/x_small_margin"
             tools:text="Deck Category"/>
 
         <TextView
             android:id="@+id/tv_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DeckListTextViewStyle"
             android:layout_toEndOf="@id/tv_category"
             android:layout_toRightOf="@id/tv_category"
             android:layout_below="@id/tv_title"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
             tools:text="Deck Size"/>
+
+        <ImageView
+            android:id="@+id/iv_pin_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_unpinned"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/x_small_padding"
+            tools:src="@drawable/ic_unpinned"/>
 
     </RelativeLayout>
 

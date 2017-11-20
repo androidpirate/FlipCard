@@ -90,6 +90,37 @@ public class DeckDbHelper extends SQLiteOpenHelper {
         return decks;
     }
 
+    public Deck getDeck(String deckId) {
+        Deck deck = new Deck();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DeckEntry.TABLE_NAME, null, DeckEntry._ID + " = ?",
+                                new String[] {deckId}, null, null, null);
+        try {
+            if (cursor.moveToNext()) {
+                int _id = cursor.getInt(cursor.getColumnIndex(DeckEntry._ID));
+                String title = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_TITLE));
+                String queryCards = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_CARDS));
+                String category = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_CATEGORY));
+                int size = cursor.getInt(cursor.getColumnIndex(DeckEntry.COLUMN_SIZE));
+                deck.setId(_id);
+                deck.setTitle(title);
+                Gson gson = new Gson();
+                Type flipCard = new TypeToken<ArrayList<FlipCard>>() {}.getType();
+                ArrayList<FlipCard> cards = gson.fromJson(queryCards, flipCard);
+                deck.setCards(cards);
+                deck.setCategory(category);
+                deck.setSize(size);
+            }
+        } catch (Exception e) {
+            Log.d("Error DeckDb GetAll: ", e.getMessage());
+        }finally {
+            if(cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return deck;
+    }
+
     public void addDeck(Deck deck) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();

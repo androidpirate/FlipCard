@@ -26,7 +26,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.github.androidpirate.flipcard.fragment.BackCardFragment;
-import com.github.androidpirate.flipcard.fragment.CardFrontFragment;
+import com.github.androidpirate.flipcard.fragment.FrontCardFragment;
 import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
 import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipcard.fragment.ScoreFragment;
@@ -36,7 +36,7 @@ import com.github.androidpirate.flipcard.model.FlipCard;
 import java.util.ArrayList;
 
 public class PracticeActivity extends SingleFragmentActivity implements
-        CardFrontFragment.OnFragmentInteractionListener,
+        FrontCardFragment.OnFragmentInteractionListener,
         BackCardFragment.OnFragmentInteractionListener,
         CorrectCardFragment.OnFragmentInteractionListener,
         ScoreFragment.OnFragmentInteractionListener {
@@ -54,7 +54,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
     @Override
     protected Fragment createFragment() {
         Intent intent = getIntent();
-        if (intent != null) {
+        if (intent.getExtras() != null) {
             mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
         }
         if(mDeck != null) {
@@ -62,7 +62,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
             mFlipCard = mCards.get(mCardIndex);
         }
         mProgressBar.setVisibility(View.VISIBLE);
-        return CardFrontFragment.newInstance(mFlipCard);
+        return FrontCardFragment.newInstance(mFlipCard);
     }
 
     @Override
@@ -78,10 +78,6 @@ public class PracticeActivity extends SingleFragmentActivity implements
         replaceCard(fragment);
     }
 
-    private void updateScore(){
-        mScore++;
-    }
-
     @Override
     public void moveToNextCard() {
         if(++mCardIndex < mCards.size()) {
@@ -91,7 +87,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
                     mCardIndex = mCardIndex % mCards.size();
                     mFlipCard = mCards.get(mCardIndex);
                     updateProgress();
-                    Fragment fragment = CardFrontFragment.newInstance(mFlipCard);
+                    Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);
@@ -105,38 +101,6 @@ public class PracticeActivity extends SingleFragmentActivity implements
                 }
             }, ANIMATION_DELAY_TIME);
         }
-    }
-
-    private void replaceCard(Fragment fragment) {
-        int enterAnimRes = 0;
-        int exitAnimRes = 0;
-        if(fragment instanceof BackCardFragment) {
-            enterAnimRes = R.anim.card_flip_right_in;
-            exitAnimRes = R.anim.card_left_out;
-        } else if (fragment instanceof CorrectCardFragment) {
-            enterAnimRes = R.anim.card_right_in;
-            exitAnimRes = R.anim.card_left_out;
-        } else if (fragment instanceof CardFrontFragment ||
-                    fragment instanceof ScoreFragment) {
-            enterAnimRes = R.anim.card_right_in;
-            exitAnimRes = R.anim.card_flip_left_out;
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(enterAnimRes, exitAnimRes)
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    private void updateProgress() {
-        float deckSize = mCards.size();
-        float index = mCardIndex;
-        float progress = 1;
-        if(mCardIndex != 0) {
-            progress = (index / deckSize) * 100;
-        }
-        mProgressBar.setProgress((int) progress);
     }
 
     @Override
@@ -160,6 +124,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
                                 intent.putExtra(EXTRA_FRAGMENT_INFO, FRAGMENT_DECK_DETAIL);
                                 intent.putExtra(EXTRA_DECK, mDeck);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                 .setNegativeButton(R.string.exit_dialog_negative_button_text,
@@ -171,4 +136,41 @@ public class PracticeActivity extends SingleFragmentActivity implements
                         });
         builder.create().show();
     }
+
+    private void updateScore(){
+        mScore++;
+    }
+
+    private void replaceCard(Fragment fragment) {
+        int enterAnimRes = 0;
+        int exitAnimRes = 0;
+        if(fragment instanceof BackCardFragment) {
+            enterAnimRes = R.anim.card_flip_right_in;
+            exitAnimRes = R.anim.card_left_out;
+        } else if (fragment instanceof CorrectCardFragment) {
+            enterAnimRes = R.anim.card_right_in;
+            exitAnimRes = R.anim.card_left_out;
+        } else if (fragment instanceof FrontCardFragment ||
+                fragment instanceof ScoreFragment) {
+            enterAnimRes = R.anim.card_right_in;
+            exitAnimRes = R.anim.card_flip_left_out;
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(enterAnimRes, exitAnimRes)
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void updateProgress() {
+        float deckSize = mCards.size();
+        float index = mCardIndex;
+        float progress = 1;
+        if(mCardIndex != 0) {
+            progress = (index / deckSize) * 100;
+        }
+        mProgressBar.setProgress((int) progress);
+    }
+
 }
