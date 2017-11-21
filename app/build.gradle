@@ -25,7 +25,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.1'
     defaultConfig {
-        applicationId "com.github.androidpirate.flipcard"
+        applicationId "com.github.androidpirate.flipit"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1

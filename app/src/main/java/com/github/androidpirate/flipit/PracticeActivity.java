@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipit;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,13 +25,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import com.github.androidpirate.flipcard.fragment.BackCardFragment;
-import com.github.androidpirate.flipcard.fragment.FrontCardFragment;
-import com.github.androidpirate.flipcard.fragment.CorrectCardFragment;
-import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
-import com.github.androidpirate.flipcard.fragment.ScoreFragment;
-import com.github.androidpirate.flipcard.model.Deck;
-import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipit.fragment.BackCardFragment;
+import com.github.androidpirate.flipit.fragment.FrontCardFragment;
+import com.github.androidpirate.flipit.fragment.CorrectCardFragment;
+import com.github.androidpirate.flipit.fragment.DeckDetailFragment;
+import com.github.androidpirate.flipit.fragment.ScoreFragment;
+import com.github.androidpirate.flipit.model.Deck;
+import com.github.androidpirate.flipit.model.FlipCard;
 
 import java.util.ArrayList;
 

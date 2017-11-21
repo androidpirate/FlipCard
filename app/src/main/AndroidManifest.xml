@@ -17,7 +17,7 @@
   ~
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.github.androidpirate.flipcard">
+          package="com.github.androidpirate.flipit">
 
     <application
         android:allowBackup="true"
@@ -27,10 +27,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PracticeActivity"
+            android:name="com.github.androidpirate.flipit.PracticeActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name="com.github.androidpirate.flipit.MainActivity"
                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

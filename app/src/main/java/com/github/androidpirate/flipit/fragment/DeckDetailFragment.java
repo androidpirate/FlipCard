@@ -1,9 +1,9 @@
-package com.github.androidpirate.flipcard.fragment;
+package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,11 +15,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.github.androidpirate.flipcard.MainActivity;
-import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.adapter.EditDeckAdapter;
-import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipit.MainActivity;
+import com.github.androidpirate.flipit.PracticeActivity;
+import com.github.androidpirate.flipit.R;
+import com.github.androidpirate.flipit.adapter.DeckDetailAdapter;
+import com.github.androidpirate.flipit.model.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +30,18 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link EditDeckFragment.OnFragmentInteractionListener} interface
+ * {@link DeckDetailFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link EditDeckFragment#newInstance} factory method to
+ * Use the {@link DeckDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditDeckFragment extends Fragment {
+public class DeckDetailFragment extends Fragment
+    implements DeckDetailAdapter.OnAdapterInteractionListener {
     private static final String ARG_DECK = "deck";
-    private static final String ARG_EDIT_MODE = "edit_mode";
-    private boolean mIsEditing;
+    private static final String EXTRA_DECK = "extra_deck";
+    private static final boolean EDIT_MODE_ON = true;
     private Deck mDeck;
-    private RecyclerView mRecyclerView;
-    private EditDeckAdapter mAdapter;
+    private DeckDetailAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -48,26 +51,25 @@ public class EditDeckFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        void saveDeck(Deck deck);
-        void updateDeck(Deck deck);
         List<Deck> getDecks();
         Deck getDeck(int deckId);
         void replaceFragment(Fragment fragment);
     }
 
-    public EditDeckFragment() {
+    public DeckDetailFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment DeckDetailFragment.
      */
-    public static EditDeckFragment newInstance(Deck deck, boolean isEditing) {
-        EditDeckFragment fragment = new EditDeckFragment();
+    public static DeckDetailFragment newInstance(Deck deck) {
+        DeckDetailFragment fragment = new DeckDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_DECK, deck);
-        args.putBoolean(ARG_EDIT_MODE, isEditing);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,43 +77,39 @@ public class EditDeckFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        if(getArguments() != null) {
-            mIsEditing = getArguments().getBoolean(ARG_EDIT_MODE);
+        if (getArguments() != null) {
+            mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_edit_deck, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_deck_detail, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if(activity != null && activity.getSupportActionBar() != null) {
+        if (activity != null) {
             activity.setSupportActionBar(toolbar);
-            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        TextView title = view.findViewById(R.id.tv_deck_title);
+        title.setText(mDeck.getTitle());
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAdapter.addEmptyCard();
-                mAdapter.refresh();
-                mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
-            }
-        });
-        mRecyclerView = view.findViewById(R.id.rv_edit_deck);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if(getArguments() != null) {
-            mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
-        }
+        TextView category = view.findViewById(R.id.tv_deck_category);
+        category.setText(mDeck.getCategory());
+
+        TextView size = view.findViewById(R.id.tv_deck_size);
+        size.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_deck_detail);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
-            mAdapter = new EditDeckAdapter(mDeck);
+            mAdapter = new DeckDetailAdapter(this, mDeck);
         }
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
         return view;
     }
 
@@ -126,36 +124,34 @@ public class EditDeckFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (mIsEditing) {
-            inflater.inflate(R.menu.edit_deck_menu, menu);
-        } else {
-            inflater.inflate(R.menu.create_deck_menu, menu);
-        }
+        inflater.inflate(R.menu.fragment_deck_detail_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.save_deck:
-                // Save deck to database here
-                mListener.saveDeck(mAdapter.getDeck());
+            case R.id.ic_practice:
+                // Start PracticeActivity
+                Intent intent = new Intent(getContext(), PracticeActivity.class);
+                intent.putExtra(EXTRA_DECK, mDeck);
+                startActivity(intent);
                 return true;
-            case R.id.update_deck:
-                // Update deck in database here
-                mListener.updateDeck(mDeck);
+            case R.id.ic_edit:
+                Deck deck = mListener.getDeck(mDeck.getId());
+                Fragment fragment = EditDeckFragment.newInstance(deck, EDIT_MODE_ON);
+                mListener.replaceFragment(fragment);
+                return  true;
+            case R.id.ic_pin:
+                // Handle pinning a deck on top of the list here
+                Toast.makeText(getContext(),
+                        getString(R.string.pin_button_toast),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             case android.R.id.home:
-                if(mIsEditing) {
-                    // Return back to DeckDetailFragment here
-                    Deck deck = mListener.getDeck(mDeck.getId());
-                    mListener.replaceFragment(DeckDetailFragment.newInstance(deck));
-                    return true;
-                } else {
-                    // Return back to DeckListFragment here
-                    ArrayList<Deck> decks = (ArrayList<Deck>) mListener.getDecks();
-                    mListener.replaceFragment(DeckListFragment.newInstance(decks));
-                    return true;
-                }
+                // Return back to DeckListFragment here
+                ArrayList<Deck> decks = (ArrayList<Deck>) mListener.getDecks();
+                mListener.replaceFragment(DeckListFragment.newInstance(decks));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

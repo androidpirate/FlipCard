@@ -1,6 +1,5 @@
-package com.github.androidpirate.flipcard.fragment;
+package com.github.androidpirate.flipit.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipit.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard.data;
+package com.github.androidpirate.flipit.data;
 
 import android.provider.BaseColumns;
 

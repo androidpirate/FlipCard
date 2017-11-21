@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard.fragment;
+package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.androidpirate.flipcard.R;
+import com.github.androidpirate.flipit.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard.fragment;
+package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -31,8 +31,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipit.R;
+import com.github.androidpirate.flipit.model.FlipCard;
 
 /**
  * A simple {@link Fragment} subclass.

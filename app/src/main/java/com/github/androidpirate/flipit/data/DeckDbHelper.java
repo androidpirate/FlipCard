@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard.data;
+package com.github.androidpirate.flipit.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.github.androidpirate.flipcard.model.Deck;
-import com.github.androidpirate.flipcard.model.FlipCard;
+import com.github.androidpirate.flipit.model.Deck;
+import com.github.androidpirate.flipit.model.FlipCard;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.androidpirate.flipcard.data.DeckContract.*;
+import static com.github.androidpirate.flipit.data.DeckContract.*;
 
 /**
  * Helper class for deck database.

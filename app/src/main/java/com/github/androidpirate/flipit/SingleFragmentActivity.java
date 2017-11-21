@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipit;
 
 import android.content.Context;
 import android.graphics.Rect;

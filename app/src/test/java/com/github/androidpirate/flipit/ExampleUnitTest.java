@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipit;
 
 import org.junit.Test;
 

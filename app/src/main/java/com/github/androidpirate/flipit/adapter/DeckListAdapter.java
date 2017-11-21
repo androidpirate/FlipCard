@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard.adapter;
+package com.github.androidpirate.flipit.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.model.Deck;
-import com.github.androidpirate.flipcard.utils.DeckManager;
+import com.github.androidpirate.flipit.R;
+import com.github.androidpirate.flipit.model.Deck;
+import com.github.androidpirate.flipit.utils.DeckManager;
 
 import java.util.ArrayList;
 

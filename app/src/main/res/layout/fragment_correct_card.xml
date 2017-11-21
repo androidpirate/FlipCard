@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/x_small_margin"
-    tools:context="com.github.androidpirate.flipcard.fragment.CorrectCardFragment">
+    tools:context="com.github.androidpirate.flipit.fragment.CorrectCardFragment">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_card_view"

@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard.fragment;
+package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,10 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.androidpirate.flipcard.MainActivity;
-import com.github.androidpirate.flipcard.R;
-import com.github.androidpirate.flipcard.adapter.DeckListAdapter;
-import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipit.MainActivity;
+import com.github.androidpirate.flipit.R;
+import com.github.androidpirate.flipit.adapter.DeckListAdapter;
+import com.github.androidpirate.flipit.model.Deck;
 
 import java.util.ArrayList;
 

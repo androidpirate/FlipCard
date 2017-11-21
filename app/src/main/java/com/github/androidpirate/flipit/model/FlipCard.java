@@ -16,7 +16,7 @@
  * -->
  */
 
-package com.github.androidpirate.flipcard.model;
+package com.github.androidpirate.flipit.model;
 
 import java.io.Serializable;
 

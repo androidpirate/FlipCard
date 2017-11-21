@@ -1,4 +1,4 @@
-package com.github.androidpirate.flipcard.utils;
+package com.github.androidpirate.flipit.utils;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;

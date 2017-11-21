@@ -1,13 +1,13 @@
-package com.github.androidpirate.flipcard;
+package com.github.androidpirate.flipit;
 
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-import com.github.androidpirate.flipcard.data.DeckDbHelper;
-import com.github.androidpirate.flipcard.fragment.EditDeckFragment;
-import com.github.androidpirate.flipcard.fragment.DeckDetailFragment;
-import com.github.androidpirate.flipcard.fragment.DeckListFragment;
-import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipit.data.DeckDbHelper;
+import com.github.androidpirate.flipit.fragment.EditDeckFragment;
+import com.github.androidpirate.flipit.fragment.DeckDetailFragment;
+import com.github.androidpirate.flipit.fragment.DeckListFragment;
+import com.github.androidpirate.flipit.model.Deck;
 
 import java.util.ArrayList;
 import java.util.List;

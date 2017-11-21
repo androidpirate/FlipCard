@@ -1,6 +1,6 @@
-package com.github.androidpirate.flipcard.utils;
+package com.github.androidpirate.flipit.utils;
 
-import com.github.androidpirate.flipcard.model.Deck;
+import com.github.androidpirate.flipit.model.Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
