@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">FlipCard</string>
+    <string name="app_name">Flip It</string>
 
     <!-- Exit Dialog String Resources -->
     <string name="exit_dialog_title"><b>FlipCard</b></string>
