@@ -1,11 +1,14 @@
 package com.github.androidpirate.flipit.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -90,27 +93,12 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        switch (holder.getItemViewType()) {
-            case DECK:
-                EditableDeckHeader deckHeader = (EditableDeckHeader) holder;
-                if(deckHeader.mDeckTitle != null && deckHeader.mDeckTitle.getText().length() == 0) {
-                    deckHeader.mDeckTitle.requestFocus();
-                }
-                break;
-            case CARD:
-                EditableCardHolder cardHolder = (EditableCardHolder) holder;
-                if(cardHolder.mFrontText != null && cardHolder.mFrontText.getText().length() == 0) {
-                    cardHolder.mFrontText.requestFocus();
-                }
-                break;
-        }
-    }
-
     public void addEmptyCard() {
         mDeck.addEmptyCard();
+        mItems.clear();
+        mItems.add(mDeck);
+        mItems.addAll(mDeck.getCards());
+        notifyItemInserted(mItems.size() - 1);
     }
 
     public void refresh() {

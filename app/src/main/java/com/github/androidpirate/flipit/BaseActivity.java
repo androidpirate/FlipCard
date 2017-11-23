@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -40,8 +41,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     inputMethodManager.hideSoftInputFromWindow(
                             getWindow().getCurrentFocus().getWindowToken(),
                             0);
-                    innerView.clearFocus();
                 }
+                FrameLayout frameLayout = findViewById(R.id.base_container);
+                frameLayout.requestFocus();
             }
         }
         return handleReturn;

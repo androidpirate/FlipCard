@@ -99,7 +99,7 @@ public class EditDeckFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mAdapter.addEmptyCard();
-                mAdapter.refresh();
+                // mAdapter.refresh();
                 mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
             }
         });
