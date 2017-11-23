@@ -90,6 +90,25 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        switch (holder.getItemViewType()) {
+            case DECK:
+                EditableDeckHeader deckHeader = (EditableDeckHeader) holder;
+                if(deckHeader.mDeckTitle != null && deckHeader.mDeckTitle.getText().length() == 0) {
+                    deckHeader.mDeckTitle.requestFocus();
+                }
+                break;
+            case CARD:
+                EditableCardHolder cardHolder = (EditableCardHolder) holder;
+                if(cardHolder.mFrontText != null && cardHolder.mFrontText.getText().length() == 0) {
+                    cardHolder.mFrontText.requestFocus();
+                }
+                break;
+        }
+    }
+
     public void addEmptyCard() {
         mDeck.addEmptyCard();
     }
