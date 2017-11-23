@@ -24,6 +24,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.github.androidpirate.flipit.fragment.BackCardFragment;
 import com.github.androidpirate.flipit.fragment.FrontCardFragment;
@@ -35,11 +37,11 @@ import com.github.androidpirate.flipit.model.FlipCard;
 
 import java.util.ArrayList;
 
-public class PracticeActivity extends SingleFragmentActivity implements
-        FrontCardFragment.OnFragmentInteractionListener,
-        BackCardFragment.OnFragmentInteractionListener,
-        CorrectCardFragment.OnFragmentInteractionListener,
-        ScoreFragment.OnFragmentInteractionListener {
+public class PracticeActivity extends BaseActivity
+        implements FrontCardFragment.OnFragmentInteractionListener,
+                    BackCardFragment.OnFragmentInteractionListener,
+                    CorrectCardFragment.OnFragmentInteractionListener,
+                    ScoreFragment.OnFragmentInteractionListener {
     private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
     private static final String EXTRA_DECK = "extra_deck";
     private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
@@ -47,11 +49,21 @@ public class PracticeActivity extends SingleFragmentActivity implements
     private static final int ANIMATION_DELAY_TIME = 1500;
     private Deck mDeck;
     private ArrayList<FlipCard> mCards;
+    private ProgressBar mProgressBar;
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
     private int mScore = 0;
 
     @Override
+    protected void addView() {
+        FrameLayout frameLayout = findViewById(R.id.base_container);
+        View view = getLayoutInflater().inflate(R.layout.activity_practice, null, false);
+        mProgressBar = view.findViewById(R.id.progress_bar);
+        frameLayout.addView(view);
+        createFragment();
+    }
+
+    /**@Override
     protected Fragment createFragment() {
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -63,7 +75,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
         }
         mProgressBar.setVisibility(View.VISIBLE);
         return FrontCardFragment.newInstance(mFlipCard);
-    }
+    } */
 
     @Override
     public void flipToBack() {
@@ -160,6 +172,20 @@ public class PracticeActivity extends SingleFragmentActivity implements
                 .setCustomAnimations(enterAnimRes, exitAnimRes)
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
+                .commit();
+    }
+
+    private void createFragment() {
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
+        }
+        if(mDeck != null) {
+            mCards = mDeck.getCards();
+            mFlipCard = mCards.get(mCardIndex);
+        }
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, FrontCardFragment.newInstance(mFlipCard))
                 .commit();
     }
 

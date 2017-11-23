@@ -1,6 +1,8 @@
 package com.github.androidpirate.flipit;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.github.androidpirate.flipit.data.DeckDbHelper;
@@ -12,16 +14,24 @@ import com.github.androidpirate.flipit.model.Deck;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SingleFragmentActivity
+public class MainActivity extends BaseActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
                 EditDeckFragment.OnFragmentInteractionListener {
-    private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
-    private static final String EXTRA_DECK = "extra_deck";
-    private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
+    //private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
+    //private static final String EXTRA_DECK = "extra_deck";
+    //private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
     private DeckDbHelper mDbHelper;
 
     @Override
+    protected void addView() {
+        FrameLayout frameLayout = findViewById(R.id.base_container);
+        View view = getLayoutInflater().inflate(R.layout.activity_main, null, false);
+        frameLayout.addView(view);
+        createFragment();
+    }
+
+    /**@Override
     protected Fragment createFragment() {
         mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
         String fragment1 = getIntent().getStringExtra(EXTRA_FRAGMENT_INFO);
@@ -34,7 +44,7 @@ public class MainActivity extends SingleFragmentActivity
             return DeckListFragment.newInstance(decks);
         }
         return fragment;
-    }
+    } */
 
     @Override
     public void replaceFragment(Fragment fragment) {
@@ -95,5 +105,13 @@ public class MainActivity extends SingleFragmentActivity
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+    }
+
+    private void createFragment(){
+        mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
+        ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, DeckListFragment.newInstance(decks))
+                .commit();
     }
 }
