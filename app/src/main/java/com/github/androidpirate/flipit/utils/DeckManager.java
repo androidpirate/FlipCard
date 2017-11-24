@@ -1,10 +1,14 @@
 package com.github.androidpirate.flipit.utils;
 
 import com.github.androidpirate.flipit.model.Deck;
+import com.github.androidpirate.flipit.model.FlipCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
 
 /**
  * Utility class handles deck management.
@@ -56,5 +60,20 @@ public class DeckManager {
             itemIndex++;
         }
         return items;
+    }
+
+    public Queue<FlipCard> getRandomCards(Deck deck) {
+        ArrayList<FlipCard> cards = new ArrayList<>(deck.getCards());
+        int deckSize = deck.getSize();
+        int queueSize = (int) (deckSize * 0.8f);
+        Random randomGenerator = new Random();
+        Queue<FlipCard> randomCards = new LinkedList<>();
+        for(int i = 0; i < queueSize; i++) {
+            int index = randomGenerator.nextInt(deckSize);
+            randomCards.add(cards.get(index));
+            cards.remove(index);
+            deckSize--;
+        }
+        return randomCards;
     }
 }

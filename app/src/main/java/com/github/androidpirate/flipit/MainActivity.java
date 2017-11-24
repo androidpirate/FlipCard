@@ -31,6 +31,11 @@ public class MainActivity extends BaseActivity
         createFragment();
     }
 
+    @Override
+    protected void initialize() {
+        // no op
+    }
+
     /**@Override
     protected Fragment createFragment() {
         mDbHelper = DeckDbHelper.newInstance(getApplicationContext());

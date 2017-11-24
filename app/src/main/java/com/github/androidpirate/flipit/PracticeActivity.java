@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -34,8 +35,10 @@ import com.github.androidpirate.flipit.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipit.fragment.ScoreFragment;
 import com.github.androidpirate.flipit.model.Deck;
 import com.github.androidpirate.flipit.model.FlipCard;
+import com.github.androidpirate.flipit.utils.DeckManager;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class PracticeActivity extends BaseActivity
         implements FrontCardFragment.OnFragmentInteractionListener,
@@ -48,10 +51,13 @@ public class PracticeActivity extends BaseActivity
     // In milliseconds
     private static final int ANIMATION_DELAY_TIME = 1500;
     private Deck mDeck;
+    private DeckManager mDeckManager;
     private ArrayList<FlipCard> mCards;
+    private Queue<FlipCard> mRandomCards;
     private ProgressBar mProgressBar;
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
+    private int mDeckSize = 0;
     private int mScore = 0;
 
     @Override
@@ -61,6 +67,22 @@ public class PracticeActivity extends BaseActivity
         mProgressBar = view.findViewById(R.id.progress_bar);
         frameLayout.addView(view);
         createFragment();
+    }
+
+    @Override
+    protected void initialize() {
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
+        }
+        if(mDeck != null) {
+            /**mCards = mDeck.getCards(); */
+            mDeckManager = new DeckManager();
+            mRandomCards = mDeckManager.getRandomCards(mDeck);
+            mDeckSize = mRandomCards.size();
+            mFlipCard = mRandomCards.poll();/**mCards.get(mCardIndex)*/
+            Log.d("HELLO", mRandomCards.toString());
+        }
     }
 
     /**@Override
@@ -92,12 +114,12 @@ public class PracticeActivity extends BaseActivity
 
     @Override
     public void moveToNextCard() {
-        if(++mCardIndex < mCards.size()) {
+        if(++mCardIndex < mDeckSize /**mCards.size() */) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mCardIndex = mCardIndex % mCards.size();
-                    mFlipCard = mCards.get(mCardIndex);
+                    mCardIndex = mCardIndex % mDeckSize /**mCards.size()*/;
+                    mFlipCard = mRandomCards.poll();/**mCards.get(mCardIndex)*/;
                     updateProgress();
                     Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
                     replaceCard(fragment);
@@ -119,6 +141,7 @@ public class PracticeActivity extends BaseActivity
     public void restart() {
         finish();
         Intent intent = new Intent(this, PracticeActivity.class);
+
         intent.putExtra(EXTRA_DECK, mDeck);
         startActivity(intent);
     }
@@ -176,21 +199,13 @@ public class PracticeActivity extends BaseActivity
     }
 
     private void createFragment() {
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
-        }
-        if(mDeck != null) {
-            mCards = mDeck.getCards();
-            mFlipCard = mCards.get(mCardIndex);
-        }
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, FrontCardFragment.newInstance(mFlipCard))
                 .commit();
     }
 
     private void updateProgress() {
-        float deckSize = mCards.size();
+        float deckSize = mDeckSize; /**mCards.size()*/;
         float index = mCardIndex;
         float progress = 1;
         if(mCardIndex != 0) {
