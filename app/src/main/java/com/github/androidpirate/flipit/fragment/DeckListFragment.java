@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.androidpirate.flipit.MainActivity;
 import com.github.androidpirate.flipit.R;
@@ -97,6 +99,16 @@ public class DeckListFragment extends Fragment
         } else {
             displayDeckList();
         }
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),
+                        "Replace this action with the toolbar action.",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
         return view;
     }
 
