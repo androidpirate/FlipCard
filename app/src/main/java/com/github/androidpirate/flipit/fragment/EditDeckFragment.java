@@ -50,8 +50,8 @@ public class EditDeckFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void saveDeck(Deck deck);
         void updateDeck(Deck deck);
-        List<Deck> getDecks();
-        Deck getDeck(int deckId);
+        List<Deck> getDecksFromDatabase();
+        Deck getDeckFromDatabase(int deckId);
         void replaceFragment(Fragment fragment);
     }
 
@@ -147,12 +147,12 @@ public class EditDeckFragment extends Fragment {
             case android.R.id.home:
                 if(mIsEditing) {
                     // Return back to DeckDetailFragment here
-                    Deck deck = mListener.getDeck(mDeck.getId());
+                    Deck deck = mListener.getDeckFromDatabase(mDeck.getId());
                     mListener.replaceFragment(DeckDetailFragment.newInstance(deck));
                     return true;
                 } else {
                     // Return back to DeckListFragment here
-                    ArrayList<Deck> decks = (ArrayList<Deck>) mListener.getDecks();
+                    ArrayList<Deck> decks = (ArrayList<Deck>) mListener.getDecksFromDatabase();
                     mListener.replaceFragment(DeckListFragment.newInstance(decks));
                     return true;
                 }

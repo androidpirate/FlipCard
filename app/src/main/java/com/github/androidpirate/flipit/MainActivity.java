@@ -83,15 +83,17 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public List<Deck> getDecks() {
+    public List<Deck> getDecksFromDatabase() {
         return mDbHelper.getAllDecks();
     }
 
     @Override
-    public Deck getDeck(int deckId) {
+    public Deck getDeckFromDatabase(int deckId) {
         String deckIdString = String.valueOf(deckId);
         return mDbHelper.getDeck(deckIdString);
     }
+
+
 
     @Override
     public void onBackPressed() {
