@@ -18,6 +18,8 @@
     <string name="add_deck_action">ADD DECK</string>
     <string name="save_deck_action">SAVE</string>
     <string name="update_deck_action">UPDATE</string>
+    <string name="sort_by_date_action">SORT BY DATE</string>
+    <string name="sort_by_category_action">SORT BY CATEGORY</string>
 
     <!-- MainActivity Resources -->
     <string name="empty_deck_title_warning">Deck title can not be empty.</string>
