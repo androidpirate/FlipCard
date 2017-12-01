@@ -52,7 +52,6 @@ public class PracticeActivity extends BaseActivity
     private static final int ANIMATION_DELAY_TIME = 1500;
     private Deck mDeck;
     private DeckManager mDeckManager;
-    private ArrayList<FlipCard> mCards;
     private Queue<FlipCard> mRandomCards;
     private ProgressBar mProgressBar;
     private FlipCard mFlipCard;
