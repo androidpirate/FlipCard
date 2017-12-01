@@ -2,11 +2,17 @@
 
     <string name="app_name">Flip It</string>
 
-    <!-- Exit Dialog String Resources -->
-    <string name="exit_dialog_title"><b>FlipCard</b></string>
+    <!-- Leave Practice Dialog String Resources -->
+    <string name="exit_dialog_title"><b>Flip It</b></string>
     <string name="exit_dialog_message">Are you sure you want to leave practice ?</string>
     <string name="exit_dialog_positive_button_text">LEAVE</string>
     <string name="exit_dialog_negative_button_text">CANCEL</string>
+
+    <!-- Confirm Delete Deck Dialog String Resources -->
+    <string name="delete_dialog_title"><b>Delete Deck</b></string>
+    <string name="delete_dialog_message">Are you sure you want to delete this deck ?</string>
+    <string name="delete_dialog_positive_button_text">DELETE</string>
+    <string name="delete_dialog_negative_button_text">CANCEL</string>
 
     <!-- Card Text String Resources -->
     <string name="correct_card_text">Correct !</string>
@@ -20,6 +26,10 @@
     <string name="update_deck_action">UPDATE</string>
     <string name="sort_by_date_action">SORT BY DATE</string>
     <string name="sort_by_category_action">SORT BY CATEGORY</string>
+    <string name="practice_deck_action">PRACTICE</string>
+    <string name="edit_deck_action">EDIT</string>
+    <string name="pin_deck_action">PIN</string>
+    <string name="delete_deck_action">DELETE</string>
 
     <!-- MainActivity Resources -->
     <string name="empty_deck_title_warning">Deck title can not be empty.</string>
@@ -33,9 +43,6 @@
     <string name="edit_button_toast">Editing decks will be available soon.</string>
     <string name="pin_button_toast">Pinning decks in the list will be available soon.</string>
     <string name="edit_text_hint">Enter here</string>
-    <string name="action_practice">PRACTICE</string>
-    <string name="action_edit">EDIT</string>
-    <string name="action_pin">PIN</string>
 
     <!-- EditDeckFragment Resources -->
     <string name="title_tag">Title: </string>
