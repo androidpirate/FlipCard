@@ -18,9 +18,7 @@ public class MainActivity extends BaseActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
                 EditDeckFragment.OnFragmentInteractionListener {
-    //private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
-    //private static final String EXTRA_DECK = "extra_deck";
-    //private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
+    private ArrayList<Deck> mDecks;
     private DeckDbHelper mDbHelper;
 
     @Override
@@ -33,23 +31,9 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void initialize() {
-        // no op
-    }
-
-    /**@Override
-    protected Fragment createFragment() {
         mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
-        String fragment1 = getIntent().getStringExtra(EXTRA_FRAGMENT_INFO);
-        Fragment fragment;
-        if(fragment1 != null && fragment1.equals(FRAGMENT_DECK_DETAIL)) {
-            Deck deck = (Deck) getIntent().getSerializableExtra(EXTRA_DECK);
-            fragment = DeckDetailFragment.newInstance(deck);
-        } else {
-            ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
-            return DeckListFragment.newInstance(decks);
-        }
-        return fragment;
-    } */
+        mDecks = (ArrayList<Deck>) mDbHelper.getAllDecks();
+    }
 
     @Override
     public void replaceFragment(Fragment fragment) {
@@ -93,8 +77,6 @@ public class MainActivity extends BaseActivity
         return mDbHelper.getDeck(deckIdString);
     }
 
-
-
     @Override
     public void onBackPressed() {
         Fragment fragment = DeckListFragment
@@ -115,10 +97,8 @@ public class MainActivity extends BaseActivity
     }
 
     private void createFragment(){
-        mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
-        ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, DeckListFragment.newInstance(decks))
+                .add(R.id.fragment_container, DeckListFragment.newInstance(mDecks))
                 .commit();
     }
 }
