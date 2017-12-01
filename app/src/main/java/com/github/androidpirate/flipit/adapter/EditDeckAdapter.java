@@ -1,14 +1,11 @@
 package com.github.androidpirate.flipit.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -101,11 +98,10 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemInserted(mItems.size() - 1);
     }
 
-    public void refresh() {
+    public void refreshDataSet() {
         mItems.clear();
         mItems.add(mDeck);
         mItems.addAll(mDeck.getCards());
-        notifyDataSetChanged();
     }
 
     public Deck getDeck() {
@@ -194,7 +190,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(getAdapterPosition() != 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.moveCardUp(currentCardPosition, currentCardPosition - 1);
-                        refresh();
+                        refreshDataSet();
+                        notifyItemMoved(getAdapterPosition(), getAdapterPosition() - 1);
                     }
                 }
             });
@@ -208,7 +205,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(getAdapterPosition() != mItems.size() - 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.moveCardDown(currentCardPosition, currentCardPosition + 1);
-                        refresh();
+                        refreshDataSet();
+                        notifyItemMoved(getAdapterPosition(), getAdapterPosition() + 1);
                     }
                 }
             });
@@ -222,7 +220,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(mItems.size() > 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.deleteCard(currentCardPosition);
-                        refresh();
+                        refreshDataSet();
+                        notifyItemRemoved(getAdapterPosition());
                     }
                 }
             });
