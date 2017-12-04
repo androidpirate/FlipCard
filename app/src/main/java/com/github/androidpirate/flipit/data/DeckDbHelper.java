@@ -52,8 +52,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(SQL_DROP_TABLE);
-        onCreate(db);
+        // Currently doesn't do anything on the existing database
     }
 
     public List<Deck> getAllDecks() {
