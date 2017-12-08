@@ -1,6 +1,7 @@
 package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipit.R;
+import com.hookedonplay.decoviewlib.DecoView;
+import com.hookedonplay.decoviewlib.charts.SeriesItem;
+import com.hookedonplay.decoviewlib.events.DecoEvent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,7 @@ import com.github.androidpirate.flipit.R;
 public class ScoreFragment extends Fragment {
     private static final String ARG_SCORE = "score";
     private int mScore;
+    private DecoView mDecoView;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -70,6 +75,26 @@ public class ScoreFragment extends Fragment {
                 mListener.restart();
             }
         });
+
+        mDecoView = view.findViewById(R.id.dynamicArcView);
+        SeriesItem seriesItemBackground = new SeriesItem.Builder(Color.parseColor("#FFE2E2E2"))
+                .setRange(0, 50, 0)
+                .build();
+        int backIndex = mDecoView.addSeries(seriesItemBackground);
+
+        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#FF4081"))
+                .setRange(0, 50, 0)
+                .build();
+        int series1Index = mDecoView.addSeries(seriesItem);
+
+        mDecoView.addEvent(new DecoEvent.Builder(30)
+                .setIndex(backIndex)
+                .build());
+
+        mDecoView.addEvent(new DecoEvent.Builder(16.3f)
+                .setIndex(series1Index)
+                .setDelay(2000)
+                .build());
         return view;
     }
 

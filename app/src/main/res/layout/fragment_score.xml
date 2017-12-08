@@ -1,6 +1,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/x_small_margin"
@@ -16,12 +17,20 @@
         android:text="@string/congratulations_text"
         android:textColor="@color/colorGreen"/>
 
+    <com.hookedonplay.decoviewlib.DecoView
+        android:id="@+id/dynamicArcView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/tv_message"
+        custom:dv_lineWidth="20dp"/>
+
     <TextView
         android:id="@+id/tv_score_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_message"
-        android:layout_marginTop="@dimen/x_large_margin"
+        android:layout_marginTop="@dimen/xx_large_margin"
         android:layout_marginBottom="@dimen/regular_margin"
         style="@style/CardTextViewStyle"
         android:fontFamily="monospace"

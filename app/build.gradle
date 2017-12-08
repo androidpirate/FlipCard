@@ -54,5 +54,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.android.support:recyclerview-v7:27.0.1'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
+    compile 'com.github.bmarrdev:android-DecoView-charting:v0.9.3'
     testCompile 'junit:junit:4.12'
 }
