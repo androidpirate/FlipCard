@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -66,7 +67,7 @@ public class ScoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_score, container, false);
-        TextView scoreText = view.findViewById(R.id.tv_score);
+        final TextView scoreText = view.findViewById(R.id.tv_score);
         scoreText.setText(String.valueOf(mScore));
         ImageButton restart = view.findViewById(R.id.bt_restart);
         restart.setOnClickListener(new View.OnClickListener() {
@@ -77,23 +78,39 @@ public class ScoreFragment extends Fragment {
         });
 
         mDecoView = view.findViewById(R.id.dynamicArcView);
-        SeriesItem seriesItemBackground = new SeriesItem.Builder(Color.parseColor("#FFE2E2E2"))
-                .setRange(0, 50, 0)
-                .build();
-        int backIndex = mDecoView.addSeries(seriesItemBackground);
+        mDecoView.configureAngles(300, 0);
 
-        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#FF4081"))
+        SeriesItem backgroundArc = new SeriesItem.Builder(Color.parseColor("#FFE2E2E2"))
+                .setRange(0, 30, 0)
+                .build();
+        int backIndex = mDecoView.addSeries(backgroundArc);
+
+        SeriesItem baseScoreArc = new SeriesItem.Builder(Color.parseColor("#FF4081"))
                 .setRange(0, 50, 0)
                 .build();
-        int series1Index = mDecoView.addSeries(seriesItem);
+        baseScoreArc.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
+            @Override
+            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
+                scoreText.setText(String.valueOf((int)currentPosition));
+            }
+            @Override
+            public void onSeriesItemDisplayProgress(float percentComplete) {
+                // no op
+            }
+        });
+        int baseScoreIndex = mDecoView.addSeries(baseScoreArc);
 
         mDecoView.addEvent(new DecoEvent.Builder(30)
                 .setIndex(backIndex)
+                .setDelay(500)
+                .setDuration(2000)
+                .setInterpolator(new DecelerateInterpolator())
                 .build());
 
         mDecoView.addEvent(new DecoEvent.Builder(16.3f)
-                .setIndex(series1Index)
-                .setDelay(2000)
+                .setIndex(baseScoreIndex)
+                .setDelay(1000)
+                .setInterpolator(new DecelerateInterpolator())
                 .build());
         return view;
     }

@@ -12,51 +12,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/x_large_margin"
+        android:layout_margin="@dimen/large_margin"
         style="@style/CardTextViewStyle"
         android:text="@string/congratulations_text"
         android:textColor="@color/colorGreen"/>
 
-    <com.hookedonplay.decoviewlib.DecoView
-        android:id="@+id/dynamicArcView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/tv_message"
-        custom:dv_lineWidth="20dp"/>
-
-    <TextView
-        android:id="@+id/tv_score_tag"
+    <FrameLayout
+        android:id="@+id/score_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_message"
-        android:layout_marginTop="@dimen/xx_large_margin"
-        android:layout_marginBottom="@dimen/regular_margin"
-        style="@style/CardTextViewStyle"
-        android:fontFamily="monospace"
-        android:text="@string/score_tag"
-        android:textColor="@color/colorAccent"
-        android:textSize="45sp"/>
+        android:layout_height="300dp"
+        android:layout_below="@id/tv_message">
 
-    <TextView
-        android:id="@+id/tv_score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_score_tag"
-        android:layout_marginTop="@dimen/regular_margin"
-        android:layout_marginBottom="@dimen/regular_margin"
-        style="@style/CardTextViewStyle"
-        android:textColor="@color/colorAccent"
-        android:textSize="45sp"
-        android:gravity="center"
-        tools:text="10"/>
+        <com.hookedonplay.decoviewlib.DecoView
+            android:id="@+id/dynamicArcView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            custom:dv_lineWidth="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_score_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/x_large_margin"
+            style="@style/CardTextViewStyle"
+            android:fontFamily="monospace"
+            android:text="@string/score_tag"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textSize="45sp"/>
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/xx_large_margin"
+            android:layout_marginBottom="@dimen/regular_margin"
+            style="@style/CardTextViewStyle"
+            android:textColor="@color/colorAccent"
+            android:textSize="45sp"
+            android:gravity="center"
+            tools:text="30"/>
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_restart_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_score"
-        android:layout_marginTop="@dimen/xx_large_margin"
+        android:layout_below="@id/score_frame"
+            android:layout_marginTop="@dimen/small_margin"
         style="@style/CardTextViewStyle"
         android:text="@string/restart_tag"/>
 
