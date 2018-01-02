@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -36,8 +35,8 @@ import com.github.androidpirate.flipit.fragment.ScoreFragment;
 import com.github.androidpirate.flipit.model.Deck;
 import com.github.androidpirate.flipit.model.FlipCard;
 import com.github.androidpirate.flipit.utils.DeckManager;
+import com.github.androidpirate.flipit.utils.ScoreManager;
 
-import java.util.ArrayList;
 import java.util.Queue;
 
 public class PracticeActivity extends BaseActivity
@@ -52,12 +51,13 @@ public class PracticeActivity extends BaseActivity
     private static final int ANIMATION_DELAY_TIME = 1500;
     private Deck mDeck;
     private DeckManager mDeckManager;
+    private ScoreManager mScoreManager;
     private Queue<FlipCard> mRandomCards;
     private ProgressBar mProgressBar;
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
     private int mDeckSize = 0;
-    private int mScore = 0;
+    // private int mScore = 0;
 
     @Override
     protected void addView() {
@@ -75,28 +75,13 @@ public class PracticeActivity extends BaseActivity
             mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
         }
         if(mDeck != null) {
-            /**mCards = mDeck.getCards(); */
             mDeckManager = new DeckManager();
+            mScoreManager = new ScoreManager();
             mRandomCards = mDeckManager.getRandomCards(mDeck);
             mDeckSize = mRandomCards.size();
-            mFlipCard = mRandomCards.poll();/**mCards.get(mCardIndex)*/
-            Log.d("HELLO", mRandomCards.toString());
+            mFlipCard = mRandomCards.poll();
         }
     }
-
-    /**@Override
-    protected Fragment createFragment() {
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
-        }
-        if(mDeck != null) {
-            mCards = mDeck.getCards();
-            mFlipCard = mCards.get(mCardIndex);
-        }
-        mProgressBar.setVisibility(View.VISIBLE);
-        return FrontCardFragment.newInstance(mFlipCard);
-    } */
 
     @Override
     public void flipToBack() {
@@ -113,12 +98,12 @@ public class PracticeActivity extends BaseActivity
 
     @Override
     public void moveToNextCard() {
-        if(++mCardIndex < mDeckSize /**mCards.size() */) {
+        if(++mCardIndex < mDeckSize) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mCardIndex = mCardIndex % mDeckSize /**mCards.size()*/;
-                    mFlipCard = mRandomCards.poll();/**mCards.get(mCardIndex)*/;
+                    mCardIndex = mCardIndex % mDeckSize;
+                    mFlipCard = mRandomCards.poll();
                     updateProgress();
                     Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
                     replaceCard(fragment);
@@ -129,7 +114,8 @@ public class PracticeActivity extends BaseActivity
                 @Override
                 public void run() {
                     mProgressBar.setVisibility(View.INVISIBLE);
-                    Fragment fragment = ScoreFragment.newInstance(mScore);
+                    Fragment fragment = ScoreFragment.newInstance(mScoreManager.getScore(),
+                            mScoreManager.getBonus());
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);
@@ -140,7 +126,6 @@ public class PracticeActivity extends BaseActivity
     public void restart() {
         finish();
         Intent intent = new Intent(this, PracticeActivity.class);
-
         intent.putExtra(EXTRA_DECK, mDeck);
         startActivity(intent);
     }
@@ -172,7 +157,7 @@ public class PracticeActivity extends BaseActivity
     }
 
     private void updateScore(){
-        mScore++;
+        mScoreManager.increaseScore();
     }
 
     private void replaceCard(Fragment fragment) {
@@ -204,7 +189,7 @@ public class PracticeActivity extends BaseActivity
     }
 
     private void updateProgress() {
-        float deckSize = mDeckSize; /**mCards.size()*/;
+        float deckSize = mDeckSize;
         float index = mCardIndex;
         float progress = 1;
         if(mCardIndex != 0) {
@@ -212,5 +197,4 @@ public class PracticeActivity extends BaseActivity
         }
         mProgressBar.setProgress((int) progress);
     }
-
 }

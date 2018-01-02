@@ -2,6 +2,7 @@ package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +24,9 @@ import com.hookedonplay.decoviewlib.events.DecoEvent;
  */
 public class ScoreFragment extends Fragment {
     private static final String ARG_SCORE = "score";
+    private static final String ARG_BONUS = "bonus";
     private int mScore;
+    private int mBonus;
     private DecoView mDecoView;
     private OnFragmentInteractionListener mListener;
 
@@ -46,10 +49,11 @@ public class ScoreFragment extends Fragment {
      * this fragment using the provided parameters.
      * @return A new instance of fragment ScoreFragment.
      */
-    public static ScoreFragment newInstance(int score) {
+    public static ScoreFragment newInstance(int score, int bonus) {
         ScoreFragment fragment = new ScoreFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SCORE, score);
+        args.putInt(ARG_BONUS, bonus);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,6 +63,7 @@ public class ScoreFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
             mScore = getArguments().getInt(ARG_SCORE);
+            mBonus = getArguments().getInt(ARG_BONUS);
         }
     }
 
@@ -79,19 +84,20 @@ public class ScoreFragment extends Fragment {
 
         mDecoView = view.findViewById(R.id.dynamicArcView);
         mDecoView.configureAngles(300, 0);
-
+        // Builds background arc
         SeriesItem backgroundArc = new SeriesItem.Builder(Color.parseColor("#FFE2E2E2"))
-                .setRange(0, 30, 0)
+                .setRange(0, 100, 0)
                 .build();
+        // Add the item to DecoView. Index will be used to pair animation and item
         int backIndex = mDecoView.addSeries(backgroundArc);
-
+        // Builds baseScore arc
         SeriesItem baseScoreArc = new SeriesItem.Builder(Color.parseColor("#FF4081"))
                 .setRange(0, 50, 0)
                 .build();
         baseScoreArc.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
             @Override
             public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                scoreText.setText(String.valueOf((int)currentPosition));
+                scoreText.setText(String.valueOf(mScore));
             }
             @Override
             public void onSeriesItemDisplayProgress(float percentComplete) {
@@ -100,14 +106,14 @@ public class ScoreFragment extends Fragment {
         });
         int baseScoreIndex = mDecoView.addSeries(baseScoreArc);
 
-        mDecoView.addEvent(new DecoEvent.Builder(30)
+        mDecoView.addEvent(new DecoEvent.Builder(100)
                 .setIndex(backIndex)
                 .setDelay(500)
                 .setDuration(2000)
                 .setInterpolator(new DecelerateInterpolator())
                 .build());
 
-        mDecoView.addEvent(new DecoEvent.Builder(16.3f)
+        mDecoView.addEvent(new DecoEvent.Builder(25)
                 .setIndex(baseScoreIndex)
                 .setDelay(1000)
                 .setInterpolator(new DecelerateInterpolator())
