@@ -43,6 +43,11 @@ public class ScoreManager {
         return ((float)mScore / (float)mDeckSize) * 100;
     }
 
+    public float getPercentBonus() {
+        int maxBonus = (mDeckSize % 5) * 3;
+        return ((float) mBonus / (float) maxBonus) * 100;
+    }
+
     private void calculateBonus() {
         if(mCorrectAnswerInARow == THREE_IN_A_ROW) {
             mBonus++;

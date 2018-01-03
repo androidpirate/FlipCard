@@ -115,7 +115,9 @@ public class PracticeActivity extends BaseActivity
                 public void run() {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     Fragment fragment = ScoreFragment.newInstance(mScoreManager.getScore(),
-                            mScoreManager.getBonus(), mScoreManager.getPercentageScore());
+                            mScoreManager.getBonus(),
+                            mScoreManager.getPercentageScore(),
+                            mScoreManager.getPercentBonus());
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);
