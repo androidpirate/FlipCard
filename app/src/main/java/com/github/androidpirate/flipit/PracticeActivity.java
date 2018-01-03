@@ -76,10 +76,10 @@ public class PracticeActivity extends BaseActivity
         }
         if(mDeck != null) {
             mDeckManager = new DeckManager();
-            mScoreManager = new ScoreManager();
             mRandomCards = mDeckManager.getRandomCards(mDeck);
             mDeckSize = mRandomCards.size();
             mFlipCard = mRandomCards.poll();
+            mScoreManager = new ScoreManager(mDeckSize);
         }
     }
 
@@ -115,7 +115,7 @@ public class PracticeActivity extends BaseActivity
                 public void run() {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     Fragment fragment = ScoreFragment.newInstance(mScoreManager.getScore(),
-                            mScoreManager.getBonus());
+                            mScoreManager.getBonus(), mScoreManager.getPercentageScore());
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);

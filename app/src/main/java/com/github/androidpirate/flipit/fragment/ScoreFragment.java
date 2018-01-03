@@ -25,7 +25,9 @@ import com.hookedonplay.decoviewlib.events.DecoEvent;
 public class ScoreFragment extends Fragment {
     private static final String ARG_SCORE = "score";
     private static final String ARG_BONUS = "bonus";
+    private static final String ARG_PERCENTAGE_SCORE = "percent_score";
     private int mScore;
+    private float mPercentScore;
     private int mBonus;
     private DecoView mDecoView;
     private OnFragmentInteractionListener mListener;
@@ -49,11 +51,12 @@ public class ScoreFragment extends Fragment {
      * this fragment using the provided parameters.
      * @return A new instance of fragment ScoreFragment.
      */
-    public static ScoreFragment newInstance(int score, int bonus) {
+    public static ScoreFragment newInstance(int score, int bonus, float percentScore) {
         ScoreFragment fragment = new ScoreFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SCORE, score);
         args.putInt(ARG_BONUS, bonus);
+        args.putFloat(ARG_PERCENTAGE_SCORE, percentScore);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,6 +67,7 @@ public class ScoreFragment extends Fragment {
         if(getArguments() != null) {
             mScore = getArguments().getInt(ARG_SCORE);
             mBonus = getArguments().getInt(ARG_BONUS);
+            mPercentScore = getArguments().getFloat(ARG_PERCENTAGE_SCORE);
         }
     }
 
@@ -92,32 +96,56 @@ public class ScoreFragment extends Fragment {
         int backIndex = mDecoView.addSeries(backgroundArc);
         // Builds baseScore arc
         SeriesItem baseScoreArc = new SeriesItem.Builder(Color.parseColor("#FF4081"))
-                .setRange(0, 50, 0)
+                .setRange(0, 100, 0)
                 .build();
         baseScoreArc.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
             @Override
             public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                scoreText.setText(String.valueOf(mScore));
+                String format = "%.0f%%";
+                scoreText.setText(String.format(format, mPercentScore));
             }
             @Override
             public void onSeriesItemDisplayProgress(float percentComplete) {
                 // no op
             }
         });
+        // Add the item to DecoView. Index will be used to pair animation and item
         int baseScoreIndex = mDecoView.addSeries(baseScoreArc);
-
+//        SeriesItem bonusScoreArc = new SeriesItem.Builder(Color.parseColor("#000000"))
+//                .setRange(0, 100, 0)
+//                .setInitialVisibility(false)
+//                .build();
+//        bonusScoreArc.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
+//            @Override
+//            public void onSeriesItemAnimationProgress(float v, float v1) {
+//                scoreText.setText(String.valueOf(mBonus));
+//            }
+//
+//            @Override
+//            public void onSeriesItemDisplayProgress(float v) {
+//                // no op
+//            }
+//        });
+//        int bonusScoreIndex = mDecoView.addSeries(bonusScoreArc);
+        // Background arc animation
         mDecoView.addEvent(new DecoEvent.Builder(100)
                 .setIndex(backIndex)
                 .setDelay(500)
                 .setDuration(2000)
                 .setInterpolator(new DecelerateInterpolator())
                 .build());
-
-        mDecoView.addEvent(new DecoEvent.Builder(25)
+        // BaseScore animation
+        mDecoView.addEvent(new DecoEvent.Builder(mPercentScore)
                 .setIndex(baseScoreIndex)
                 .setDelay(1000)
                 .setInterpolator(new DecelerateInterpolator())
                 .build());
+        // BonusScore animation
+//        mDecoView.addEvent(new DecoEvent.Builder(50.3f)
+//                .setIndex(bonusScoreIndex)
+//                .setDelay(3000)
+//                .setInterpolator(new DecelerateInterpolator())
+//                .build());
         return view;
     }
 

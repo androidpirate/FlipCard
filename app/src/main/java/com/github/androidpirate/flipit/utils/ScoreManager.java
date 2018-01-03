@@ -7,14 +7,20 @@ public class ScoreManager {
     private static final int THREE_IN_A_ROW = 3;
     private static final int FOUR_IN_A_ROW = 4;
     private static final int FIVE_IN_A_ROW = 5;
+    private int mDeckSize;
     private int mScore;
     private int mBonus;
     private int mCorrectAnswerInARow;
 
-    public ScoreManager() {
+    public ScoreManager(int deckSize) {
+        mDeckSize = deckSize;
         mScore = 0;
         mBonus = 0;
         mCorrectAnswerInARow = 0;
+    }
+
+    public int getDeckSize() {
+        return mDeckSize;
     }
 
     public int getScore() {
@@ -31,6 +37,10 @@ public class ScoreManager {
         if(mCorrectAnswerInARow > 2) {
             calculateBonus();
         }
+    }
+
+    public float getPercentageScore() {
+        return ((float)mScore / (float)mDeckSize) * 100;
     }
 
     private void calculateBonus() {
