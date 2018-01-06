@@ -11,6 +11,7 @@ public class Deck implements Serializable {
     private String mTitle;
     private ArrayList<FlipCard> mCards;
     private String mCategory;
+    private String mDescription;
     private int mSize;
 
     public Deck() {
@@ -47,6 +48,14 @@ public class Deck implements Serializable {
 
     public void setCategory(String category) {
         mCategory = category;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 
     public int getSize() {

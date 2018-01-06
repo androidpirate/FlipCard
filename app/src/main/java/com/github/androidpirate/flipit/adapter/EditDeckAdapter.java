@@ -92,13 +92,16 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void addEmptyCard() {
         mDeck.addEmptyCard();
-    }
-
-    public void refresh() {
         mItems.clear();
         mItems.add(mDeck);
         mItems.addAll(mDeck.getCards());
-        notifyDataSetChanged();
+        notifyItemInserted(mItems.size() - 1);
+    }
+
+    public void refreshDataSet() {
+        mItems.clear();
+        mItems.add(mDeck);
+        mItems.addAll(mDeck.getCards());
     }
 
     public Deck getDeck() {
@@ -187,7 +190,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(getAdapterPosition() != 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.moveCardUp(currentCardPosition, currentCardPosition - 1);
-                        refresh();
+                        refreshDataSet();
+                        notifyItemMoved(getAdapterPosition(), getAdapterPosition() - 1);
                     }
                 }
             });
@@ -201,7 +205,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(getAdapterPosition() != mItems.size() - 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.moveCardDown(currentCardPosition, currentCardPosition + 1);
-                        refresh();
+                        refreshDataSet();
+                        notifyItemMoved(getAdapterPosition(), getAdapterPosition() + 1);
                     }
                 }
             });
@@ -215,7 +220,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(mItems.size() > 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.deleteCard(currentCardPosition);
-                        refresh();
+                        refreshDataSet();
+                        notifyItemRemoved(getAdapterPosition());
                     }
                 }
             });

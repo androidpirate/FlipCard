@@ -28,6 +28,7 @@
         android:layout_marginBottom="@dimen/small_margin"
         android:textSize="@dimen/small_text_size"
         android:hint="@string/edit_text_hint"
+        android:focusableInTouchMode="true"
         android:inputType="text"/>
 
     <TextView
@@ -51,6 +52,7 @@
         android:layout_marginLeft="@dimen/small_margin"
         android:layout_marginRight="@dimen/small_margin"
         android:layout_marginBottom="@dimen/small_margin"
+        android:focusableInTouchMode="true"
         android:textSize="@dimen/small_text_size"
         android:hint="@string/edit_text_hint"
         android:inputType="text"/>

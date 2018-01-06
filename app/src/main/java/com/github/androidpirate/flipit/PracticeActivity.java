@@ -24,6 +24,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.github.androidpirate.flipit.fragment.BackCardFragment;
 import com.github.androidpirate.flipit.fragment.FrontCardFragment;
@@ -32,37 +34,53 @@ import com.github.androidpirate.flipit.fragment.DeckDetailFragment;
 import com.github.androidpirate.flipit.fragment.ScoreFragment;
 import com.github.androidpirate.flipit.model.Deck;
 import com.github.androidpirate.flipit.model.FlipCard;
+import com.github.androidpirate.flipit.utils.DeckManager;
+import com.github.androidpirate.flipit.utils.ScoreManager;
 
-import java.util.ArrayList;
+import java.util.Queue;
 
-public class PracticeActivity extends SingleFragmentActivity implements
-        FrontCardFragment.OnFragmentInteractionListener,
-        BackCardFragment.OnFragmentInteractionListener,
-        CorrectCardFragment.OnFragmentInteractionListener,
-        ScoreFragment.OnFragmentInteractionListener {
+public class PracticeActivity extends BaseActivity
+        implements FrontCardFragment.OnFragmentInteractionListener,
+                    BackCardFragment.OnFragmentInteractionListener,
+                    CorrectCardFragment.OnFragmentInteractionListener,
+                    ScoreFragment.OnFragmentInteractionListener {
     private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
     private static final String EXTRA_DECK = "extra_deck";
     private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
     // In milliseconds
     private static final int ANIMATION_DELAY_TIME = 1500;
     private Deck mDeck;
-    private ArrayList<FlipCard> mCards;
+    private DeckManager mDeckManager;
+    private ScoreManager mScoreManager;
+    private Queue<FlipCard> mRandomCards;
+    private ProgressBar mProgressBar;
     private FlipCard mFlipCard;
     private int mCardIndex = 0;
-    private int mScore = 0;
+    private int mDeckSize = 0;
+    // private int mScore = 0;
 
     @Override
-    protected Fragment createFragment() {
+    protected void addView() {
+        FrameLayout frameLayout = findViewById(R.id.base_container);
+        View view = getLayoutInflater().inflate(R.layout.activity_practice, null, false);
+        mProgressBar = view.findViewById(R.id.progress_bar);
+        frameLayout.addView(view);
+        createFragment();
+    }
+
+    @Override
+    protected void initialize() {
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             mDeck = (Deck) intent.getExtras().getSerializable(EXTRA_DECK);
         }
         if(mDeck != null) {
-            mCards = mDeck.getCards();
-            mFlipCard = mCards.get(mCardIndex);
+            mDeckManager = new DeckManager();
+            mRandomCards = mDeckManager.getRandomCards(mDeck);
+            mDeckSize = mRandomCards.size();
+            mFlipCard = mRandomCards.poll();
+            mScoreManager = new ScoreManager(mDeckSize);
         }
-        mProgressBar.setVisibility(View.VISIBLE);
-        return FrontCardFragment.newInstance(mFlipCard);
     }
 
     @Override
@@ -80,12 +98,12 @@ public class PracticeActivity extends SingleFragmentActivity implements
 
     @Override
     public void moveToNextCard() {
-        if(++mCardIndex < mCards.size()) {
+        if(++mCardIndex < mDeckSize) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mCardIndex = mCardIndex % mCards.size();
-                    mFlipCard = mCards.get(mCardIndex);
+                    mCardIndex = mCardIndex % mDeckSize;
+                    mFlipCard = mRandomCards.poll();
                     updateProgress();
                     Fragment fragment = FrontCardFragment.newInstance(mFlipCard);
                     replaceCard(fragment);
@@ -96,7 +114,10 @@ public class PracticeActivity extends SingleFragmentActivity implements
                 @Override
                 public void run() {
                     mProgressBar.setVisibility(View.INVISIBLE);
-                    Fragment fragment = ScoreFragment.newInstance(mScore);
+                    Fragment fragment = ScoreFragment.newInstance(mScoreManager.getScore(),
+                            mScoreManager.getBonus(),
+                            mScoreManager.getPercentageScore(),
+                            mScoreManager.getPercentBonus());
                     replaceCard(fragment);
                 }
             }, ANIMATION_DELAY_TIME);
@@ -138,7 +159,7 @@ public class PracticeActivity extends SingleFragmentActivity implements
     }
 
     private void updateScore(){
-        mScore++;
+        mScoreManager.increaseScore();
     }
 
     private void replaceCard(Fragment fragment) {
@@ -163,8 +184,14 @@ public class PracticeActivity extends SingleFragmentActivity implements
                 .commit();
     }
 
+    private void createFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, FrontCardFragment.newInstance(mFlipCard))
+                .commit();
+    }
+
     private void updateProgress() {
-        float deckSize = mCards.size();
+        float deckSize = mDeckSize;
         float index = mCardIndex;
         float progress = 1;
         if(mCardIndex != 0) {
@@ -172,5 +199,4 @@ public class PracticeActivity extends SingleFragmentActivity implements
         }
         mProgressBar.setProgress((int) progress);
     }
-
 }

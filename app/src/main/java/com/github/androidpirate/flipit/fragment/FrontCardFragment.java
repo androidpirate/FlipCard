@@ -79,7 +79,6 @@ public class FrontCardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mCard = (FlipCard) getArguments().getSerializable(ARG_CARD);
         }
@@ -94,7 +93,7 @@ public class FrontCardFragment extends Fragment {
         if(mCard != null) {
             frontText.setText(mCard.getFrontSide());
         }
-        ImageButton flipCard = view.findViewById(R.id.ib_flip_card);
+        TextView flipCard = view.findViewById(R.id.ib_flip_card);
         flipCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

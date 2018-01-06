@@ -76,11 +76,11 @@ public class BackCardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_back_card, container, false);
         mBackText = view.findViewById(R.id.tv_back_text);
         mBackText.setText(mCard.getRearSide());
-        setCardBackgroundColor();
+        setCardTextColor();
         return view;
     }
 
-    private void setCardBackgroundColor() {
+    private void setCardTextColor() {
         mBackText.setTextColor(getResources().getColor(R.color.colorRed));
     }
 
@@ -92,18 +92,6 @@ public class BackCardFragment extends Fragment {
             // mListener.moveToNextCard();
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) activity;
-            //mListener.moveToNextCard();
-        } else {
-            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

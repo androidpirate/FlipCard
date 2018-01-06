@@ -1,10 +1,12 @@
 package com.github.androidpirate.flipit.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +24,7 @@ import com.github.androidpirate.flipit.MainActivity;
 import com.github.androidpirate.flipit.PracticeActivity;
 import com.github.androidpirate.flipit.R;
 import com.github.androidpirate.flipit.adapter.DeckDetailAdapter;
+import com.github.androidpirate.flipit.data.DeckDbHelper;
 import com.github.androidpirate.flipit.model.Deck;
 
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class DeckDetailFragment extends Fragment
     private static final boolean EDIT_MODE_ON = true;
     private Deck mDeck;
     private DeckDetailAdapter mAdapter;
+    private DeckDbHelper mDeckDbHelper;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -51,8 +55,8 @@ public class DeckDetailFragment extends Fragment
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        List<Deck> getDecks();
-        Deck getDeck(int deckId);
+        List<Deck> getDecksFromDatabase();
+        Deck getDeckFromDatabase(int deckId);
         void replaceFragment(Fragment fragment);
     }
 
@@ -80,6 +84,7 @@ public class DeckDetailFragment extends Fragment
         if (getArguments() != null) {
             mDeck = (Deck) getArguments().getSerializable(ARG_DECK);
         }
+        mDeckDbHelper = DeckDbHelper.newInstance(getContext());
         setHasOptionsMenu(true);
     }
 
@@ -137,7 +142,8 @@ public class DeckDetailFragment extends Fragment
                 startActivity(intent);
                 return true;
             case R.id.ic_edit:
-                Deck deck = mListener.getDeck(mDeck.getId());
+                // Deck deck = mListener.getDeckFromDatabase(mDeck.getId());
+                Deck deck = mDeckDbHelper.getDeck(String.valueOf(mDeck.getId()));
                 Fragment fragment = EditDeckFragment.newInstance(deck, EDIT_MODE_ON);
                 mListener.replaceFragment(fragment);
                 return  true;
@@ -147,10 +153,12 @@ public class DeckDetailFragment extends Fragment
                         getString(R.string.pin_button_toast),
                         Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.ic_delete:
+                confirmDelete();
+                return true;
             case android.R.id.home:
                 // Return back to DeckListFragment here
-                ArrayList<Deck> decks = (ArrayList<Deck>) mListener.getDecks();
-                mListener.replaceFragment(DeckListFragment.newInstance(decks));
+                returnToList();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -171,5 +179,33 @@ public class DeckDetailFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void confirmDelete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.delete_dialog_title)
+                .setMessage(R.string.delete_dialog_message)
+                .setPositiveButton(R.string.delete_dialog_positive_button_text,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DeckDbHelper deckDbHelper = DeckDbHelper.newInstance(getContext());
+                                deckDbHelper.deleteDeck(mDeck.getId());
+                                returnToList();
+                            }
+                        })
+                .setNegativeButton(R.string.delete_dialog_negative_button_text,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+        builder.create().show();
+    }
+
+    private void returnToList() {
+        ArrayList<Deck> decks = (ArrayList<Deck>) mDeckDbHelper.getAllDecks();
+        mListener.replaceFragment(DeckListFragment.newInstance(decks));
     }
 }

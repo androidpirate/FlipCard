@@ -1,6 +1,8 @@
 package com.github.androidpirate.flipit;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.github.androidpirate.flipit.data.DeckDbHelper;
@@ -12,28 +14,25 @@ import com.github.androidpirate.flipit.model.Deck;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SingleFragmentActivity
+public class MainActivity extends BaseActivity
     implements DeckListFragment.OnFragmentInteractionListener,
                 DeckDetailFragment.OnFragmentInteractionListener,
                 EditDeckFragment.OnFragmentInteractionListener {
-    private static final String EXTRA_FRAGMENT_INFO = "extra_fragment_info";
-    private static final String EXTRA_DECK = "extra_deck";
-    private static final String FRAGMENT_DECK_DETAIL = DeckDetailFragment.class.getSimpleName();
+    private ArrayList<Deck> mDecks;
     private DeckDbHelper mDbHelper;
 
     @Override
-    protected Fragment createFragment() {
+    protected void addView() {
+        FrameLayout frameLayout = findViewById(R.id.base_container);
+        View view = getLayoutInflater().inflate(R.layout.activity_main, null, false);
+        frameLayout.addView(view);
+        createFragment();
+    }
+
+    @Override
+    protected void initialize() {
         mDbHelper = DeckDbHelper.newInstance(getApplicationContext());
-        String fragment1 = getIntent().getStringExtra(EXTRA_FRAGMENT_INFO);
-        Fragment fragment;
-        if(fragment1 != null && fragment1.equals(FRAGMENT_DECK_DETAIL)) {
-            Deck deck = (Deck) getIntent().getSerializableExtra(EXTRA_DECK);
-            fragment = DeckDetailFragment.newInstance(deck);
-        } else {
-            ArrayList<Deck> decks = (ArrayList<Deck>) mDbHelper.getAllDecks();
-            return DeckListFragment.newInstance(decks);
-        }
-        return fragment;
+        mDecks = (ArrayList<Deck>) mDbHelper.getAllDecks();
     }
 
     @Override
@@ -68,12 +67,12 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     @Override
-    public List<Deck> getDecks() {
+    public List<Deck> getDecksFromDatabase() {
         return mDbHelper.getAllDecks();
     }
 
     @Override
-    public Deck getDeck(int deckId) {
+    public Deck getDeckFromDatabase(int deckId) {
         String deckIdString = String.valueOf(deckId);
         return mDbHelper.getDeck(deckIdString);
     }
@@ -95,5 +94,11 @@ public class MainActivity extends SingleFragmentActivity
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+    }
+
+    private void createFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, DeckListFragment.newInstance(mDecks))
+                .commit();
     }
 }
