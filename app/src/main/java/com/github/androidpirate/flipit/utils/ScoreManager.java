@@ -44,7 +44,19 @@ public class ScoreManager {
     }
 
     public float getPercentBonus() {
-        int maxBonus = (mDeckSize % 5) * 3;
+        int maxBonus = 0;
+        int remainder = mDeckSize % 5;
+        switch (remainder) {
+            case 0:
+                maxBonus = (mDeckSize / 5) * 3;
+                break;
+            case 3:
+                maxBonus = (mDeckSize / 5) * 3 + 1;
+                break;
+            case 4:
+                maxBonus = (mDeckSize / 5) * 3 + 2;
+                break;
+        }
         return ((float) mBonus / (float) maxBonus) * 100;
     }
 
