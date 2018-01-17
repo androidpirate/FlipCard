@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,9 +10,10 @@
         android:id="@+id/tv_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:textStyle="bold|italic"
+        android:textSize="@dimen/small_text_size"
+        android:textStyle="italic"
         android:textColor="@android:color/black"
-        android:layout_margin="@dimen/regular_margin"/>
+        android:layout_margin="@dimen/regular_margin"
+        tools:text="Test"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
