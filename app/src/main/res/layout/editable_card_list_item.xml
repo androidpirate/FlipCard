@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -44,6 +45,15 @@
                 android:layout_margin="@dimen/x_small_margin"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/regular_text_size"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginTop="@dimen/x_small_margin"
+            tools:text="#1"/>
 
         <TextView
             android:id="@+id/tv_front_tag"

@@ -47,5 +47,6 @@
     <!-- EditDeckFragment Resources -->
     <string name="title_tag">Title: </string>
     <string name="category_tag">Category: </string>
+    <string name="card_number" formatted="false">#%d</string>
 
 </resources>

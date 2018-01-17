@@ -21,7 +21,6 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int DECK = 1;
     private ArrayList<Object> mItems = new ArrayList<>();
     private OnAdapterInteractionListener mListener;
-    private Context mContext;
 
     public interface OnAdapterInteractionListener {
         void onItemClick(Deck deck);
@@ -37,8 +36,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
-        mContext = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(mContext);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case CATEGORY:
                 View categoryView = inflater.inflate(R.layout.deck_list_category_item,
@@ -121,7 +119,8 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         void onBindDeck(Deck deck) {
             mTitle.setText(deck.getTitle());
-            mSize.setText(String.format(mContext.getString(R.string.deck_list_item_size), deck.getSize()));
+            final Context context = itemView.getContext();
+            mSize.setText(String.format(context.getString(R.string.deck_list_item_size), deck.getSize()));
         }
     }
 }

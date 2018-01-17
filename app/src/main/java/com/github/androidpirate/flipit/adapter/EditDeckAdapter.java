@@ -1,5 +1,6 @@
 package com.github.androidpirate.flipit.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.androidpirate.flipit.R;
 import com.github.androidpirate.flipit.model.Deck;
@@ -166,6 +168,7 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private ImageView mButtonUp;
         private ImageView mButtonDown;
         private ImageView mButtonDelete;
+        private TextView mCardNumber;
         private EditText mFrontText;
         private EditText mRearText;
 
@@ -176,6 +179,9 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private void onBindCard(FlipCard card) {
             mCard = card;
+            final Context context = itemView.getContext();
+            mCardNumber.setText(String.format(context.getString(R.string.card_number),
+                                getAdapterPosition()));
             mFrontText.setText(mCard.getFrontSide());
             mRearText.setText(mCard.getRearSide());
         }
@@ -190,8 +196,9 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     if(getAdapterPosition() != 1) {
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.moveCardUp(currentCardPosition, currentCardPosition - 1);
+                        // notifyItemMoved(getAdapterPosition(), getAdapterPosition() - 1);
                         refreshDataSet();
-                        notifyItemMoved(getAdapterPosition(), getAdapterPosition() - 1);
+                        notifyDataSetChanged();
                     }
                 }
             });
@@ -206,7 +213,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.moveCardDown(currentCardPosition, currentCardPosition + 1);
                         refreshDataSet();
-                        notifyItemMoved(getAdapterPosition(), getAdapterPosition() + 1);
+                        // notifyItemMoved(getAdapterPosition(), getAdapterPosition() + 1);
+                        notifyDataSetChanged();
                     }
                 }
             });
@@ -221,10 +229,13 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         int currentCardPosition = getAdapterPosition() - 1;
                         mDeck.deleteCard(currentCardPosition);
                         refreshDataSet();
-                        notifyItemRemoved(getAdapterPosition());
+                        // notifyItemRemoved(getAdapterPosition());
+                        notifyDataSetChanged();
                     }
                 }
             });
+
+            mCardNumber = itemView.findViewById(R.id.tv_card_number);
 
             mFrontText = itemView.findViewById(R.id.et_front);
             mFrontText.addTextChangedListener(new TextWatcher() {
