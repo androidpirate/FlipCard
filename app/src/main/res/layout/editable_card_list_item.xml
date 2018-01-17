@@ -67,6 +67,7 @@
         <EditText
             android:id="@+id/et_front"
             style="@style/EditableCardListItemEditTextStyle"
+            android:inputType="text|textMultiLine"
             android:focusableInTouchMode="true"
             android:layout_below="@id/tv_front_tag"
             android:layout_marginLeft="@dimen/x_small_margin"
@@ -87,6 +88,7 @@
         <EditText
             android:id="@+id/et_rear"
             style="@style/EditableCardListItemEditTextStyle"
+            android:inputType="text|textMultiLine"
             android:layout_below="@id/tv_rear_tag"
             android:layout_marginLeft="@dimen/x_small_margin"
             android:layout_marginRight="@dimen/x_small_margin"

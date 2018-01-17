@@ -29,7 +29,7 @@
         android:textSize="@dimen/small_text_size"
         android:hint="@string/edit_text_hint"
         android:focusableInTouchMode="true"
-        android:inputType="text"/>
+        android:inputType="text|textMultiLine"/>
 
     <TextView
         android:id="@+id/tv_category_tag"
@@ -55,6 +55,6 @@
         android:focusableInTouchMode="true"
         android:textSize="@dimen/small_text_size"
         android:hint="@string/edit_text_hint"
-        android:inputType="text"/>
+        android:inputType="text|textMultiLine"/>
 
 </RelativeLayout>
