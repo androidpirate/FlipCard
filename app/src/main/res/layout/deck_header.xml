@@ -45,14 +45,14 @@
     <TextView
         android:id="@+id/tv_deck_size"
         style="@style/DeckHeaderTextViewStyle"
-        android:layout_below="@id/tv_deck_title"
-        android:layout_toRightOf="@id/tv_deck_category"
-        android:layout_toEndOf="@id/tv_deck_category"
-        android:layout_marginLeft="@dimen/small_margin"
-        android:layout_marginStart="@dimen/small_margin"
+        android:layout_below="@id/tv_deck_category"
+        android:layout_toRightOf="@id/iv_deck_icon"
+        android:layout_toEndOf="@id/iv_deck_icon"
+        android:layout_marginLeft="@dimen/regular_margin"
+        android:layout_marginStart="@dimen/regular_margin"
         android:layout_marginRight="@dimen/small_margin"
         android:layout_marginEnd="@dimen/small_margin"
-        tools:text="/ 43 Cards"/>
+        tools:text="43 Cards"/>
 
     <ImageView
         android:id="@+id/iv_edit"
