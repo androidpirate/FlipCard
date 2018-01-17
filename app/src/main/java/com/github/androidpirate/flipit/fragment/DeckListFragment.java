@@ -103,10 +103,13 @@ public class DeckListFragment extends Fragment
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),
-                        "Replace this action with the toolbar action.",
-                        Toast.LENGTH_SHORT)
-                        .show();
+            if(getActivity() != null) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container,
+                                EditDeckFragment.newInstance(new Deck(), EDIT_MODE_ON))
+                        .commit();
+            }
             }
         });
         return view;
@@ -129,15 +132,6 @@ public class DeckListFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_deck:
-                if(getActivity() != null) {
-                    FragmentManager fm = getActivity().getSupportFragmentManager();
-                    fm.beginTransaction()
-                            .replace(R.id.fragment_container,
-                                    EditDeckFragment.newInstance(new Deck(), EDIT_MODE_ON))
-                            .commit();
-                }
-                return true;
             case R.id.sort_by_date:
                 // Sort the list by date here
                 return true;

@@ -3,11 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_deck"
-        android:title="@string/add_deck_action"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/sort_by_date"
         android:title="@string/sort_by_date_action"
         app:showAsAction="never"/>
