@@ -34,16 +34,6 @@
             android:layout_marginBottom="@dimen/small_margin"
             tools:text="Deck Title"/>
 
-        <!--<TextView
-            android:id="@+id/tv_category"
-            style="@style/DeckListTextViewStyle"
-            android:layout_toRightOf="@id/iv_deck_icon"
-            android:layout_toEndOf="@id/iv_deck_icon"
-            android:layout_below="@id/tv_title"
-            android:layout_marginLeft="@dimen/x_small_margin"
-            android:layout_marginStart="@dimen/x_small_margin"
-            tools:text="Deck Category"/> -->
-
         <TextView
             android:id="@+id/tv_size"
             style="@style/DeckListTextViewStyle"

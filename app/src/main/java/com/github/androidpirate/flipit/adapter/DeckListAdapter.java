@@ -101,13 +101,11 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class DeckHolder extends RecyclerView.ViewHolder {
         private TextView mTitle;
-        //private TextView mCategory;
         private TextView mSize;
 
         DeckHolder(View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.tv_title);
-            //mCategory = itemView.findViewById(R.id.tv_category);
             mSize = itemView.findViewById(R.id.tv_size);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,7 +121,6 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         void onBindDeck(Deck deck) {
             mTitle.setText(deck.getTitle());
-            //mCategory.setText(deck.getCategory());
             mSize.setText(String.format(mContext.getString(R.string.deck_list_item_size), deck.getSize()));
         }
     }
