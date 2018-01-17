@@ -36,7 +36,7 @@
 
     <!-- DeckListFragment Resources -->
     <string name="empty_list_warning">You have no decks.</string>
-    <string name="deck_list_item_size" formatted="false"> / %d Cards</string>
+    <string name="deck_list_item_size" formatted="false">%d Cards</string>
 
     <!-- DeckDetailFragment Resources -->
     <string name="header_deck_size" formatted="false"> / %d Cards</string>
