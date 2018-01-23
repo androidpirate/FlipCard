@@ -131,14 +131,6 @@ public class DeckListFragment extends Fragment
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sort_by_date:
-                // Sort the list by date here
-                return true;
-            case R.id.sort_by_category:
-                // Sort the list by category here
-                return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
