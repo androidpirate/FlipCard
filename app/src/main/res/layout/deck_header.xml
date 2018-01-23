@@ -54,7 +54,7 @@
         android:layout_marginEnd="@dimen/small_margin"
         tools:text="43 Cards"/>
 
-    <ImageView
+    <!-- <ImageView
         android:id="@+id/iv_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,6 +63,19 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/regular_margin"
-        android:visibility="gone"/>
+        android:visibility="gone"/> -->
+
+    <TextView
+        android:id="@+id/tv_deck_description"
+        style="@style/DeckHeaderTextViewStyle"
+        android:textStyle="italic"
+        android:layout_below="@id/tv_deck_size"
+        android:layout_toRightOf="@id/iv_deck_icon"
+        android:layout_toEndOf="@id/iv_deck_icon"
+        android:layout_marginLeft="@dimen/regular_margin"
+        android:layout_marginStart="@dimen/regular_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        tools:text="Description"/>
 
 </RelativeLayout>

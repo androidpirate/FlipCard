@@ -109,6 +109,9 @@ public class DeckDetailFragment extends Fragment
         TextView size = view.findViewById(R.id.tv_deck_size);
         size.setText(String.format(getString(R.string.header_deck_size), mDeck.getSize()));
 
+        TextView description = view.findViewById(R.id.tv_deck_description);
+        description.setText(mDeck.getDescription());
+
         RecyclerView recyclerView = view.findViewById(R.id.rv_deck_detail);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(mAdapter == null) {
