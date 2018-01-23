@@ -28,21 +28,32 @@
             style="@style/DeckListTitleTextViewStyle"
             android:layout_toRightOf="@id/iv_deck_icon"
             android:layout_toEndOf="@id/iv_deck_icon"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginLeft="@dimen/x_small_margin"
-            android:layout_marginStart="@dimen/x_small_margin"
-            android:layout_marginBottom="@dimen/small_margin"
+            android:layout_marginTop="@dimen/x_small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
             tools:text="Deck Title"/>
 
         <TextView
             android:id="@+id/tv_size"
-            style="@style/DeckListTextViewStyle"
+            style="@style/DeckListSizeTextViewStyle"
             android:layout_toEndOf="@id/iv_deck_icon"
             android:layout_toRightOf="@id/iv_deck_icon"
             android:layout_below="@id/tv_title"
-            android:layout_marginLeft="@dimen/x_small_margin"
-            android:layout_marginStart="@dimen/x_small_margin"
+            android:layout_marginTop="@dimen/x_small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
             tools:text="Deck Size"/>
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/DeckListDescriptionTextViewStyle"
+            android:layout_toEndOf="@id/iv_deck_icon"
+            android:layout_toRightOf="@id/iv_deck_icon"
+            android:layout_below="@id/tv_size"
+            android:layout_marginTop="@dimen/x_small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            tools:text="Deck Description"/>
 
         <ImageView
             android:id="@+id/iv_pin_icon"

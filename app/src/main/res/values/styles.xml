@@ -33,11 +33,20 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="DeckListTextViewStyle">
+    <style name="DeckListSizeTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DeckListDescriptionTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/small_text_size</item>
         <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="CardListItemTextViewStyle">

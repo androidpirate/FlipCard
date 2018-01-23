@@ -100,11 +100,13 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     class DeckHolder extends RecyclerView.ViewHolder {
         private TextView mTitle;
         private TextView mSize;
+        private TextView mDescription;
 
         DeckHolder(View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.tv_title);
             mSize = itemView.findViewById(R.id.tv_size);
+            mDescription = itemView.findViewById(R.id.tv_description);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -121,6 +123,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mTitle.setText(deck.getTitle());
             final Context context = itemView.getContext();
             mSize.setText(String.format(context.getString(R.string.deck_list_item_size), deck.getSize()));
+            mDescription.setText(deck.getDescription());
         }
     }
 }
