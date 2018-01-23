@@ -158,7 +158,7 @@ public class DeckListFragment extends Fragment
     }
 
     private void displayEmptyListText(){
-        mRecyclerView.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
         mEmptyListText.setVisibility(View.VISIBLE);
         mEmptyListText.setText(getString(R.string.empty_list_warning));
     }
