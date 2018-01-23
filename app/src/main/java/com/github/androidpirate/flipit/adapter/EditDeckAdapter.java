@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -117,6 +118,8 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private Deck mDeck;
         private EditText mDeckTitle;
         private EditText mCategory;
+        private ImageButton mExpandDescription;
+        private EditText mDescription;
 
         private EditableDeckHeader(View itemView) {
             super(itemView);
@@ -155,6 +158,33 @@ public class EditDeckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void afterTextChanged(Editable editable) {
                     mDeck.setCategory(editable.toString());
+                }
+            });
+
+            mExpandDescription = itemView.findViewById(R.id.bt_expand_description);
+            mExpandDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mDescription.getVisibility() != View.VISIBLE) {
+                        mExpandDescription.setVisibility(View.GONE);
+                        mDescription.setVisibility(View.VISIBLE);
+                        mDescription.setText(mDeck.getDescription());
+                        notifyDataSetChanged();
+                    }
+                }
+            });
+
+            mDescription = itemView.findViewById(R.id.et_description);
+            mDescription.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    mDeck.setDescription(editable.toString());
                 }
             });
         }
