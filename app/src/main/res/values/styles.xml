@@ -36,7 +36,7 @@
     <style name="DeckListSizeTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 

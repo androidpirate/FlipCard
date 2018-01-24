@@ -10,10 +10,13 @@
         android:id="@+id/tv_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/small_text_size"
+        android:textSize="@dimen/regular_text_size"
         android:textStyle="italic"
         android:textColor="@android:color/black"
-        android:layout_margin="@dimen/regular_margin"
+        android:layout_marginLeft="@dimen/regular_margin"
+        android:layout_marginRight="@dimen/regular_margin"
+        android:layout_marginTop="@dimen/x_small_margin"
+        android:layout_marginBottom="@dimen/x_small_margin"
         tools:text="Test"/>
 
 </android.support.design.widget.CoordinatorLayout>
