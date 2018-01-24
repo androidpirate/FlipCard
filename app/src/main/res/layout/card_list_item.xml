@@ -14,6 +14,15 @@
         android:layout_height="match_parent"
         android:padding="@dimen/regular_padding">
 
+        <TextView
+            android:id="@+id/tv_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/regular_text_size"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginTop="@dimen/x_small_margin"
+            tools:text="#1"/>
+
         <ImageButton
             android:id="@+id/ib_overflow"
             android:layout_width="wrap_content"

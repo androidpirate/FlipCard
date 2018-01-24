@@ -22,6 +22,7 @@ import java.util.ArrayList;
  * Adapter class used to create views to create a heterogeneous layout for RecyclerView.
  */
 public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.CardHolder> {
+    private static final int CARD_POSITION_CONSTANT = 1;
     private ArrayList<FlipCard> mCards = new ArrayList<>();
 
     public interface OnAdapterInteractionListener {
@@ -54,12 +55,14 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
      */
     class CardHolder extends RecyclerView.ViewHolder {
         private FlipCard mCard;
+        private TextView mCardNumber;
         private TextView mFrontText;
         private TextView mRearText;
         private ImageButton mOverflow;
 
         private CardHolder(View itemView) {
             super(itemView);
+            mCardNumber = itemView.findViewById(R.id.tv_card_number);
             mFrontText = itemView.findViewById(R.id.tv_front);
             mRearText = itemView.findViewById(R.id.tv_rear);
             mOverflow = itemView.findViewById(R.id.ib_overflow);
@@ -67,6 +70,9 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
 
         void onBindCard(FlipCard card) {
             mCard = card;
+            final Context context = itemView.getContext();
+            mCardNumber.setText(String.format(context.getString(R.string.card_number),
+                    getAdapterPosition() + CARD_POSITION_CONSTANT));
             mFrontText.setText(mCard.getFrontSide());
             mRearText.setText(mCard.getRearSide());
             mOverflow.setOnClickListener(new View.OnClickListener() {
