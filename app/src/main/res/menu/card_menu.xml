@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/hide_card"
+        android:title="@string/hide_card_action"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/display_card"
+        android:title="@string/display_card_action"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/favorite_card"
+        android:title="@string/favorite_card_action"
+        app:showAsAction="never"/>
+
+</menu>
