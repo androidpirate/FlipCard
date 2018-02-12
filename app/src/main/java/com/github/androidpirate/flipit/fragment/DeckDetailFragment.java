@@ -43,10 +43,13 @@ public class DeckDetailFragment extends Fragment
     private static final String ARG_DECK = "deck";
     private static final String EXTRA_DECK = "extra_deck";
     private static final boolean EDIT_MODE_ON = true;
+    private static final int DECK_PINNED = 1;
+    private static final int DECK_NOT_PINNED = 0;
     private Deck mDeck;
     private DeckDetailAdapter mAdapter;
     private DeckDbHelper mDeckDbHelper;
     private OnFragmentInteractionListener mListener;
+    private Menu mMenu;
 
     /**
      * This interface must be implemented by activities that contain this
@@ -58,6 +61,7 @@ public class DeckDetailFragment extends Fragment
         List<Deck> getDecksFromDatabase();
         Deck getDeckFromDatabase(int deckId);
         void replaceFragment(Fragment fragment);
+        void updateDeckStatus(Deck deck);
     }
 
     public DeckDetailFragment() {
@@ -133,6 +137,8 @@ public class DeckDetailFragment extends Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_deck_detail_menu, menu);
+        mMenu = menu;
+        updateMenuTitles();
     }
 
     @Override
@@ -151,10 +157,12 @@ public class DeckDetailFragment extends Fragment
                 mListener.replaceFragment(fragment);
                 return  true;
             case R.id.ic_pin:
-                // Handle pinning a deck on top of the list here
-                Toast.makeText(getContext(),
-                        getString(R.string.pin_button_toast),
-                        Toast.LENGTH_SHORT).show();
+                if(mDeck.getIsPinned() != 1) {
+                    mDeck.setIsPinned(DECK_PINNED);
+                } else {
+                    mDeck.setIsPinned(DECK_NOT_PINNED);
+                }
+                mListener.updateDeckStatus(mDeck);
                 return true;
             case R.id.ic_delete:
                 confirmDelete();
@@ -210,5 +218,12 @@ public class DeckDetailFragment extends Fragment
     private void returnToList() {
         ArrayList<Deck> decks = (ArrayList<Deck>) mDeckDbHelper.getAllDecks();
         mListener.replaceFragment(DeckListFragment.newInstance(decks));
+    }
+
+    private void updateMenuTitles() {
+        if(mDeck.getIsPinned() == DECK_PINNED) {
+            MenuItem pinned = mMenu.findItem(R.id.ic_pin);
+            pinned.setTitle(getString(R.string.unpin_deck_action));
+        }
     }
 }

@@ -22,7 +22,7 @@ import static com.github.androidpirate.flipit.data.DeckContract.*;
  * Helper class for deck database.
  */
 public class DeckDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "DeckDatabase.db";
     private static final String COMMA_SEPARATOR = ",";
     private static final String SQL_CREATE_TABLE = "CREATE TABLE " + DeckEntry.TABLE_NAME + "(" +
@@ -30,6 +30,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
             DeckEntry.COLUMN_TITLE + " TEXT NOT NULL" + COMMA_SEPARATOR +
             DeckEntry.COLUMN_CATEGORY + " TEXT" + COMMA_SEPARATOR +
             DeckEntry.COLUMN_DESCRIPTION + " TEXT" + COMMA_SEPARATOR +
+            DeckEntry.COLUMN_PINNED + " INTEGER" + COMMA_SEPARATOR +
             DeckEntry.COLUMN_CARDS + " TEXT" + COMMA_SEPARATOR +
             DeckEntry.COLUMN_SIZE + " INTEGER" + ");";
     private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DeckEntry.TABLE_NAME;
@@ -68,6 +69,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
                     String queryCards = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_CARDS));
                     String category = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_CATEGORY));
                     String description = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_DESCRIPTION));
+                    int isPinned = cursor.getInt(cursor.getColumnIndex(DeckEntry.COLUMN_PINNED));
                     int size = cursor.getInt(cursor.getColumnIndex(DeckEntry.COLUMN_SIZE));
                     Deck deck = new Deck();
                     deck.setId(_id);
@@ -78,6 +80,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
                     deck.setCards(cards);
                     deck.setCategory(category);
                     deck.setDescription(description);
+                    deck.setIsPinned(isPinned);
                     deck.setSize(size);
                     decks.add(deck);
                 } while (cursor.moveToNext());
@@ -104,6 +107,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
                 String queryCards = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_CARDS));
                 String category = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_CATEGORY));
                 String description = cursor.getString(cursor.getColumnIndex(DeckEntry.COLUMN_DESCRIPTION));
+                int isPinned = cursor.getInt(cursor.getColumnIndex(DeckEntry.COLUMN_PINNED));
                 int size = cursor.getInt(cursor.getColumnIndex(DeckEntry.COLUMN_SIZE));
                 deck.setId(_id);
                 deck.setTitle(title);
@@ -113,6 +117,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
                 deck.setCards(cards);
                 deck.setCategory(category);
                 deck.setDescription(description);
+                deck.setIsPinned(isPinned);
                 deck.setSize(size);
             }
         } catch (Exception e) {
@@ -136,6 +141,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
             cv.put(DeckEntry.COLUMN_CARDS, cards);
             cv.put(DeckEntry.COLUMN_CATEGORY, deck.getCategory());
             cv.put(DeckEntry.COLUMN_DESCRIPTION, deck.getDescription());
+            cv.put(DeckEntry.COLUMN_PINNED, deck.getIsPinned());
             cv.put(DeckEntry.COLUMN_SIZE, deck.getSize());
             db.insert(DeckEntry.TABLE_NAME, null, cv);
             db.setTransactionSuccessful();
@@ -163,6 +169,7 @@ public class DeckDbHelper extends SQLiteOpenHelper {
         cv.put(DeckEntry.COLUMN_CARDS, cards);
         cv.put(DeckEntry.COLUMN_CATEGORY, deck.getCategory());
         cv.put(DeckEntry.COLUMN_DESCRIPTION, deck.getDescription());
+        cv.put(DeckEntry.COLUMN_PINNED, deck.getIsPinned());
         cv.put(DeckEntry.COLUMN_SIZE, deck.getSize());
         SQLiteDatabase db = getWritableDatabase();
         return db.update(DeckEntry.TABLE_NAME, cv, where, whereArgs);

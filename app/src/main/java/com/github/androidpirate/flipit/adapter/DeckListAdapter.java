@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.androidpirate.flipit.R;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int CATEGORY = 0;
     private static final int DECK = 1;
+    private static final int DECK_PINNED = 1;
     private ArrayList<Object> mItems = new ArrayList<>();
     private OnAdapterInteractionListener mListener;
 
@@ -30,7 +32,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mListener = listener;
         DeckManager deckManager = new DeckManager();
         deckManager.sortByCategories(decks);
-        mItems = deckManager.getListItems(decks);
+        mItems = deckManager.getListItems(deckManager.sortByStatus(decks));
     }
 
     @Override
@@ -101,6 +103,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private TextView mTitle;
         private TextView mSize;
         private TextView mDescription;
+        private ImageView mPinned;
 
         DeckHolder(View itemView) {
             super(itemView);
@@ -117,6 +120,7 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             });
+            mPinned = itemView.findViewById(R.id.iv_pin_icon);
         }
 
         void onBindDeck(Deck deck) {
@@ -124,6 +128,9 @@ public class DeckListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             final Context context = itemView.getContext();
             mSize.setText(String.format(context.getString(R.string.deck_list_item_size), deck.getSize()));
             mDescription.setText(deck.getDescription());
+            if(deck.getIsPinned() == DECK_PINNED) {
+                mPinned.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

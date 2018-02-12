@@ -27,6 +27,7 @@
     <string name="practice_deck_action">PRACTICE</string>
     <string name="edit_deck_action">EDIT</string>
     <string name="pin_deck_action">PIN</string>
+    <string name="unpin_deck_action">UNPIN</string>
     <string name="delete_deck_action">DELETE</string>
     <string name="hide_card_action">HIDE</string>
     <string name="display_card_action">DISPLAY</string>

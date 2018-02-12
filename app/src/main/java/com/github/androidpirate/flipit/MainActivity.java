@@ -67,6 +67,12 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    public void updateDeckStatus(Deck deck) {
+        mDbHelper.updateDeck(deck);
+        replaceFragment(DeckListFragment.newInstance((ArrayList<Deck>) mDbHelper.getAllDecks()));
+    }
+
+    @Override
     public List<Deck> getDecksFromDatabase() {
         return mDbHelper.getAllDecks();
     }

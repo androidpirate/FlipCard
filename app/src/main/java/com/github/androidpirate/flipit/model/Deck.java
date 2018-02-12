@@ -7,15 +7,18 @@ import java.util.ArrayList;
  * Model class for deck.
  */
 public class Deck implements Serializable {
+    private static final int DECK_NOT_PINNED = 0;
     private int mId;
     private String mTitle;
     private ArrayList<FlipCard> mCards;
     private String mCategory;
     private String mDescription;
+    private int mIsPinned;
     private int mSize;
 
     public Deck() {
         mCards = new ArrayList<>();
+        mIsPinned = DECK_NOT_PINNED;
     }
 
     public int getId() {
@@ -56,6 +59,14 @@ public class Deck implements Serializable {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public int getIsPinned() {
+        return mIsPinned;
+    }
+
+    public void setIsPinned(int isPinned) {
+        mIsPinned = isPinned;
     }
 
     public int getSize() {

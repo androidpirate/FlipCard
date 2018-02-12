@@ -14,6 +14,7 @@ import java.util.Random;
  * Utility class handles deck management.
  */
 public class DeckManager {
+    private static final int DECK_PINNED = 1;
 
     public DeckManager() {
     }
@@ -26,6 +27,26 @@ public class DeckManager {
             }
         });
         return 0;
+    }
+
+    public ArrayList<Deck> sortByStatus(ArrayList<Deck> decks) {
+        ArrayList<Deck> pinnedDecks = new ArrayList<>();
+        ArrayList<Deck> regularDecks = new ArrayList<>();
+        for(Deck deck: decks) {
+            if(deck.getIsPinned() == DECK_PINNED) {
+                pinnedDecks.add(deck);
+            } else {
+                regularDecks.add(deck);
+            }
+        }
+        // Sort both decks by category
+        sortByCategories(pinnedDecks);
+        sortByCategories(regularDecks);
+        // Rearrange decks
+        decks.clear();
+        decks.addAll(pinnedDecks);
+        decks.addAll(regularDecks);
+        return decks;
     }
 
     public ArrayList<Object> getListItems(ArrayList<Deck> decks) {
@@ -75,5 +96,11 @@ public class DeckManager {
             deckSize--;
         }
         return randomCards;
+    }
+
+    private void swap(ArrayList<Deck> decks, int pinnedIndex, int currentIndex) {
+        Deck tempDeck = decks.get(currentIndex);
+        decks.set(currentIndex, decks.get(pinnedIndex));
+        decks.set(pinnedIndex, tempDeck);
     }
 }
