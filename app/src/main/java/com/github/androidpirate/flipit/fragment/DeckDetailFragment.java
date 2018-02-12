@@ -58,8 +58,7 @@ public class DeckDetailFragment extends Fragment
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        List<Deck> getDecksFromDatabase();
-        Deck getDeckFromDatabase(int deckId);
+        void updateDeck(Deck deck);
         void replaceFragment(Fragment fragment);
         void updateDeckStatus(Deck deck);
     }
@@ -216,6 +215,7 @@ public class DeckDetailFragment extends Fragment
     }
 
     private void returnToList() {
+        mListener.updateDeck(mDeck);
         ArrayList<Deck> decks = (ArrayList<Deck>) mDeckDbHelper.getAllDecks();
         mListener.replaceFragment(DeckListFragment.newInstance(decks));
     }

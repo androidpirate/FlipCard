@@ -59,11 +59,11 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:visibility="gone"
-            android:src="@drawable/ic_unpinned"
+            android:src="@drawable/ic_pinned"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/x_small_padding"
-            tools:src="@drawable/ic_unpinned"/>
+            tools:src="@drawable/ic_pinned"/>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

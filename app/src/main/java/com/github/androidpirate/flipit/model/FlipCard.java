@@ -26,10 +26,14 @@ import java.io.Serializable;
 public class FlipCard implements Serializable {
     private String frontSide;
     private String rearSide;
+    private boolean isVisible;
+    private boolean isFavorite;
 
     public FlipCard(String frontSide, String rearSide) {
         this.frontSide = frontSide;
         this.rearSide = rearSide;
+        isVisible = true;
+        isFavorite = false;
     }
 
     public String getFrontSide() {
@@ -46,5 +50,21 @@ public class FlipCard implements Serializable {
 
     public void setRearSide(String rearSide) {
         this.rearSide = rearSide;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

@@ -4,17 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.github.androidpirate.flipit.R;
 import com.github.androidpirate.flipit.model.Deck;
 import com.github.androidpirate.flipit.model.FlipCard;
-import com.github.androidpirate.flipit.utils.CardMenuItemClickListener;
 
 import java.util.ArrayList;
 
@@ -58,6 +58,8 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
         private TextView mCardNumber;
         private TextView mFrontText;
         private TextView mRearText;
+        private ImageView mVisible;
+        private ImageView mFavorite;
         private ImageButton mOverflow;
 
         private CardHolder(View itemView) {
@@ -66,6 +68,8 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
             mFrontText = itemView.findViewById(R.id.tv_front);
             mRearText = itemView.findViewById(R.id.tv_rear);
             mOverflow = itemView.findViewById(R.id.ib_overflow);
+            mVisible = itemView.findViewById(R.id.iv_visible_icon);
+            mFavorite = itemView.findViewById(R.id.iv_favorite_icon);
         }
 
         void onBindCard(FlipCard card) {
@@ -75,20 +79,70 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
                     getAdapterPosition() + CARD_POSITION_CONSTANT));
             mFrontText.setText(mCard.getFrontSide());
             mRearText.setText(mCard.getRearSide());
+            setVisibility();
+            setFavorite();
             mOverflow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showPopUpMenu(mOverflow, getAdapterPosition());
+                    showPopUpMenu(mOverflow);
                 }
             });
         }
 
-        private void showPopUpMenu(View view, int position) {
-            PopupMenu popup = new PopupMenu(view.getContext(), view);
+        private void showPopUpMenu(View view) {
+            final PopupMenu popup = new PopupMenu(view.getContext(), view);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.card_menu, popup.getMenu());
-            popup.setOnMenuItemClickListener(new CardMenuItemClickListener(position));
+            setMenuItems(popup);
             popup.show();
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.display_card:
+                            mCard.setVisible(true);
+                            setVisibility();
+                            setMenuItems(popup);
+                            return true;
+                        case R.id.hide_card:
+                            mCard.setVisible(false);
+                            setVisibility();
+                            setMenuItems(popup);
+                            return true;
+                        case R.id.favorite_card:
+                            mCard.setFavorite(true);
+                            setFavorite();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        private void setVisibility() {
+            if(mCard.isVisible()) {
+                mVisible.setImageResource(R.drawable.ic_visible);
+            } else {
+                mVisible.setImageResource(R.drawable.ic_hidden);
+            }
+        }
+
+        private void setFavorite() {
+            if(mCard.isFavorite()) {
+                mFavorite.setVisibility(View.VISIBLE);
+            } else {
+                mFavorite.setVisibility(View.GONE);
+            }
+        }
+
+        private void setMenuItems(PopupMenu popup) {
+            if(mCard.isVisible()) {
+                MenuItem display = popup.getMenu().findItem(R.id.display_card);
+                display.setVisible(false);
+            } else {
+                MenuItem hidden = popup.getMenu().findItem(R.id.hide_card);
+                hidden.setVisible(false);
+            }
         }
     }
 }

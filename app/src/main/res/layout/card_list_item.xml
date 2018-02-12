@@ -70,5 +70,28 @@
             android:layout_margin="@dimen/x_small_margin"
             tools:text="Screen"/>
 
+        <ImageView
+            android:id="@+id/iv_visible_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tv_rear"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginRight="@dimen/x_small_margin"/>
+
+        <ImageView
+            android:id="@+id/iv_favorite_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/ic_favorite"
+            android:layout_toLeftOf="@id/iv_visible_icon"
+            android:layout_toStartOf="@id/iv_visible_icon"
+            android:layout_below="@id/tv_rear"
+            android:layout_marginLeft="@dimen/x_small_margin"
+            android:layout_marginRight="@dimen/x_small_margin"/>
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>
