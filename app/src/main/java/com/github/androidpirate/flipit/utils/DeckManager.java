@@ -84,23 +84,47 @@ public class DeckManager {
     }
 
     public Queue<FlipCard> getRandomCards(Deck deck) {
-        ArrayList<FlipCard> cards = new ArrayList<>(deck.getCards());
+        ArrayList<FlipCard> visibles = deck.getVisibleCards();
+        ArrayList<FlipCard> favorites = deck.getFavoriteCards();
         int deckSize = deck.getSize();
         int queueSize = (int) (deckSize * 0.8f);
-        Random randomGenerator = new Random();
+        // TODO: Why did I used a LinkedList here ???
         Queue<FlipCard> randomCards = new LinkedList<>();
+        // TODO: Change the loop sizes to array sizes above and
+        // TODO: create two separate loops to combine the lists
         for(int i = 0; i < queueSize; i++) {
-            int index = randomGenerator.nextInt(deckSize);
-            randomCards.add(cards.get(index));
-            cards.remove(index);
-            deckSize--;
+            if(i <= favorites.size()) {
+                addRandomFavoriteCards(favorites, randomCards);
+            } else if(i <= visibles.size()) {
+                addRandomVisibleCards(visibles, randomCards);
+            } else {
+                if(i < queueSize - 1) {
+                    // Break if the size is still lower than
+                    // estimated 80%, after adding those two decks
+                    break;
+                }
+            }
         }
         return randomCards;
     }
 
-    private void swap(ArrayList<Deck> decks, int pinnedIndex, int currentIndex) {
-        Deck tempDeck = decks.get(currentIndex);
-        decks.set(currentIndex, decks.get(pinnedIndex));
-        decks.set(pinnedIndex, tempDeck);
+    private void addRandomFavoriteCards(ArrayList<FlipCard> favorites,
+                                        Queue<FlipCard> randomCards) {
+        Random randomGenerator = new Random();
+        int index = randomGenerator.nextInt(favorites.size());
+        randomCards.add(favorites.get(index));
+        // Remove the random card from the favorites
+        // to prevent adding the same card to practice deck
+        favorites.remove(favorites.get(index));
+    }
+
+    private void addRandomVisibleCards(ArrayList<FlipCard> visibles,
+                                       Queue<FlipCard> randomCards) {
+        Random randomGenerator = new Random();
+        int index = randomGenerator.nextInt(visibles.size());
+        // Remove the random card from the favorites
+        // to prevent adding the same card to practice deck
+        randomCards.add(visibles.get(index));
+        visibles.remove(visibles.get(index));
     }
 }

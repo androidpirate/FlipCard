@@ -41,6 +41,26 @@ public class Deck implements Serializable {
         return mCards;
     }
 
+    public ArrayList<FlipCard> getVisibleCards() {
+        ArrayList<FlipCard> visibleCards = new ArrayList<>();
+        for(FlipCard card: mCards) {
+            if(card.isVisible() && !card.isFavorite()) {
+                visibleCards.add(card);
+            }
+        }
+        return visibleCards;
+    }
+
+    public ArrayList<FlipCard> getFavoriteCards() {
+        ArrayList<FlipCard> favoriteCards = new ArrayList<>();
+        for (FlipCard card: mCards) {
+            if(card.isVisible() && card.isFavorite()) {
+                favoriteCards.add(card);
+            }
+        }
+        return favoriteCards;
+    }
+
     public void setCards(ArrayList<FlipCard> cards) {
         mCards = cards;
     }
