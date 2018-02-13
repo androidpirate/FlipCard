@@ -88,43 +88,62 @@ public class DeckManager {
         ArrayList<FlipCard> favorites = deck.getFavoriteCards();
         int deckSize = deck.getSize();
         int queueSize = (int) (deckSize * 0.8f);
-        // TODO: Why did I used a LinkedList here ???
-        Queue<FlipCard> randomCards = new LinkedList<>();
-        // TODO: Change the loop sizes to array sizes above and
-        // TODO: create two separate loops to combine the lists
-        for(int i = 0; i < queueSize; i++) {
-            if(i <= favorites.size()) {
-                addRandomFavoriteCards(favorites, randomCards);
-            } else if(i <= visibles.size()) {
-                addRandomVisibleCards(visibles, randomCards);
-            } else {
-                if(i < queueSize - 1) {
-                    // Break if the size is still lower than
-                    // estimated 80%, after adding those two decks
-                    break;
-                }
+        ArrayList<FlipCard> tempDeck = new ArrayList<>();
+        // Check if visibles sizes
+        if(visibles.size() == 0) {
+            //TODO: Warn user about the no visible decks
+        }
+        // Edge case 1:
+        // If visible favorites size is larger than or equal to queue size
+        // then add random favorites
+        if(favorites.size() >= queueSize) {
+            addRandomFavoriteCards(favorites, tempDeck, queueSize);
+        }
+        // Edge case 2:
+        // If queue size is larger than visible favorites size
+        // and the there are visible favorite cards
+        else if(favorites.size() != 0 && queueSize > favorites.size() ) {
+            // First add visible favorites
+            addRandomFavoriteCards(favorites, tempDeck, favorites.size());
+            // Then check if visibles size is bigger than remaining queue size
+            int remainingSize = queueSize - favorites.size();
+            if(visibles.size() >= remainingSize) {
+                // Add random visibles to fill the remaining size
+                addRandomVisibleCards(visibles, tempDeck, remainingSize);
+            }
+            // Edge case 3:
+            // If remaining size is larger than visibles size
+            // and there are visible cards
+            else if(visibles.size() != 0 && remainingSize > visibles.size()) {
+                // Then add all remaining visibles
+                addRandomVisibleCards(visibles, tempDeck, visibles.size());
             }
         }
+        // Shuffle deck
+        Collections.shuffle(tempDeck);
+        // Create a queue from the array
+        Queue<FlipCard> randomCards = new LinkedList<>();
+        randomCards.addAll(tempDeck);
         return randomCards;
     }
 
     private void addRandomFavoriteCards(ArrayList<FlipCard> favorites,
-                                        Queue<FlipCard> randomCards) {
-        Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(favorites.size());
-        randomCards.add(favorites.get(index));
-        // Remove the random card from the favorites
-        // to prevent adding the same card to practice deck
-        favorites.remove(favorites.get(index));
+                                        ArrayList<FlipCard> randomDeck,
+                                        int cardsToAdd) {
+        // Shuffle favorites first
+        Collections.shuffle(favorites);
+        for(int i = 0; i < cardsToAdd; i++) {
+            randomDeck.add(favorites.get(i));
+        }
     }
 
     private void addRandomVisibleCards(ArrayList<FlipCard> visibles,
-                                       Queue<FlipCard> randomCards) {
-        Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(visibles.size());
-        // Remove the random card from the favorites
-        // to prevent adding the same card to practice deck
-        randomCards.add(visibles.get(index));
-        visibles.remove(visibles.get(index));
+                                       ArrayList<FlipCard> randomDeck,
+                                       int cardsToAdd) {
+        // Shuffle visibles first
+        Collections.shuffle(visibles);
+        for(int i = 0; i < cardsToAdd; i++) {
+            randomDeck.add(visibles.get(i));
+        }
     }
 }

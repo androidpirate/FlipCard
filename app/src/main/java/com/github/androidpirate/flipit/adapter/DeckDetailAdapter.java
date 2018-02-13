@@ -113,6 +113,10 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
                             mCard.setFavorite(true);
                             setFavorite();
                             return true;
+                        case R.id.unfavorite_card:
+                            mCard.setFavorite(false);
+                            setFavorite();
+                            return true;
                     }
                     return false;
                 }
@@ -142,6 +146,14 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
             } else {
                 MenuItem hidden = popup.getMenu().findItem(R.id.hide_card);
                 hidden.setVisible(false);
+            }
+
+            if(mCard.isFavorite()) {
+                MenuItem favorite = popup.getMenu().findItem(R.id.favorite_card);
+                favorite.setVisible(false);
+            } else {
+                MenuItem unfavorite = popup.getMenu().findItem(R.id.unfavorite_card);
+                unfavorite.setVisible(false);
             }
         }
     }

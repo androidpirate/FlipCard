@@ -17,4 +17,9 @@
         android:title="@string/favorite_card_action"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/unfavorite_card"
+        android:title="@string/unfavorite_card_action"
+        app:showAsAction="never"/>
+
 </menu>

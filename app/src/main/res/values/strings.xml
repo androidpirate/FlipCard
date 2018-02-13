@@ -32,6 +32,7 @@
     <string name="hide_card_action">HIDE</string>
     <string name="display_card_action">DISPLAY</string>
     <string name="favorite_card_action">FAVORITE</string>
+    <string name="unfavorite_card_action">UNFAVORITE</string>
 
     <!-- MainActivity Resources -->
     <string name="empty_deck_title_warning">Deck title can not be empty.</string>
