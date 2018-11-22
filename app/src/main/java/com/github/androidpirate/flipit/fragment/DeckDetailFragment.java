@@ -26,6 +26,7 @@ import com.github.androidpirate.flipit.R;
 import com.github.androidpirate.flipit.adapter.DeckDetailAdapter;
 import com.github.androidpirate.flipit.data.DeckDbHelper;
 import com.github.androidpirate.flipit.model.Deck;
+import com.github.androidpirate.flipit.model.FlipCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,10 +145,18 @@ public class DeckDetailFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.ic_practice:
-                // Start PracticeActivity
-                Intent intent = new Intent(getContext(), PracticeActivity.class);
-                intent.putExtra(EXTRA_DECK, mDeck);
-                startActivity(intent);
+                // If there are no visible cards warn the user
+                if(mDeck.getVisibleCards().size() == 0) {
+                    Toast.makeText(getContext(),
+                            "There are no visible cards. " +
+                            "Try making some cards visible or add new cards.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Start PracticeActivity
+                    Intent intent = new Intent(getContext(), PracticeActivity.class);
+                    intent.putExtra(EXTRA_DECK, mDeck);
+                    startActivity(intent);
+                }
                 return true;
             case R.id.ic_edit:
                 // Deck deck = mListener.getDeckFromDatabase(mDeck.getId());
@@ -225,5 +234,17 @@ public class DeckDetailFragment extends Fragment
             MenuItem pinned = mMenu.findItem(R.id.ic_pin);
             pinned.setTitle(getString(R.string.unpin_deck_action));
         }
+    }
+
+    @Override
+    public void onVisibilityChanged(ArrayList<FlipCard> cards) {
+        mDeck.setCards(cards);
+        mDeckDbHelper.updateDeck(mDeck);
+    }
+
+    @Override
+    public void onFavoriteChanged(ArrayList<FlipCard> cards) {
+        mDeck.setCards(cards);
+        mDeckDbHelper.updateDeck(mDeck);
     }
 }

@@ -24,11 +24,15 @@ import java.util.ArrayList;
 public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.CardHolder> {
     private static final int CARD_POSITION_CONSTANT = 1;
     private ArrayList<FlipCard> mCards = new ArrayList<>();
+    private OnAdapterInteractionListener mListener;
 
     public interface OnAdapterInteractionListener {
+        void onVisibilityChanged(ArrayList<FlipCard> cards);
+        void onFavoriteChanged(ArrayList<FlipCard> cards);
     }
 
     public DeckDetailAdapter(DeckDetailAdapter.OnAdapterInteractionListener listener, Deck deck) {
+        mListener = listener;
         mCards = deck.getCards();
     }
 
@@ -102,20 +106,24 @@ public class DeckDetailAdapter extends RecyclerView.Adapter<DeckDetailAdapter.Ca
                         case R.id.display_card:
                             mCard.setVisible(true);
                             setVisibility();
+                            mListener.onVisibilityChanged(mCards);
                             setMenuItems(popup);
                             return true;
                         case R.id.hide_card:
                             mCard.setVisible(false);
                             setVisibility();
+                            mListener.onVisibilityChanged(mCards);
                             setMenuItems(popup);
                             return true;
                         case R.id.favorite_card:
                             mCard.setFavorite(true);
                             setFavorite();
+                            mListener.onFavoriteChanged(mCards);
                             return true;
                         case R.id.unfavorite_card:
                             mCard.setFavorite(false);
                             setFavorite();
+                            mListener.onFavoriteChanged(mCards);
                             return true;
                     }
                     return false;
