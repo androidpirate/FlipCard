@@ -44,7 +44,7 @@ public class Deck implements Serializable {
     public ArrayList<FlipCard> getVisibleCards() {
         ArrayList<FlipCard> visibleCards = new ArrayList<>();
         for(FlipCard card: mCards) {
-            if(card.isVisible() && !card.isFavorite()) {
+            if(card.isVisible()) {
                 visibleCards.add(card);
             }
         }
@@ -54,7 +54,7 @@ public class Deck implements Serializable {
     public ArrayList<FlipCard> getFavoriteCards() {
         ArrayList<FlipCard> favoriteCards = new ArrayList<>();
         for (FlipCard card: mCards) {
-            if(card.isVisible() && card.isFavorite()) {
+            if(card.isFavorite()) {
                 favoriteCards.add(card);
             }
         }

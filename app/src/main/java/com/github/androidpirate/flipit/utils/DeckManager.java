@@ -1,5 +1,7 @@
 package com.github.androidpirate.flipit.utils;
 
+import android.widget.Toast;
+
 import com.github.androidpirate.flipit.model.Deck;
 import com.github.androidpirate.flipit.model.FlipCard;
 
@@ -84,41 +86,19 @@ public class DeckManager {
     }
 
     public Queue<FlipCard> getRandomCards(Deck deck) {
-        ArrayList<FlipCard> visibles = deck.getVisibleCards();
-        ArrayList<FlipCard> favorites = deck.getFavoriteCards();
+        ArrayList<FlipCard> visibleCards = deck.getVisibleCards();
+        ArrayList<FlipCard> favoriteCards = deck.getFavoriteCards();
         int deckSize = deck.getSize();
         int queueSize = (int) (deckSize * 0.8f);
+        if(queueSize == 0) {
+            queueSize = 1;
+        }
         ArrayList<FlipCard> tempDeck = new ArrayList<>();
-        // Check if visibles sizes
-        if(visibles.size() == 0) {
-            //TODO: Warn user about the no visible decks
+
+        if(visibleCards.size() >= queueSize) {
+            addRandomVisibleCards(visibleCards, tempDeck, queueSize);
         }
-        // Edge case 1:
-        // If visible favorites size is larger than or equal to queue size
-        // then add random favorites
-        if(favorites.size() >= queueSize) {
-            addRandomFavoriteCards(favorites, tempDeck, queueSize);
-        }
-        // Edge case 2:
-        // If queue size is larger than visible favorites size
-        // and the there are visible favorite cards
-        else if(favorites.size() != 0 && queueSize > favorites.size() ) {
-            // First add visible favorites
-            addRandomFavoriteCards(favorites, tempDeck, favorites.size());
-            // Then check if visibles size is bigger than remaining queue size
-            int remainingSize = queueSize - favorites.size();
-            if(visibles.size() >= remainingSize) {
-                // Add random visibles to fill the remaining size
-                addRandomVisibleCards(visibles, tempDeck, remainingSize);
-            }
-            // Edge case 3:
-            // If remaining size is larger than visibles size
-            // and there are visible cards
-            else if(visibles.size() != 0 && remainingSize > visibles.size()) {
-                // Then add all remaining visibles
-                addRandomVisibleCards(visibles, tempDeck, visibles.size());
-            }
-        }
+
         // Shuffle deck
         Collections.shuffle(tempDeck);
         // Create a queue from the array
